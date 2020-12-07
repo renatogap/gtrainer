@@ -1,0 +1,52 @@
+<?php #Utils_Print::printvardie($_SESSION); ?>
+<style>
+    #panelMenu {text-align: center;}
+    #panelMenu div {margin: 25px 0 25px;}
+    #panelMenu div a {text-decoration: none; color: orange; font-family: sans-serif; font-size: x-large;}
+    div ul li a{ font-size: 18px; }
+    div p a{ font-size: 18px; }
+</style>
+
+<div data-role="header">
+    <h1>GTrainer</h1>
+    <a href="javascript:changePage('logout')" data-theme="b">Sair</a>
+    <?php if($this->renovarPlano==true): ?>
+    	<?php if($this->countDias <= 2): ?>
+    	    <a href="javascript:changePage('renovar-plano')" style="background: red;">Renovar</a>
+    	<?php else: ?>
+    	    <a href="javascript:changePage('renovar-plano')" style="background: green;">Renovar</a>
+        <?php endif; ?>	    
+    <?php endif; ?>
+</div>
+
+<br>
+<div style="text-align: center; margin: 0 0 15px;">
+  <img src="<?= $this->baseUrl() ?>/images/site/logo-sistema-01.png" width="200px" />
+</div>
+
+<div style="padding: 7px;">
+<ul data-role="listview" data-inset="true">
+    <li><a href="javascript:changePage('aluno')"><!--<img src="../_assets/img/gf.png" alt="" class="ui-li-icon ui-corner-none">-->Alunos</a></li>
+    
+    <?php if($this->sessao->perfil_id == 1 || $this->sessao->perfil_id == 3): ?>   
+	<li><a href="<?= $this->baseUrl() ?>/admin/professores">Professor</a></li>
+    <?php endif; ?> 
+    
+    <li><a href="javascript:changePage('musculo')">Grupo Muscular</a></li>
+    <li><a href="javascript:changePage('exercicio')">Exerc&iacute;cio</a></li>
+    <li><a href="javascript:changePage('avaliacao')">Avalia&ccedil;&atilde;o F&iacute;sica</a></li>
+    <li><a href="javascript:changePage('montar-treino')">Montar Treino</a></li>
+</ul>    
+
+
+<div data-role="collapsible">
+    <h4>Instru&ccedil;&otilde;es</h4>
+    <p>
+    	<a href="javascript:window.location='<?= $this->baseUrl() ?>/index/printscreen'">Para o professor</a>
+    </p>
+    <p>
+    	<a href="javascript:window.location='<?= $this->baseUrl() ?>/index/print-aluno'">Para o aluno</a>	    
+    </p>
+</div>
+
+</div>

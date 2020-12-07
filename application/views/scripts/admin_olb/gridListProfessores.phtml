@@ -1,0 +1,43 @@
+
+<?php if($this->results['total'] == 0): ?>
+    <div class="alert alert-block alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <b><?= utf8_encode($this->sessao->nome) ?></b>, nenhum professor foi cadastrado.
+    </div>
+<?php else: ?>
+
+    <div style="font-weight: bold; font-size: 15px; text-align: right;"><?php echo $this->results['total'] ?> professor(es) encontrado(s)</div>
+    <table class="table table-striped">
+        <tr>
+            <th>Cod.</th>
+            <th>Professor</th>
+            <th>A&ccedil;&atilde;o</th>
+        </tr>
+        
+        <?php foreach ($this->results['results'] as $dado): ?>
+            <tr>
+                <td><?= $dado['id'] ?></td>
+                <td>
+                    <?php if($dado['thumbnail']): ?>
+                        <img src="<?= $this->baseUrl().''.($dado['thumbnail']) ?>" width="50" height="50" />
+                     <?php else : ?>
+                        <img src="<?= $this->baseUrl().'/images/fotos/default.jpg' ?>" width="50" height="50" />
+                     <?php endif; ?> 
+                        
+                    <?= ($dado['nm_professor']) ?>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="openModalProfessorUpdate(<?= $dado['id'] ?>)">
+                        <i class="ace-icon fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="removerProfessor(<?= $dado['id'] ?>, '<?= $dado['email'] ?>')">
+                        <i class="ace-icon fa fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    
+<?php endif; ?>    

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gtrainer</title>
+    <link rel='shortcut icon' type='image/png' href="<?php echo $this->baseUrl() ?>/images/icon-gtrainer.png" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Gtrainer - Gerenciamento de Treinos Web">
+    <meta name="keywords" content="Controle, Treino, Personal, Musculação, Crossfit, Malhação">
+    <meta name="author" content="Renato Pereira">
+    <link rel='stylesheet' type='text/css' href="<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>">
+    <script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.js' ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/bootstrap.min.js' ?>"></script>
+    <script>BASE_URL = '<?php echo $this->baseUrl().'/'; ?>'; </script> 
+    <style>
+        body {background: #eee}
+        .container form, .container-fluid form {background: #fff}
+        .btn-circle {width: 30px;height: 30px;text-align: center;padding: 6px 0;font-size: 12px;line-height: 1.428571429;border-radius: 15px;}
+        .btn-circle.btn-lg {width: 50px;height: 50px;padding: 13px 13px;font-size: 18px;line-height: 1.33;border-radius: 25px; margin: 0 3px 0 3px;}
+        .btn-circle.btn-xl {width: 70px;height: 70px;padding: 10px 16px;font-size: 24px;line-height: 1.33;border-radius: 35px;}
+        .page-header {margin: 0 0 10px 0;}
+        h1 {margin: 0;}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?= $this->baseUrl() ?>/admin/home">Gtrainer</a>
+            </div>
+
+            <?php $auth = Zend_Auth::getInstance(); ?>
+
+            <?php if($auth->hasIdentity()): ?>
+
+              <?php
+              $authSession = new Zend_Auth_Storage_Session();
+              $read = $authSession->read();
+              list($nome) = explode(' ', $read->nome);
+              ?>
+
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+
+                    <!-- Nome no navbar -->
+                    <?php if($read->perfil_id == 3 || $read->perfil_id == 1): ?>
+                        <span><?php echo $read->academia_nome; ?></span>
+                    <?php else: ?>
+                        <span><?php echo $read->nome; ?></span>
+                    <?php endif; ?>
+
+                    <!-- Foto do usuário -->
+                    <?php if(!($read->foto)): ?>
+                        <img alt="" class="img-circle" src="<?php echo $this->baseUrl() ?>/images/avatar-default.jpg" width="28" height="28">
+                    <?php else: ?>
+                        <img alt="" class="img-circle" src="<?php echo $this->baseUrl().$read->foto; ?>" width="28" height="28">
+                    <?php endif; ?>
+                      <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li>
+                      <a href="#">
+                          <i class="dropdown-icon fa fa-cogs"></i> Configura&ccedil;&otilde;es
+                      </a>
+                      </li>
+                      <li>
+                      <a href="#">
+                          <i class="dropdown-icon fa fa-lock"></i> Trocar Senha
+                      </a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                      <a href="<?php echo $this->baseUrl() ?>/admin/logout">
+                          <i class="dropdown-icon fa fa-power-off"></i> Sair
+                      </a>
+                      </li>
+                  </ul>
+                  </li>
+              </ul>
+              </div><!-- /.navbar-collapse -->
+            <?php endif; ?>
+    </nav>
+
+    <div class="container-fluid">
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+</body>
+</html>

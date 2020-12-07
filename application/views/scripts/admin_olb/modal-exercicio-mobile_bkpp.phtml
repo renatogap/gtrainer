@@ -1,0 +1,91 @@
+<script>
+function salvarExercicio() {
+    openAguarde();
+    
+    var params = $( "#frmExercicio" ).serialize();
+
+    $.ajax({
+            type:'post',
+            url: BASE_URL+'admin/salvar-exercicio',
+            data: params,
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    alert(resp.msg);
+					window.location = BASE_URL+'admin/exercicio';
+                }
+            }
+    })
+}
+
+function alterarExercicio() {
+    openAguarde();
+    
+    var params = $( "#frmExercicio" ).serialize();
+
+    $.ajax({
+            type:'post',
+            url: BASE_URL+'admin/alterar-exercicio',
+            data: params,
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    alert(resp.msg);
+					window.location = BASE_URL+'admin/exercicio';
+                }
+            }
+    })
+}
+</script>
+
+<div data-role="header">
+    <h1>Exerc&iacute;cio</h1>
+    <a href="javascript:changePage('exercicio')" data-theme="b">
+        <
+    </a>
+	
+	<?php if( !isset($this->aExercicio) ): ?>
+        <a href="#" data-theme="b" onclick="salvarExercicio()">Salvar</a>
+    <?php else: ?>
+        <a href="#" data-theme="b" onclick="alterarExercicio()">Alterar</a>
+    <?php endif; ?>
+	
+</div>
+
+<div class="main-content" data-role="content">
+    
+    <form id="frmExercicio" method="post">
+        
+        <input type="hidden" name="id" id="id" value="<?= (isset($this->aExercicio))? $this->aExercicio['id'] : '' ?>" />
+        
+        <p>
+            <label>M&uacute;sculos: </label>
+            <select name="musculo_id" id="musculo_id" style="width: 100%;">
+                <option value="">Selecione um m&uacute;sculo</option>
+                <?php foreach($this->aMusculos['results'] as $musculo): ?>
+                
+                    <?php if( isset($this->aExercicio) ): ?>
+                        <?php if($this->aExercicio['musculo_id'] == $musculo['id']): ?>
+                            <option selected="selected" value="<?= $musculo['id'] ?>"><?= ($musculo['musculo']) ?></option>
+                        <?php endif; ?>    
+                    <?php endif; ?>
+                
+                    <option value="<?= $musculo['id'] ?>"><?= ($musculo['musculo']) ?></option>
+                    
+                <?php endforeach; ?>
+            </select>
+        </p>
+        
+        <p>
+            <label>Exerc&iacute;cio: </label>
+            <input type="text" name="ds_exercicio" id="ds_exercicio" placeholder="Informe um exerc&iacute;cio" value="<?= (isset($this->aExercicio))? ($this->aExercicio['exercicio']) : '' ?>" style="width: 100%" />
+        </p>
+    </form>
+</div>
+<!-- End Modal Confirm -->

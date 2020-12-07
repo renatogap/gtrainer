@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="<?= $this->baseUrl() ?>/css/site/login.css" />
+<script type="text/javascript" src="<?= $this->baseUrl() ?>/js/site/Login.js"></script>
+
+<div id="header-login">
+    <a href="<?= $this->baseUrl() ?>/"></a>
+    </div>
+    <div class="bg-azul-hotsite"></div>
+    <div id="content-login">
+        <div class="sobre-sistema">
+            <p class="destaque">O que é o GTrainer?</p>
+            <p>
+                O GTrainer é um aplicativo que auxilia os profissionais de academias
+                (Personal Trainer) a realizarem a montagem e acompanhamento dos treinos
+                dos seus alunos, dentro ou fora da academia.
+            </p>
+        </div>
+        <div class="tablet-notebook"></div>
+        <div class="box-login">
+            <div class="cabecalho">Esqueci minha senha</div>
+            <div class="conteudo">
+                
+                <div id="esqueci-minha-senha">
+                    <form method="post">
+                        <div class="input-text">
+                            <label for="email">Informe seu e-mail cadastrado no GTrainer</label>
+                            <input type="text" id="email" name="email" placeholder="Ex: contato@gtrainer.com.br" style="width: 315px;" />
+                            <span class="observacao" style="margin: 0;">Será enviado um e-mail com instruções para você redefinir sua senha.</span>
+                        </div>
+                        <button type="submit" class="btn-laranja btn-grande btn-esqueci-minha-senha" style="width: 340px; margin-top: 30px;">Solicitar nova senha</button>
+                    </form>
+                    <p class="texto"><a href="<?= $this->baseUrl() ?>/index/login">&larr; Voltar para o login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<footer id="mini-rodape" class="">
+    <p class="observacao"><span class="destaque">Copyright &copy; 2013 - 2014</span> - UNI4 Sistemas - CNPJ 12.605.982/0001-24</p>
+</footer>
+    
+<script type="text/javascript">
+    ajustarRodape(); 
+    $(window).resize(function () {
+        ajustarRodape(); 
+    });
+
+    function ajustarRodape() {
+        $("#mini-rodape ul.links li").width($("#mini-rodape ul.links").innerWidth() / $("#mini-rodape ul.links li").length);
+    }
+</script>

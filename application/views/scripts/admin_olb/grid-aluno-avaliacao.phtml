@@ -1,0 +1,41 @@
+<?php if($this->results['total'] == 0): ?>
+    <div class="alert alert-block alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <b><?= utf8_encode($this->sessao->nome) ?></b>, cadastre primeiro o aluno para depois montar seu treino.
+    </div>
+<?php else: ?>
+
+    <div style="text-align: right; font-weight: bold; font-size: 15px;"><?= $this->results['total'] ?> alunos cadastrados</div>
+    
+    <table class="table table-striped">
+        <tr>
+            <th width="5%">Matr&iacute;cula</th>
+            <th>Aluno</th>
+            <th style="text-align: center;">Avalia&ccedil;&otilde;es</th>
+        </tr>
+
+        <?php foreach ($this->results['results'] as $dado): ?>
+            <tr>
+                <td><?= $dado['matricula'] ?></td>
+                <td>
+                    <?php if($dado['thumbnail']): ?>
+                        <img src="<?= $this->baseUrl() . ($dado['thumbnail']) ?>" width="50" height="50" style="float: left; padding: 0 8px 0 0;" />
+                     <?php else : ?>
+                        <img src="<?= $this->baseUrl().'/images/fotos/default.jpg' ?>" width="50" height="50" style="float: left; padding: 0 8px 0 0;" />
+                     <?php endif; ?>   
+                    <?= utf8_encode($dado['nome']) ?><br>
+                    <span style="font-size: 12px;"><?= ($dado['email']) ?></span>
+                </td>
+                <td style="text-align: center;">
+                    <button class="btn btn-primary" onclick="listarAvaliacoesAluno(<?= $dado['matricula']; ?>)">
+                        <i class="ace-icon fa fa-edit"></i>
+                    </button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </table>
+
+<?php endif; ?>    

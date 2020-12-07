@@ -1,0 +1,108 @@
+<style>
+    .ui-dialog{background: #fff;}
+    #frmExercicioFicha tr th {background: #ccc; padding: 3px 3px 3px 3px;}
+    #frmExercicioFicha tr td { padding: 4px; }
+    #frmExercicioFicha table,th,td { border-collapse:collapse;}
+    #frmExercicioFicha img {cursor: pointer;}
+</style>
+
+<script type="text/javascript">
+            
+    jQuery(function() {
+
+        inicializar();
+        
+        $(".cmpTreino").keyup(function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code==13) {
+                
+                var ficha_id = $( '#ficha_id' ).val();
+                var aluno_id = $( '#P_matricula' ).val();
+                                
+                adicionaExercicioFicha(ficha_id, aluno_id);
+                
+            }
+        })
+
+    });
+
+
+    function inicializar() {
+        //Limpar os campos
+        $('#treino, #exercicio_id, #carga, #detalhes').val('');
+
+        //Inicializar campo
+        $('#serie').val('3');
+        $('#repeticao').val('10');
+        $('#intervalo').val('30');
+        $('#detalhes').val('');
+    }
+
+
+
+</script>
+
+<?php #Utils_Print::printvardie($this->oDadosTreino); ?>
+
+<form id="frmExercicioFicha">
+    
+    <input type="hidden" name="ficha_id" id="ficha_id" value="<?= $this->ficha_id; ?>" />
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    
+    <fieldset>
+            <legend>Adicionar Exercicios</legend>
+            <table width="100%" border="0" style="margin: 0 auto;">
+                    <tr>
+                            <td>Treino:</td>
+                            <td>Exerc&iacute;cio:</td>
+                            <td align="center">S&eacute;rie:</td>
+                            <td align="center">Repet.:</td>
+                            <td align="center">Carga:</td>
+                            <td align="center">Interv.:</td>
+                            <!--<td>&nbsp;</td>-->
+                    </tr>
+                    <tr>
+                            <td align="center">
+                                    <select id="treino" name="treino" style="width: 96%;">
+                                            <option value="">...</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                    </select>
+                            </td>
+                            <td align="center">
+                                    <select id="exercicio_id" name="exercicio_id" style="width: 99%; ">
+                                            <option value="">Selecione o exerc&iacute;cio...</option>
+                                            <?php foreach($this->aGroupExercicios as $musculo => $aExercicios): ?>
+                                                    <optgroup label="<?= utf8_encode($musculo); ?>">
+                                                            <?php foreach($aExercicios as $i => $exercicio): ?>
+                                                            <option value="<?= $exercicio['exercicio_id'] ?>"><?= utf8_encode($exercicio['exercicio']) ?></option>
+                                                            <?php endforeach; ?>
+                                                    </optgroup>
+                                            <?php endforeach; ?>
+                                    </select>
+                            </td>
+                            <td align="center"><input class="cmpTreino" type="text" id="serie" name="serie" value="3" size="1" style="width: 80%;"></td>
+                            <td align="center"><input class="cmpTreino" type="text" id="repeticao" name="repeticao" value="10" size="1" style="width: 80%;"></td>
+                            <td align="center"><input class="cmpTreino" type="text" id="carga" name="carga" size="1" style="width: 80%;" /></td>
+                            <td align="center"><input class="cmpTreino" type="text" id="intervalo" value="60" name="intervalo" size="1" style="width: 80%;"></td>
+<!--                            <td align="center">
+                                <button id="btnAddExercicio" class="btn btn-success btn-primary">
+                                    <i class="ace-icon fa fa-plus"></i> Adicionar
+                                </button>
+                            </td>-->
+                    </tr>
+                    <tr>
+                        <td colspan="6">Detalhes do exercício:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"><input type="text" class="form-control input-sm cmpTreino" width="100%" name="detalhes" id="detalhes"></td>
+                    </tr>
+            </table>
+    </fieldset>
+
+</form>
+		
+		

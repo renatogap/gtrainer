@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h3 style="margin: 0">Avaliações Físicas
+		<a href="<?= $this->baseUrl().'/admin/avaliacao-fisica-create' ?>" class="btn btn-primary btn-lg btn-circle pull-right" title="Cadastrar nova avaliação"><i class="glyphicon glyphicon-plus"></i></a>
+  	</h3>
+  	<br>
+
+	<!--<div class="form-group has-default has-feedback" style="margin: 10px 0 5px 0">
+	  <input type="text" class="form-control" onkeyup="lista.search(this.value)" placeholder="Pesquisar..."  style="border-radius: 50px;">
+	  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="margin-top: -1.8em;"></span>
+	  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+	</div>-->
+
+	<?php if(count($this->aAvaliacoes) > 0): ?>
+		<div class="list-group">
+		<?php foreach($this->aAvaliacoes as $key => $value): ?>
+			  <a href="<?= $this->baseUrl().'/admin/avaliacao-fisica-view/id/'.$value['id'] ?>" class="list-group-item">
+			    <img onclick="return false;" src="<?= $this->baseUrl().'/admin/ver-foto-usuario/id/'.$value['fk_usuario'].'/foto_'.$value['filename'] ?>"  class="img img-circle pull-left" height="50" width="45" style="margin-right: 10px">
+
+			    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+			    <p class="list-group-item-text">
+
+			    	<b>Peso</b>: <?= $value['peso'] ?> kg<br>
+			    	<b>Altura</b>: <?= number_format($value['altura'], 0) ?> cm
+
+					<!--
+			    	<div class="btn-group pull-right" role="group" style="margin-top: -2em;">
+					  <button data-url="<?= $this->baseUrl().'admin/aluno/create/'.$value['matricula'] ?>" onclick="window.location=this.dataset.url" type="button" class="btn btn-warning btn-sm btn-circle"><i class="glyphicon glyphicon-pencil" title="Editar aluno"></i></button>
+					</div>
+					-->
+			    </p>
+			  </a>
+		<?php endforeach ?>
+		</div>
+	<?php else: ?>
+		<div class="alert alert-warning">Nenhuma avaliação cadastrada!</div>
+	<?php endif ?>
+  </div>
+</div>
+
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+</script>

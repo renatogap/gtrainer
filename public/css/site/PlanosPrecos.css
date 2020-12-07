@@ -1,0 +1,513 @@
+﻿#content.wrapper
+{
+    padding-top: 0;
+}
+
+#planos
+{
+    padding: 35px;
+    padding-bottom: 0;
+    
+    overflow: hidden;
+}
+
+#planos .plano
+{
+    width: 385px;
+    padding: 10px 40px;
+}
+
+#planos .plano p.nome-plano
+{
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Segoe UI Light";
+}
+
+#planos .plano p.tipo-emissao
+{
+    margin: 5px 0 0;
+    text-align: center;
+    font-size: 15px;
+    font-family: "Segoe UI Semibold";
+}
+
+#planos .plano p.recomendacao
+{
+    margin: 10px 10px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+    color: #808080;
+}
+
+#planos .plano p.recomendacao b
+{
+    font-weight: normal;
+    font-family: "Segoe UI Semibold";
+}
+
+#planos .plano div.especificacoes
+{
+    overflow: hidden;
+}
+
+#planos .plano div.especificacoes p
+{
+    margin: 15px 0;
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+    color: #808080;
+}
+
+#planos .plano.sem-banco
+{
+    float: left;
+}
+
+#planos .plano.sem-banco p.nome-plano
+{
+    color: #2C3E50;
+    font-size: 60px;
+}
+
+#planos .plano.sem-banco p.tipo-emissao
+{
+    color: #2980B9;
+}
+
+#planos .plano.sem-banco div.tabela-preco
+{
+    width: 380px;
+    margin: 15px auto 0;
+    border: 1px solid #85A4A6;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos
+{
+    overflow: hidden;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco
+{
+    width: 126px;
+    float: left;
+    padding: 25px 0;
+    overflow: hidden;
+    
+    border-right: 1px solid #85A4A6;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco:last-child
+{
+    border: 0;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco p.limite
+{
+    text-align: center;
+    margin: 0;
+    
+    color: #A1B0B2;
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+    line-height: 13px;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco p.limite span.valor
+{
+    display: block;
+    font-size: 18px;
+    font-family: "Segoe UI Semibold";
+    line-height: 16px;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco p.valor-plano
+{
+    margin: 20px 0 0;
+    padding: 20px 0;
+    background-color: #F2F2F2;
+    
+    color: #295666;
+    font-size: 20px;
+    font-family: "Lucida Sans";
+    font-weight: bold;
+    
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco p.valor-percentual
+{
+    margin: 20px 0 0;
+    padding: 6px 0;
+    background-color: #F2F2F2;
+    
+    color: #295666;
+    font-size: 30px;
+    font-family: "Lucida Sans";
+    font-weight: bold;
+    line-height: 35px;
+    
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#planos .plano.sem-banco div.tabela-preco div.precos div.preco p.valor-percentual span.descricao-percentual
+{
+    display: block;
+    margin: 0 auto;
+    
+    color: #295666;
+    font-size: 8px;
+    font-family: "Lucida Sans";
+    font-weight: bold;
+    line-height: 8px
+}
+
+#planos .plano.sem-banco p.observacao
+{
+    margin: 10px 20px;
+    text-align: center;
+    
+    color: #999999;
+    font-size: 12px;
+    font-family: "Segoe UI Regular";
+}
+
+#planos .plano.com-banco
+{
+    float: right;
+}
+
+#planos .plano.com-banco p.nome-plano
+{
+    color: #27AE60;
+    font-size: 60px;
+}
+
+#planos .plano.com-banco p.tipo-emissao
+{
+    color: #27AE60;
+}
+
+#planos .plano.com-banco div.tabela-preco
+{
+    width: 380px;
+    margin: 15px auto 0;
+    border: 1px solid #1ABC9C;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos
+{
+    overflow: hidden;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco
+{
+    width: 126px;
+    float: left;
+    padding: 20px 0;
+    overflow: hidden;
+    
+    border-right: 1px solid #1ABC9C;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco:last-child
+{
+    border: 0;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco p.nome-pacote
+{
+    margin: 0;
+    color: #27AE60;
+    font-size: 13px;
+    font-family: "Segoe UI Light";
+    line-height: 13px;
+    
+    text-align: center;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco p.nome-pacote strong
+{
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+    font-family: "Segoe UI Semibold";
+    line-height: 15px;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco p.valor-pacote 
+{
+    padding: 15px 0;
+    background-color: #E6F2ED;
+    
+    color: #7DB29C;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Lucida Sans";
+    
+    text-align: center;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco p.valor-pacote span.centavos
+{
+    font-size: 15px;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco div.valor-mensal
+{
+    text-align: center;    
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco div.valor-mensal span
+{
+    color: #0E6654;
+    text-align: center;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco div.valor-mensal span.texto
+{
+    display: block;
+    font-size: 12px;
+    font-family: "Segoe UI Regular";
+    line-height: 11px;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco div.valor-mensal span.valor
+{
+    display: block;
+    font-size: 20px;
+    font-family: "Lucida Sans";
+    font-weight: bold;
+    line-height: 25px;
+}
+
+#planos .plano.com-banco div.tabela-preco div.precos div.preco div.valor-mensal span.valor span.centavos
+{
+    font-size: 15px;
+}
+
+#planos .plano.com-banco div.call-to-action
+{
+    margin-top: 33px;
+}
+
+#pronto-para-comecar
+{
+    margin-top: 15px;
+    padding: 35px;
+    overflow: hidden;
+    background-color: #EDF1F2;
+}
+
+#pronto-para-comecar p.titulo
+{
+    margin: 0;
+    
+    color: #2C3E50;
+    font-size: 40px;
+    font-family: "Segoe UI Light";
+    text-align: center;
+}
+
+#pronto-para-comecar p.subtitulo
+{
+    margin: 20px 0;
+    
+    color: #5A84AE;
+    font-size: 20px;
+    font-family: "Segoe UI Light";
+    text-align: center;
+}
+
+#pronto-para-comecar div.btn-center a.btn-grande
+{
+    width: 375px;
+}
+
+#pronto-para-comecar div.btn-center p.observacao
+{
+    color: #999999;
+    font-size: 12px;
+    font-family: "Segoe UI Regular";
+    text-align: center;
+}
+
+#detalhes-plano
+{
+    margin-top: 50px;
+    overflow: hidden;
+}
+
+#detalhes-plano .cabecalho
+{
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    background-color: #E0E0E0;
+}
+
+#detalhes-plano .cabecalho p
+{
+    margin: 0;
+    margin-left: 140px;
+    line-height: 100px;
+    color: #888888;
+    font-size: 26px;
+    font-family: "Segoe UI Light";
+    
+    float: left;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, .75);
+}
+
+#detalhes-plano .cabecalho p span.destaque
+{
+    font-family: "Segoe UI Regular";   
+}
+
+#detalhes-plano .cabecalho div.seta-baixo,
+#detalhes-plano .cabecalho div.seta-cima
+{
+    margin-left: 25px;
+    float: left;
+    height: 100px;
+    width: 20px;
+    background: url("../img/seta-baixo-todos-detalhes.png") no-repeat center center;
+}
+
+#detalhes-plano .cabecalho div.seta-cima
+{
+    background-image: url("../img/seta-cima-todos-detalhes.png");
+}
+
+#detalhes-plano .detalhes
+{
+    width: 870px;
+    margin: 30px auto;
+    display: none;
+}
+ 
+#detalhes-plano .detalhes .planos
+{
+    overflow: hidden;
+    margin-left: 468px;
+    
+    border: 1px solid #B3B3B3;
+    border-bottom: 0;
+    border-top: 0;
+}
+
+#detalhes-plano .detalhes .planos div
+{
+    float: left;
+    width: 200px;
+    line-height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    
+    font-size: 25px;
+    font-family: "Segoe UI Light";
+}
+
+#detalhes-plano .detalhes .planos .sem-banco
+{
+    color: #2C3E50;
+    border-right: 1px solid #B3B3B3;
+}
+
+#detalhes-plano .detalhes .planos .com-banco
+{
+    color: #27AE60;
+    width: 199px;
+}
+
+#detalhes-plano .detalhes .lista-detalhes
+{
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #B3B3B3;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li
+{
+    list-style: none;
+    overflow: hidden;
+    border-top: 1px solid #B3B3B3;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div.nome-detalhe
+{
+    float: left;
+    width: 428px;
+    padding: 0 20px;
+    overflow: hidden;
+    border-right: 1px solid #B3B3B3;
+
+    color: #888888;
+    text-align: right;
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+    line-height: 50px;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div.sem-banco,
+#detalhes-plano .detalhes .lista-detalhes li div.com-banco
+{
+    float: left;
+    width: 200px;
+    height: 50px;
+    border-right: 1px solid #B3B3B3;
+    text-align: center;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div.com-banco
+{
+    width: 199px;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div span.sim,
+#detalhes-plano .detalhes .lista-detalhes li div span.nao
+{
+    width: 25px;
+    height: 25px;
+    margin: 13px 0;
+    display: inline-block;
+    background: url("../img/todos-detalhes-sim.png") no-repeat center center;
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div span.nao
+{
+    background-image: url("../img/todos-detalhes-nao.png");
+}
+
+#detalhes-plano .detalhes .lista-detalhes li div p
+{
+    margin: 0;
+    line-height: 50px;
+    
+    font-size: 13px;
+    font-weight: bold;
+    font-family: "Lucida Sans";
+}
+
+#detalhes-plano .detalhes .rodape
+{
+    height: 22px;
+    margin-left: 468px;
+    border: 1px solid #B3B3B3;
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    
+    background: rgba(240,240,240,1);
+    background: -moz-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(231,231,231,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(240,240,240,1)), color-stop(100%, rgba(231,231,231,1)));
+    background: -webkit-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(231,231,231,1) 100%);
+    background: -o-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(231,231,231,1) 100%);
+    background: -ms-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(231,231,231,1) 100%);
+    background: linear-gradient(to bottom, rgba(240,240,240,1) 0%, rgba(231,231,231,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#e7e7e7', GradientType=0 );
+}
+

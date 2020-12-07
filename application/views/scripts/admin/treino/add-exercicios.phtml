@@ -1,0 +1,194 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+	  	<h3 style="margin: 0 0 30px 0">
+	  		Adicionar exercício
+	  	</h3>
+
+	  	<form id="form" action="<?= $this->baseUrl().'/admin/salvar-exercicio-treino' ?>"
+			method="POST"  onsubmit="exercicioTreino.salvarExercicio(event)">
+
+		  <input type="hidden" name="id" id="id" value="<?= (isset($this->id) && !empty($this->id))? $this->id : '' ?>">
+		  <input type="hidden" name="idTreino" id="idTreino" value="<?= $this->id_treino ?>">
+
+			<div class="row">
+			 	<div class="col-md-3">
+				  <div class="form-group">
+				    <label for="objetivo">Treino *</label>
+				    <select name="treino" id="treino" class="form-control">
+				    	<?php if(isset($this->exercicio['treino']) && !empty($this->exercicio['treino'])): ?>
+							<option value="<?= $this->exercicio['treino'] ?>"><?= utf8_encode($this->exercicio['treino']) ?></option>
+				    	<?php endif; ?>
+				    	<option value="A">A</option>
+				    	<option value="B">B</option>
+				    	<option value="C">C</option>
+				    	<option value="D">D</option>
+				    	<option value="E">E</option>
+				    	<option value="F">F</option>
+				    	<option value="G">G</option>
+				    </select>
+				  </div>
+			    </div>
+			</div>
+
+			<div class="row">
+			 	<div class="col-md-12">
+				  <div class="form-group">
+				    <label for="nome">Exercício *</label>
+				    <select name="exercicio" id="exercicio" class="form-control" required data-toggle="modal" data-target="#modal-exercicios">
+				    <?php if(isset($this->exercicio['fk_exercicio']) && !empty($this->exercicio['fk_exercicio'])): ?>
+						<option value="<?= $this->exercicio['fk_exercicio'] ?>"><?= utf8_encode($this->exercicio['exercicio']) ?></option>
+				    	<?php endif; ?>
+				    	<option value="">Selecione um exercicio...</option>
+				    </select>
+				  </div>
+				</div>
+			</div>
+
+			<div class="row">
+			  <div class="col-md-6 col-xs-5">
+				  <div class="form-group">
+				    <label for="objetivo">Series *</label>
+				    <input type="text" class="form-control" id="series" name="series" value="<?= (isset($this->exercicio['series']) && !empty($this->exercicio['series']))? $this->exercicio['series'] : '3' ?>" required>
+				  </div>
+			  </div>
+			  <div class="col-md-6 col-xs-7">
+				  <div class="form-group">
+				    <label for="objetivo">Carga</label>
+				    <input type="text" class="form-control" id="carga" name="carga" value="<?= (isset($this->exercicio['carga']) && !empty($this->exercicio['carga']))? $this->exercicio['carga'] : '' ?>">
+				  </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-xs-5">
+				  <div class="form-group">
+				    <label for="objetivo">Repetições/ tempo *</label>
+				    <input type="text" class="form-control" id="repeticoesTempo" name="repeticoesTempo" required value="<?= (isset($this->exercicio['repeticoes_tempo']) && !empty($this->exercicio['repeticoes_tempo']))? $this->exercicio['repeticoes_tempo'] : '' ?>">
+				  </div>
+			  	</div>
+				<div class="col-md-6 col-xs-7">
+				  <div class="form-group">
+				    <label for="objetivo">&nbsp;</label>
+				    <select class="form-control" name="tipoRepeticoesTempo">
+				    	<?php if($this->exercicio['tipo_repeticoes_tempo']): ?>
+				    		<option value="<?= $this->exercicio['tipo_repeticoes_tempo'] ?>">
+								<?= ($this->exercicio['tipo_repeticoes_tempo']=='rep'? 'Repetições' : 'Segundos') ?>
+				    		</option>
+				    	<?php endif; ?>
+				    	<option value="rep">Repetições</option>
+				    	<option value="seg">Segundos</option>
+				    </select>
+				  </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-xs-5">
+				  <div class="form-group">
+				    <label for="objetivo">Descanso *</label>
+				    <input type="text" class="form-control" id="descanso" name="descanso" required value="<?= (isset($this->exercicio['descanso']) && !empty($this->exercicio['descanso']))? $this->exercicio['descanso'] : '' ?>">
+				  </div>
+				</div>
+				<div class="col-md-6 col-xs-7">
+				  <div class="form-group">
+				    <label for="objetivo">&nbsp;</label>
+				    <select class="form-control">
+				    	<option value="seg">Segundos</option>
+				    </select>
+				  </div>
+			  	</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="telefone">Detalhes do treino</label>
+					    <textarea name="detalhes" id="detalhes" cols="30" rows="2" class="form-control"><?= (isset($this->exercicio['detalhes']) && !empty($this->exercicio['detalhes']))? utf8_encode($this->exercicio['detalhes']) : '' ?></textarea>
+				    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					  	<button type="submit" class="btn btn-primary">Adicionar</button>
+					  	<a type="button" href="<?= $this->baseUrl().'/admin/treino-aluno/id/'.$this->id_treino ?>" class="btn btn-default">Voltar</a>
+
+					  	<?php if(isset($this->exercicio)): ?>
+						<button type="button" id="bt-deletar" onclick="exercicioTreino.deletarExercicio(this, <?= $this->id_treino ?>)" data-url="<?= $this->baseUrl().'/admin/remover-exercicio-treino/id/'.$this->exercicio['id'] ?>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i></button>
+					  	<?php endif ?>
+		     		</div>
+				</div>
+			</div>
+
+		  	<div id="msg-load" class="hidden alert alert-warning">
+		  		Aguarde...
+		  	</div>
+
+		</form>
+
+	  </div>
+</div>
+
+<div id="modal-exercicios" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Lista de exercícios</h4>
+      	</div>
+      	<div class="modal-body">
+
+      		<div class="form-group has-default has-feedback" style="margin: 10px 0 5px 0">
+			  <input type="text" class="form-control" id="busca" onkeyup="lista.search(this.value)" placeholder="Pesquisar exercício..." style="border-radius: 50px;">
+			  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="margin-top: -1.8em;"></span>
+			  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+			</div>
+			
+			<div class="btn-group btn-group-justified" role="group" aria-label="..." style="">
+          	    <?php foreach($this->grupo as $g): ?>
+          	    <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary" onclick="filtrarPorGrupo(this)"><?= utf8_encode($g['nome']) ?></button>
+                </div>
+                <?php endforeach ?>
+          	</div>
+
+      		<div class="list-group">
+      		<?php if(count($this->listaDeExercicios) > 0): ?>
+				<?php foreach($this->listaDeExercicios as $key => $value): ?>
+				  <a href="#!" onclick="exercicioTreino.selecionaExercicio(<?= $value['id'] ?>, '<?= utf8_encode($value['nome']) ?>')" class="list-group-item">
+				    <!--<img onclick="return false;" src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$value['id'] ?>" data-error="<?= $this->baseUrl().'/images/exercicio_default.png' ?>" onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="50" width="45" style="margin-right: 10px" data-toggle="modal" data-target=".fade_<?= $key ?>">-->
+
+				    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+
+				    <p class="list-group-item-text" style="margin-bottom: 0.3em;">
+				    	<?= utf8_encode($value['grupo']) ?> <?= !empty($value['grupo_muscular'])? ' - '. utf8_encode($value['grupo_muscular']) : '' ?>
+				    </p>
+				  </a>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<div class="alert alert-warning">Nenhum exercício cadastrado!</div>
+			<?php endif; ?>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/controllers/TreinosController.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+	
+	let busca = document.getElementById('busca');
+	busca.focus();
+	
+	lista.search('Funcional');
+	
+	var exercicioTreino = new TreinosController();
+	
+	function filtrarPorGrupo(e) {
+		busca.value = e.textContent;
+		lista.search(busca.value);
+	}
+</script>

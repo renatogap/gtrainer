@@ -1,0 +1,44 @@
+<?php 
+    $results = $this->aDadosCarga;
+    #Utils_Print::printvardie($results); 
+?>
+
+<?php if(count($results['cargas']) > 0 ): ?>
+    <table width="100%" border="1">
+        <tr>
+            <th colspan="3" style="text-align: center;">TREINO " <?php echo $results['treino'] ?> "</th>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align: center;"><?php echo utf8_encode($results['exercicio']) ?></th>
+        </tr>
+        <tr>
+            <th style="text-align: center;">Carga</th>
+            <th style="text-align: center;">Data</th>
+            <th style="text-align: center;">A&ccedil;&atilde;o</th>
+        </tr>
+
+
+            <?php foreach($results['cargas'] as $carga): ?>
+                <tr>
+                    <td align="center"><?php echo $carga['carga'] ?> kg</td>
+                    <td align="center"><?php echo date('d/m/Y', strtotime($carga['data'])) ?></td>
+                    <td align="center">
+                    
+                    <a href="#" onclick="removerCarga(<?= $carga['id']; ?>)" style="padding: 5px 7px 5px 7px; background: #ac2925; border: 1px solid #ac2925;font-weight: bold;color:#FFF;text-decoration:none;"> X </a>
+                    
+                    
+                        <!--<input type="button" class="icoButtom" value="Remover" style="background: #ac2925; border: 1px solid #ac2925;" onclick="removerCarga(<?= $carga['id']; ?>)">                            
+                        <img src="image/ico_delete.gif" id="btnRemoveCarga" onclick="removerCarga(<?= $carga['id']; ?>)">-->
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+    </table>
+<?php else: ?>
+    <div class="alert alert-block alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <b><?= utf8_encode($this->sessao->nome) ?></b>, nenhuma carga foi adicionada.
+    </div>
+<?php endif; ?>

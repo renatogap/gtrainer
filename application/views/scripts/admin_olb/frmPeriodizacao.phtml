@@ -1,0 +1,99 @@
+<style>
+    .ui-dialog{background: #fff;}
+    #frmPeriodizacao tr th{background: #ccc; padding: 3px 3px 3px 3px;}
+    #frmPeriodizacao table, th, td { border-collapse:collapse; }
+</style>
+<script type="text/javascript">
+
+    jQuery(function() {
+        carregarPeriodizacao();
+
+        $("#btnSalvarPeriodizacao").click(function(){
+
+                var params = $("#frmPeriodizacao").serialize();
+
+                $.ajax({
+                        type: "post",
+                        url: "admin/add-periodizacao",
+                        data: params,
+                        dataType: "json",
+                        success: function(resp){
+                                if(resp.retorno == 'sucesso'){
+                                        carregarGridPeriodizacao();
+                                        carregarPeriodizacao();
+                                        alert(resp.msg);
+                                }else {
+                                        alert(resp.msg);
+                                        return false;
+                                }
+                        }
+                })
+        })
+
+
+    });
+
+    function carregarPeriodizacao() {
+            $( "#listarPeriodizacoes" ).load( "admin/carregar-periodizacao", {aluno_id: $('#aluno_id').val()} );
+    }
+
+    function removerPeriodizacao(periodizacao_id) {
+        $.ajax({
+            type:'post',
+            url:'excluirPeriodizacao.php',
+            data: {periodizacao_id: periodizacao_id},
+            dataType:'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); return false;
+                }else {
+                    carregarGridPeriodizacao();
+                    carregarPeriodizacao();
+                    alert(resp.msg);
+                }
+            }
+        })
+    }
+
+</script>
+
+<form id="frmPeriodizacao">
+    
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    
+    <fieldset>
+            <legend>Adicionar Periodiza&ccedil;&atilde;o</legend>
+            <table width="100%" border="0" style="margin: 0 auto;">
+                    <tr>
+                            <td width="23%">Treino:</td>
+                            <td>
+                                    <select id="cbTreino" name="cbTreino" style="border: 1px solid #333; border-radius: 3px 3px 3px 3px; background: #fff; width: 100px;">
+                                            <option value="">...</option>
+                                            <option value="1">1o Treino</option>
+                                            <option value="2">2o Treino</option>
+                                            <option value="3">3o Treino</option>
+                                            <option value="4">4o Treino</option>
+                                    </select>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>Repeti&ccedil;&atilde;o: </td>
+                            <td><input type="text" id="repeticaoPeriodizacao" name="repeticaoPeriodizacao" value="10" style="width: 97px; border: 1px solid #333; border-radius: 3px 3px 3px 3px;"></td>
+                    </tr>
+                    <tr>
+                            <td>Aumentar Carga: </td>
+                            <td><input type="checkbox" id="ckAumentaCarga" name="ckAumentaCarga" /></td>
+                    </tr>
+                    <tr>
+                            <td></td>
+                            <td><input type="button" class="btnBotao" id="btnSalvarPeriodizacao" value="Salvar" /></td>
+                    </tr>
+            </table>
+    </fieldset>
+
+    <br>
+
+    <div id="listarPeriodizacoes"></div>
+</form>
+
+

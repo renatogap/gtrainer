@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h3 style="margin: 0 0 30px 0">Modalidades
+		<a href="#" class="btn btn-primary btn-lg btn-circulo pull-right btn-flutuante" title="Cadastrar novo aluno" data-toggle="modal" data-target="#modal-modalidade"><i class="glyphicon glyphicon-plus"></i></a>
+  	</h3>
+
+	<div class="form-group has-default has-feedback" style="margin: 10px 0 5px 0">
+	  <input type="text" class="form-control" id="busca" onkeyup="lista.search(this.value)" placeholder="Pesquisar exercício..." style="border-radius: 50px;">
+	  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="margin-top: -1.8em;"></span>
+	  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+	</div>
+
+	<?php if(count($this->results) > 0): ?>
+		<div class="list-group">
+		<?php foreach($this->results as $key => $value): ?>
+			  <a href="#" data-url="<?= $this->baseUrl().'/admin/editar-modalidade/id/'.$value['id'] ?>" onclick="oController.editar(this);" data-toggle="modal" data-target="#modal-modalidade" class="list-group-item">
+
+			    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+
+			    <p class="list-group-item-text" style="padding-bottom: 8px;">
+
+
+			    	<div class="btn-group pull-right" role="group" style="margin-top: -2em;">
+					  <button data-url="<?= $this->baseUrl().'/admin/editar-modalidade/id/'.$value['id'] ?>" onclick="oController.editar(this);" type="button" class="btn btn-warning btn-sm btn-circle" data-toggle="modal" data-target="#modal-modalidade"><i class="glyphicon glyphicon-pencil" title="Editar modalidade"></i></button>
+					</div>
+
+			    </p>
+			  </a>
+
+
+		<?php endforeach ?>
+		</div>
+	<?php else: ?>
+		<div class="alert alert-warning">Nenhum grupo cadastrado!</div>
+	<?php endif ?>
+  </div>
+</div>
+
+<div id="modal-modalidade" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Modalidade</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form id="form" action="<?= $this->baseUrl().'/admin/salvar-modalidade' ?>"  
+				method="POST"  onsubmit="oController.salvar(event)">
+
+				<input type="hidden" name="id" id="id" value="<?= isset($this->grupo['id'])? $this->grupo['id'] : '' ?>">
+	      		<div class="row">
+					<div class="col-md-12">
+					  	<div class="form-group">
+						    <label>Modalidade:</label>
+							<input type="text" class="form-control" name="grupo" id="grupo" value="<?= isset($this->grupo['id'])? utf8_encode($this->grupo['nome']) : '' ?>" required>
+					  	</div>
+				  	</div>
+			  	</div>
+		  		<div id="msg-load" class="hidden alert alert-warning">
+			  		Aguarde...
+		  		</div>
+			  	<div class="row">
+				  	<div class="col-md-12">
+						<div class="form-group">
+						  	<button type="submit" class="btn btn-primary">Salvar</button>
+						  	<a type="button" href="#!" data-dismiss="modal" aria-label="Close" class="btn btn-default">Fechar</a>
+
+							<button type="button" id="bt-deletar" onclick="oController.deletar(this)" data-url="<?= $this->baseUrl().'/admin/deletar-modalidade/id/' ?>" class="btn btn-danger pull-right hidden"><i class="glyphicon glyphicon-trash"></i></button>
+			     		</div>
+					</div>
+				</div>
+		  	</form>
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/controllers/ModalidadeController.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+	var oController = new ModalidadeController();
+</script>

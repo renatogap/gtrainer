@@ -1,0 +1,570 @@
+<style>
+    .contador {
+      color: green;
+      font-size: 150px;
+      color:#434343;
+      border: 5px solid green;
+      width: 70%;
+      height: 80%;
+      margin: 0 auto;
+      /*padding: 10px 25px 10px 25px;*/
+      text-align: center;
+      border-radius: 50%;
+    }
+    
+    .contador_finalizado {
+      font-size: 150px;
+      color:#434343;
+      border: 5px solid red;
+      width: 70%;
+      height: 80%;
+      margin: 0 auto;
+      /*padding: 10px 25px 10px 25px;*/
+      text-align: center;
+      border-radius: 50%;
+    }
+</style>
+<ul id="menu-ficha" class="list-group hidden">
+	<!--
+	<li class="list-group-item" data-toggle='modal' data-target='#modal-periodizacao' onclick='exercicioTreino.listarPeriodizacao()'>
+		<a href='#' style='font-size: 14px' title='Periodização' data-toggle='modal' data-target='#modal-periodizacao' onclick='exercicioTreino.listarPeriodizacao()'>
+			<i class='glyphicon glyphicon-th-large'></i> Periodização
+		</a>
+	</li>
+	-->
+	<li class="list-group-item" data-toggle='modal' data-target='#modal-edit-ficha'>
+		<a href='#' style='font-size: 14px' title='Editar ficha de treino' data-toggle='modal' data-target='#modal-edit-ficha'>
+			<i class='glyphicon glyphicon-pencil'></i> Editar ficha de treino</a>
+	</li>
+	<li class="list-group-item" onclick="window.location = BASE_URL+'admin/treinos'">
+		<a href='#' onclick="window.location = BASE_URL+'admin/treinos'" style='font-size: 14px' title='Voltar'>
+			<i class='glyphicon glyphicon-chevron-left'></i> Voltar
+		</a>
+	</li>
+</ul>
+
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<h3 style="margin: 0 0 30px 0">
+  			Treino
+  			<?php if(isset($this->treinoFavorito)): ?>
+			    <a href="<?php echo $this->baseUrl().'/admin/treino-aluno/id/'.$this->id_treino.'/desfavoritar/true' ?>"><i class="glyphicon glyphicon-star" style="color: darkorange; cursor: pointer;"></i></a>
+  			<?php else: ?>
+			    <a href="<?php echo $this->baseUrl().'/admin/treino-aluno/id/'.$this->id_treino.'/favoritar/true' ?>"><i class="glyphicon glyphicon-star-empty"></i></a>
+			<?php endif; ?>
+
+  			<a href="#!" class="btn btn-primary btn-lg btn-circle pull-right" data-toggle="popover" data-trigger="focus" data-placement="left"><i class="glyphicon glyphicon-align-justify"></i></a>
+
+			<?php if($this->validadeTreino): ?>
+
+	  			<!--<a href="<?= $this->baseUrl() ?>/admin/treinos" class="btn btn-primary btn-lg btn-circle pull-right" title="Voltar"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+	  			<a href="#" class="btn btn-primary btn-lg btn-circle pull-right" title="Editar ficha de treino" data-toggle="modal" data-target="#modal-edit-ficha"><i class="glyphicon glyphicon-edit"></i></a>
+
+	  			<a href="#" class="btn btn-primary btn-lg btn-circle pull-right" title="Periodização" data-toggle="modal" data-target="#modal-periodizacao" onclick="exercicioTreino.listarPeriodizacao()"><i class="glyphicon glyphicon-th-large"></i></a>
+				-->
+				
+				<a href="#!" class="btn btn-primary btn-lg btn-circle pull-right" data-toggle="modal" data-target="#modal-data-treino" title="Registrar frequência de treino"><i class="glyphicon glyphicon-calendar"></i></a>
+
+
+                <a href='#' class="btn btn-primary btn-lg btn-circle pull-right" title='Periodização' data-toggle='modal' data-target='#modal-periodizacao' onclick='exercicioTreino.listarPeriodizacao()'>
+        			<i class='glyphicon glyphicon-th-large'></i>
+        		</a>
+        		
+                <a href="<?= $this->baseUrl().'/admin/add-exercicios/id/'.$this->id_treino ?>" class="btn btn-primary btn-lg btn-circulo pull-right btn-flutuante" title="Adicionar exercício ao treino"><i class="glyphicon glyphicon-plus"></i></a>
+                
+	  			
+	  			
+			<?php endif; ?>
+  		</h3>
+
+  		<div style="position: absolute; margin-top: -2em; color: #bbb; font-size: 14px;">
+  			<?php
+  				$aNome = explode(' ', $this->treino['aluno']);
+  				$nomeAluno = $aNome[0];
+  				$count = count($aNome);
+
+  				if($count > 1) {
+  					$nomeAluno .= ' '.$aNome[($count-1)];
+  				}
+
+  				echo utf8_encode($nomeAluno) 
+  			?>
+			<br>
+  		</div>
+
+		<?php if(!$this->validadeTreino): ?>
+			<div class="alert alert-success alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Aviso:</strong> Este treino já foi concluído!
+			</div>
+		<?php endif; ?>
+
+ 		<?php if(count($this->exerciciosDoTreino) > 0): ?>
+			<?php foreach($this->exerciciosDoTreino as $treino => $exercicios): ?>
+
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-primary">
+				    <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Treino <?= $treino ?></a>
+				      </h4>
+				    </div>
+
+				    <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+				      	<div class="list-group">
+						<?php foreach($exercicios as $key => $value): ?>
+						    <?php $indice = $treino.'_'.$key; ?>
+						    <input type="hidden" id="tempo_descanso_<?= $treino.'_'.$key ?>" value="<?= $value['descanso'] ?>">
+						    
+						    <?php if($value['tipo_repeticoes_tempo'] != 'rep'): ?>
+						        <input type="hidden" id="tempo_<?= $treino.'_'.$key ?>" value="<?= $value['repeticoes_tempo'] ?>">
+						    <?php endif; ?>
+						    
+							<input type="hidden" id="tipo_<?= $treino.'_'.$key ?>" value="<?= $value['tipo_repeticoes_tempo'] ?>">
+							
+							<a id="exercicio_<?= $treino.'_'.$key ?>" href="<?= $this->baseUrl().'/admin/edit-exercicio/id/'.$value['id'] ?>" class="list-group-item" style="font-size: 13px;">
+							    <img onclick="return false" src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$value['fk_exercicio'].'/image_'.$value['filename'] ?>"  data-error="<?= $this->baseUrl().'/images/foto_default.png' ?>" onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="50" width="45" style="margin-right: 10px" data-toggle="modal" data-target=".foto_<?= $treino.'_'.$key ?>">
+
+							    <strong><?= utf8_encode($value['exercicio']) ?></strong>
+
+							    <p class="list-group-item-text" style="margin-bottom: 0.3em;">
+
+							    	<b>Série</b>: <?= $value['series'] ?> X <?= $value['repeticoes_tempo'] ?> <?= $value['tipo_repeticoes_tempo'] ?> - <i class="glyphicon glyphicon-time"></i> <?= utf8_encode($value['descanso']) ?> seg
+
+							    	<?php if(!empty($value['carga'])): ?>
+							    		<br><b>Carga</b>: <?= utf8_encode($value['carga']) ?>
+						    		<?php endif; ?>
+
+							    	<?php if(!empty($value['detalhes'])): ?>
+							    		<br><b>Obs</b>: <?= utf8_encode($value['detalhes']) ?>
+						    		<?php endif; ?>
+                                    
+                                    <!--
+									<div class="btn-group pull-right" role="group" style="margin-top: -2.7em;">
+									    <button data-url="<?= $this->baseUrl().'/admin/edit-exercicio/id/'.$value['id'] ?>" onclick="window.location=this.dataset.url;" type="button" class="btn btn-default btn-sm btn-circle">
+										<i class="glyphicon glyphicon-folder-open" title="Editar treino"></i>
+									    </button>
+									    <button type="button" class="btn btn-default btn-sm btn-circle" data-toggle="modal" onclick="<?= ($value['tipo_repeticoes_tempo'] != 'rep')? "iniciarContagem('$indice')" : "iniciarDescanso('$indice')" ?>; return false;" data-target=".contagem_<?= $treino.'_'.$key ?>">
+										<i class="glyphicon glyphicon-time" title="Contagem regressiva"></i>
+									    </button>
+									</div>
+									-->
+							    </p>
+						  	</a>
+
+							<div class="modal foto_<?= $treino.'_'.$key ?>" tabindex="-1" role="dialog">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							    	<div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title"><?= utf8_encode($value['exercicio']) ?></h4>
+							      	</div>
+							      	<div class="modal-body">
+							        	<img src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$value['fk_exercicio'].'/image_'.$value['filename'] ?>" width="100%" class="img img-response">
+							      	</div>
+							    </div><!-- /.modal-content -->
+							  </div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+							
+							<!--
+							<div class="modal contagem_<?= $treino.'_'.$key ?>" tabindex="-1" role="dialog">
+                              <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <?php if($value['tipo_repeticoes_tempo'] == 'rep'): ?>
+                                            <h4 class="modal-title">Descanso de <?= $value['descanso'] ?> segundos</h4>
+                                        <?php else: ?>
+            						        <h4 class="modal-title"><?= utf8_encode($value['exercicio']) ?></h4>
+            						    <?php endif; ?>
+							      	</div>
+                                  	<div class="modal-body" style="text-align: center;">
+                                  	    
+                                  	    <div class="contador" id="number_<?= $treino.'_'.$key ?>"></div>
+                                  	    <span style="position: absolute; margin-top: -2.5em; margin-left: -2em; font-size: 18px;">segundos</span>
+                                  		<br>
+                                  		<div id="finalizado_<?= $treino.'_'.$key ?>" class="hidden">
+                                  		    <button type="button" id="btIniciarDesanso_<?= $treino.'_'.$key ?>" class="btn btn-primary hidden" onclick="iniciarDescanso('<?= $treino.'_'.$key ?>'); return false;">Iniciar descanso</button>
+                                  		    <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Finalizar</button>
+                                  		</div>
+                                  		<div id="div-som"></div>
+                                  	</div>
+                                </div>
+                              </div>
+                            </div>
+                            -->
+                            
+						<?php endforeach; ?>
+						</div>
+				    </div>
+				</div>
+			</div>
+
+			<?php endforeach;  ?>
+		<?php else: ?>
+			<div class="alert alert-warning">Nenhum exercício cadastrado. Clique no botão "+" para adicionar os exercícios deste treino!</div>
+		<?php endif; ?>
+  	</div>
+</div>
+
+<?php if($this->existePeriodizacao): ?>
+<div class="panel panel-default">
+  	<div class="panel-body">
+		<h3 style="margin: 0 0 0.8em 0">
+			<i class="glyphicon glyphicon-th-large"></i> Periodização
+		</h3>
+		<div id="div-periodizacao">
+			<div class="panel-periodizacao" data-panel="principal"></div>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
+
+<?php if(count($this->calendario) > 0): ?>
+	<div class="panel panel-default">
+	  	<div class="panel-body">
+			<h3 style="margin: 0 0 0.8em 0">
+				<i class="glyphicon glyphicon-calendar"></i> Frequência
+			</h3>
+			<div style="margin: 0 2em 2em 2em;">
+				<div class="row">
+				<?php foreach($this->calendario as $mes => $aDias): ?>
+					<div class="col-md-3" style="margin-bottom: 1em;">
+						<?= Utils_Calendario::MostreCalendario($mes, $aDias) ?>
+					</div>
+				<?php endforeach; ?>
+				</div>
+			</div>
+	  	</div>
+  	</div>
+<?php endif; ?>
+
+<div id="modal-periodizacao" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Periodização do Treino</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form id="formPeriodizacao" action="<?= $this->baseUrl().'/admin/salvar-periodizacao' ?>"  method="POST"  onsubmit="exercicioTreino.salvarPeriodizacao(event)">
+
+			<input type="hidden" name="id_treino" id="id_treino" value="<?= $this->id_treino ?>">
+			<input type="hidden" name="id" id="id" value="<?= $this->id ?>">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="nome">Seção</label>
+					    <select name="secao" id="secao" class="form-control" required>
+							<option value="">SELECIONE...</option>
+							<option value="1">Treino 1</option>
+					    	<option value="2">Treino 2</option>
+					    	<option value="3">Treino 3</option>
+					    	<option value="4">Treino 4</option>
+					    	<option value="5">Treino 5</option>
+					    	<option value="6">Treino 6</option>
+					    	<option value="7">Treino 7</option>
+					    </select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			  	<div class="col-xs-12">
+			  		<div class="form-group">
+					    <label>Descrição da Periodização</label>
+					    <input type="text" name="descricao" id="descricao" class="form-control" placeholder="3x de 10 RM" required>
+				  	</div>
+			  	</div>
+			</div>
+			<div class="row">
+			  	<div class="col-xs-12">
+			  		<div class="form-group">
+					    <label for="objetivo">Qtd. de dias deste treino </label>
+					    <input type="numeric" name="dias" id="dias" class="form-control">
+				  	</div>
+			  	</div>
+			</div>
+
+			<div class="col-md-12">
+				<div id="msg-load" class="hidden alert alert-warning">
+				  	Aguarde...
+		 	    </div>
+		 	</div>
+
+			<div class="row">
+				<div class="col-md-12">
+				  <div class="form-group">
+				  	<button type="submit" class="btn btn-primary">Salvar</button>
+				  	<!--<button type="reset" onclick="exercicioTreino.limparFormPeriodizacao()" class="btn btn-default">Limpar</button>-->
+				  	<a href="#" class="btn btn-default" data-dismiss="modal" aria-label="Close" onclick="exercicioTreino.limparFormPeriodizacao()">Fechar</a>
+
+				  	<a id="btRemovePeriodizacao" href="#" data-url="<?= $this->baseUrl() ?>/admin/excluir-periodizacao/id" onclick="exercicioTreino.removePeriodizacao(this)"class="btn btn-danger pull-right hidden"><i class="glyphicon glyphicon-trash"></i></a>
+				  </div>
+				</div>
+			</div>
+
+			<div class="panel-periodizacao"></div>
+
+			</form>
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-edit-ficha" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Editar ficha  de treino</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form id="form" action="<?= $this->baseUrl().'/admin/salvar-ficha-treino' ?>"  method="POST"  onsubmit="exercicioTreino.alterar(event)">
+
+			<input type="hidden" name="id" id="id" value="<?= isset($this->treino['id'])? $this->treino['id'] : '' ?>">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="nome">Aluno</label>
+					    <select name="aluno" id="aluno" class="form-control" required data-toggle="modal" data-target="#modal-alunos">
+							<option value="<?= $this->treino['fk_aluno'] ?>"><?= utf8_encode($this->treino['aluno']) ?></option>
+					    	<option value="">Selecione um aluno...</option>
+					    </select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label for="objetivo">Data de início</label>
+					    <input type="date" name="dtInicio" id="dtInicio" class="form-control" required value="<?= isset($this->treino['dt_inicio_us'])? $this->treino['dt_inicio_us'] : '' ?>">
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label for="objetivo">Data de término</label>
+					    <input type="date" name="dtTermino" id="dtTermino" class="form-control" value="<?= isset($this->treino['dt_termino_us'])? $this->treino['dt_termino_us'] : '' ?>">
+				  	</div>
+			  	</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label for="objetivo">Objetivo resumido</label>
+						<textarea name="objetivo" id="objetivo" cols="30" rows="3" class="form-control" required><?= isset($this->treino['objetivo'])? utf8_encode($this->treino['objetivo']) : '' ?></textarea>
+				  	</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="telefone">Observações</label>
+					    <textarea name="observacao" id="observacao" cols="30" rows="6" class="form-control"><?= isset($this->treino['observacao'])? utf8_encode($this->treino['observacao']) : '' ?></textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12">
+				<div id="msg-load" class="hidden alert alert-warning">
+				  	Aguarde...
+		 	    </div>
+		 	</div>
+
+			<div class="row">
+				<div class="col-md-12">
+				  <div class="form-group">
+				  	<button type="submit" class="btn btn-primary">Salvar</button>
+					<!--
+					<button type="button" id="bt-deletar" onclick="exercicioTreino.deletar(this)" data-url="<?= $this->baseUrl().'/admin/deletar-treino/id/'.$this->treino['id'] ?>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i></button>
+					-->
+				  	<a href="#" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancelar</a>
+				  </div>
+				</div>
+			</div>
+			</form>
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-data-treino" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Registrar frequência</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form id="formFrequencia" action="<?= $this->baseUrl().'/admin/salvar-frequencia' ?>"  
+				method="POST"  onsubmit="exercicioTreino.salvarFrequencia(event)">
+
+				<input type="hidden" name="id_treino" value="<?= $this->id_treino ?>">
+	      		<div class="row">
+					<div class="col-md-12">
+					  	<div class="form-group">
+						    <label>Data:</label>
+							<input type="date" class="form-control" name="dtFrequencia" id="dtFrequencia" required>
+					  	</div>
+				  	</div>
+			  	</div>
+		  		<div id="msg-load" class="hidden alert alert-warning">
+			  		Aguarde...
+		  		</div>
+			  	<div class="row">
+				  	<div class="col-md-12">
+						<div class="form-group">
+						  	<button type="submit" class="btn btn-primary">Salvar</button>
+						  	<a type="button" href="#!" data-dismiss="modal" aria-label="Close" class="btn btn-default">Fechar</a>
+			     		</div>
+					</div>
+				</div>
+		  	</form>
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modal-alunos" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Lista de alunos</h4>
+      	</div>
+      	<div class="modal-body">
+      		<div class="form-group has-default has-feedback" style="margin: 10px 0 0 0">
+			  <input type="text" class="form-control" onkeyup="lista.search(this.value)" placeholder="Pesquisar aluno...">
+			  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+			  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+			</div>
+      		<div class="list-group">
+      		<?php if(count($this->alunos)): ?>
+				<?php foreach($this->alunos as $key => $value): ?>
+				  <a href="#!" onclick="exercicioTreino.selecionaAluno(<?= $value['id'] ?>, '<?= $value['nome'] ?>')" class="list-group-item">
+				    <img src="<?= $this->baseUrl().'/admin/ver-foto-usuario/id/'.$value['fk_usuario'].'/foto_'.$value['filename'] ?>" data-error="<?= $this->baseUrl().'/images/foto_default.png' ?>" onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="45" width="40" style="margin-right: 10px" data-toggle="modal" data-target=".fade_<?= $key ?>">
+				    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+				    <p class="list-group-item-text">
+				    	<?= $value['email'] ?>
+				    </p>
+				  </a>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<div class="alert alert-warning">Nenhum aluno cadastrado!</div>
+			<?php endif; ?>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/app/controllers/TreinosController.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+	var exercicioTreino = new TreinosController();
+	
+	var numContador;
+	var tempo;
+	var tempoDescanso;
+	var btFinalizar;
+	var divExercicio;
+	var btDescanso;
+	var divSom = document.getElementById('div-som');
+
+    var myVar;
+    var myDescanso;
+    
+    var audio = new Audio(); // use the constructor in JavaScript, just easier that way
+    audio.src = BASE_URL+'beep5secound.mp3';
+   //audio.autoplay = true; // add this
+    
+
+    function iniciarContagem(index) {
+        tempo = 0;
+        numContador = 0;
+        
+    	tipo = document.getElementById("tipo_"+index);
+    	
+    	btFinalizar = document.getElementById("finalizado_"+index);
+        btDescanso = document.getElementById("btIniciarDesanso_"+index);
+        divExercicio = document.getElementById("exercicio_"+index);
+    	tempo = document.getElementById("tempo_"+index).value;
+        numContador = document.getElementById("number_"+index);
+        
+        numContador.style.border = '5px solid green';
+        
+        numContador.innerHTML = tempo;
+
+        myVar = setInterval(myTimer, 1000);
+    }
+
+    function myTimer() {
+      if(tempo >= 0){
+          numContador.innerHTML = tempo;
+          tempo--;
+          
+          if(tempo == 4) {
+              //divSom.innerHTML = '<embed src="'+BASE_URL+'beep5secound.mp3" autostart="true" loop="10" width="1" height="1"></embed>';
+              //divSom.innerHTML = '<audio id="myAudio" controls autoplay><source src="'+BASE_URL+'beep5secound.mp3" type="audio/mpeg" /></audio>';
+              
+              audio.play();
+              
+          }
+          
+        }else {
+          //divSom.innerHTML = '<embed src="'+BASE_URL+'beep-finish.mp3" autostart="true" loop="10" width="1" height="1"></embed>';
+          
+          myStopFunction();
+          
+          btFinalizar.classList.remove('hidden'); //mostrar botão finalizar
+          
+          divExercicio.style.background = '#dff0d8';
+          
+          if(tipo.value != 'rep') { // se o treino for executado em segundos
+              btDescanso.classList.remove('hidden');
+          }
+        }
+    }
+    
+    function iniciarDescanso(index) {
+        tipo = document.getElementById("tipo_"+index);
+    	
+    	btFinalizar = document.getElementById("finalizado_"+index);
+        btDescanso = document.getElementById("btIniciarDesanso_"+index);
+        divExercicio = document.getElementById("exercicio_"+index);
+        tempoDescanso = document.getElementById("tempo_descanso_"+index).value;
+        numContador = document.getElementById("number_"+index);
+        
+        numContador.style.border = '5px solid red';
+        
+        numContador.innerHTML = tempoDescanso;
+        
+        myDescanso = setInterval(timeDescanso, 1000);
+    }
+    
+    function timeDescanso() {
+      if(tempoDescanso >= 0){
+          numContador.innerHTML = tempoDescanso;
+          tempoDescanso--;
+          
+          if(tempo == 4) {
+              audio.play();
+          }
+        }else {
+          myStopDescansoFunction();
+          btFinalizar.classList.remove('hidden');
+        }
+    }
+    
+    function myStopFunction() {
+      clearInterval(myVar);
+    }
+    
+    function myStopDescansoFunction() {
+      clearInterval(myDescanso);
+    }
+</script>

@@ -1,0 +1,96 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h3 style="margin: 0 0 30px 0">Grupo Muscular
+		<a href="#" class="btn btn-primary btn-lg btn-circulo pull-right btn-flutuante" title="Cadastrar novo grupo muscular" data-toggle="modal" data-target="#modal-grupo-muscular" onclick="oController.inicializarForm()"><i class="glyphicon glyphicon-plus"></i></a>
+  	</h3>
+
+	<div class="form-group has-default has-feedback" style="margin: 10px 0 5px 0">
+	  <input type="text" class="form-control" id="busca" onkeyup="lista.search(this.value)" placeholder="Pesquisar exercício..." style="border-radius: 50px;">
+	  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="margin-top: -1.8em;"></span>
+	  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+	</div>
+
+	<?php if(count($this->results) > 0): ?>
+		<div class="list-group">
+		<?php foreach($this->results as $key => $value): ?>
+			  <a href="#" data-url="<?= $this->baseUrl().'/admin/editar-grupo-muscular/id/'.$value['id'] ?>" onclick="oController.editar(this);" data-toggle="modal" data-target="#modal-grupo-muscular" class="list-group-item">
+
+			    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+
+			    <p class="list-group-item-text" style="padding-bottom: 8px;">
+
+			    	<div class="btn-group pull-right" role="group" style="margin-top: -2em;">
+					  <button data-url="<?= $this->baseUrl().'/admin/editar-grupo-muscular/id/'.$value['id'] ?>" onclick="oController.editar(this);" type="button" class="btn btn-warning btn-sm btn-circle" data-toggle="modal" data-target="#modal-grupo-muscular"><i class="glyphicon glyphicon-pencil" title="Editar grupo muscular"></i></button>
+					</div>
+
+			    </p>
+			  </a>
+
+
+		<?php endforeach ?>
+		</div>
+	<?php else: ?>
+		<div class="alert alert-warning">Nenhum grupo cadastrado!</div>
+	<?php endif ?>
+  </div>
+</div>
+
+<div id="modal-grupo-muscular" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Grupo Muscular</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form id="form" action="<?= $this->baseUrl().'/admin/salvar-grupo-muscular' ?>"
+				method="POST"  onsubmit="oController.salvar(event)">
+
+				<input type="hidden" name="id" id="id" value="<?= isset($this->grupoMuscular['id'])? $this->grupoMuscular['id'] : '' ?>">
+				<!--
+				<div class="row">
+					<div class="col-md-12">
+					  	<div class="form-group">
+						    <label>Modalidade:</label>
+							<select name="grupo" id="grupo" class="form-control" required>
+								<option value="">SELECIONE...</option>
+								<?php foreach ($this->grupo as $value) : ?>
+									<option value="<?= $value['id'] ?>"><?= utf8_encode($value['nome']) ?></option>
+								<?php endforeach; ?>
+							</select>
+					  	</div>
+				  	</div>
+			  	</div>
+			  	-->
+	      		<div class="row">
+					<div class="col-md-12">
+					  	<div class="form-group">
+						    <label>Grupo Muscular:</label>
+							<input type="text" class="form-control" name="nome" id="nome" value="<?= isset($this->grupoMuscular['nome'])? utf8_encode($this->grupoMuscular['nome']) : '' ?>" required>
+					  	</div>
+				  	</div>
+			  	</div>
+		  		<div id="msg-load" class="hidden alert alert-warning">
+			  		Aguarde...
+		  		</div>
+			  	<div class="row">
+				  	<div class="col-md-12">
+						<div class="form-group">
+						  	<button type="submit" class="btn btn-primary">Salvar</button>
+						  	<a type="button" href="#!" data-dismiss="modal" aria-label="Close" class="btn btn-default">Fechar</a>
+
+							<button type="button" id="bt-deletar" onclick="oController.deletar(this)" data-url="<?= $this->baseUrl().'/admin/deletar-grupo-muscular/id/' ?>" class="btn btn-danger pull-right hidden"><i class="glyphicon glyphicon-trash"></i></button>
+			     		</div>
+					</div>
+				</div>
+		  	</form>
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/controllers/GrupoMuscularController.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+	var oController = new GrupoMuscularController();
+</script>

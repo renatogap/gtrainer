@@ -1,0 +1,35 @@
+<?php if($this->results['total'] == 0): ?>
+    <div class="alert alert-block alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <b><?= utf8_encode($this->sessao->nome) ?></b>, nenhum grupo muscular foi criado.
+    </div>
+<?php else: ?>
+
+    <div style="font-weight: bold; font-size: 15px; text-align: right; margin-bottom: 3px;"><?php echo $this->results['total'] ?> registro(s) encontrado(s)</div>
+    
+    <table class="table table-striped">
+        <tr>
+            <th>Cod.</th>
+            <th>M&uacute;sculos</th>
+            <th style="text-align: center;">A&ccedil;&atilde;o</th>
+        </tr>
+        
+        <?php foreach ($this->results['results'] as $dado): ?>
+            <tr>
+                <td><?= $dado['id'] ?></td>
+                <td><?= utf8_encode($dado['musculo']) ?></td>
+                <td align="center">
+                    <button class="btn btn-sm btn-primary" onclick="openModalMusculoUpdate(<?= $dado['id'] ?>)">
+                        <i class="ace-icon fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="removerMusculo(<?= $dado['id'] ?>)">
+                        <i class="ace-icon fa fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    
+<?php endif; ?>    

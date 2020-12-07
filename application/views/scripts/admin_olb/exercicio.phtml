@@ -1,0 +1,151 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.form.js' ?>"></script>
+<script>
+jQuery(function(){
+    loadExercicio()
+    initLoadModal()
+})
+
+function loadExercicio() {
+    $( "#gridExercicio" ).load(BASE_URL+'admin/grid-exercicios');
+}
+
+function initLoadModal() {
+    $('#modalExercicio').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 500,
+        height: 600
+    })
+    $('.ui-dialog-titlebar').hide();
+}
+
+function removerExercicio(id) {
+    var r = confirm("Deseja realmente remover este exercicio?");
+    if (r == true) {
+	    $.ajax({
+	            type:'post',
+	            url: BASE_URL+'admin/remover-exercicio',
+	            data: { id: id },
+	            success: function(resp){
+	                if(resp.retorno != 'sucesso'){
+	                    alert(resp.msg); 
+	                    return false;
+	                }else {
+	                    loadExercicio();
+	                    alert(resp.msg);
+	                }
+	            }
+	    })
+    }
+}
+
+function salvarExercicio() {
+    $( "#frmExercicio" ).ajaxSubmit({
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    loadExercicio();
+                    $('#modalExercicio').dialog( "close" );
+                    alert(resp.msg);
+                }
+            }
+    })
+}
+
+function alterarExercicio() {
+    $( "#frmExercicio" ).ajaxSubmit({
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    loadExercicio();
+                    $('#modalExercicio').dialog( "close" );
+                    alert(resp.msg);
+                }
+            }
+    })
+}
+
+
+function openModalExercicio() {
+    
+    $('#modalExercicio').load(BASE_URL+'admin/modal-exercicio').dialog({
+        buttons: [
+            {
+                text: "Salvar",
+                "class" : "btn btn-primary btn-xs",
+                click: function() {
+                    salvarExercicio();
+                } 
+            } ,
+            {
+                html: "Cancelar",
+                "class" : "btn btn-danger btn-xs",
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        ]
+    })
+    $('#modalExercicio').dialog( "open" );
+}
+
+function openModalExercicioUpdate(id) {
+    
+    $('#modalExercicio').load(BASE_URL+'admin/modal-exercicio', {id: id}).dialog({
+        buttons: [
+            {
+                text: "Alterar",
+                "class" : "btn btn-primary btn-xs",
+                click: function() {
+                    alterarExercicio();
+                } 
+            } ,
+            {
+                html: "Cancelar",
+                "class" : "btn btn-danger btn-xs",
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        ]
+    })
+    $('#modalExercicio').dialog( "open" );
+}
+</script>
+
+
+<div id="breadcrumbs" class="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><a href="#" onclick="changePage('home')">Home</a></li>
+        <li class="active">Exerc&iacute;cio</li>
+    </ul>
+</div>
+
+<div class="page-content">
+    <h3 class="page-header">
+        <i class="ace-icon fa fa-list-alt"></i> Exerc&iacute;cios
+    </h3>
+
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <button class="btn btn-success btn-primary" onclick="openModalExercicio()">
+                <i class="ace-icon fa fa-plus"></i> Cadastrar Exerc&iacute;cio
+            </button>
+            <br><br>
+            
+            <div id="gridExercicio"></div>
+            <div id="carregando"></div>
+            
+            <div id="modalExercicio"></div>
+            
+        </div>
+    </div>
+
+</div>

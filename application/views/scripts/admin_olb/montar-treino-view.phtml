@@ -1,0 +1,42 @@
+
+
+
+<div id="breadcrumbs" class="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><a href="#" onclick="changePage('home')">Home</a></li>
+            <li><a href="#" onclick="changePage('montar-treino')">Montar Treino</a></li>
+            <li class="active">Treinos de Renato Pereira</li>
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <h3 class="page-header">
+            <i class="ace-icon fa fa-users"></i> Treinos de Renato Pereira
+        </h3>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div id="panelGeral">
+    
+                    <div id="barSearch">
+
+                        <ul>
+                            <li><label>Matr&iacute;cula: </label></li>
+                            <li><input type="text" id="P_matricula" onblur="pesquisarFichaAluno()" class="texto" /></li>
+                            <li><button onclick="pesquisarFichaAluno()">Pesquisar</button></li>
+                        </ul>
+                    </div>
+
+                    <div id="contentCentral">
+                        <?php //echo $this->render('admin/loadFichaAluno.phtml'); ?>
+                    </div>
+
+                </div>
+
+                <div id="modalTreino"></div>
+
+            </div>
+        </div>
+
+    </div>

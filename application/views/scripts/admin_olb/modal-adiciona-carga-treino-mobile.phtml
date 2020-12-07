@@ -1,0 +1,156 @@
+<style>
+    table th {background: none;}
+    table tr td {background: none; padding: 0; font-size: 16px;}
+    table,th,td { border-collapse:collapse; font-size: 16px }
+</style>
+<script type="text/javascript">
+
+    jQuery(function() {
+
+        inicializar();
+
+        
+
+        $('#btnAddCarga').click(function() {
+            openAguarde();
+        
+            var ficha_id = $('#P_ficha_id').val();
+            var aluno_id  = $('#P_aluno_id').val();
+            
+            var params = $('#frmAumentarCarga').serialize();
+
+            $.ajax({
+                type:'post',
+                url: BASE_URL+'admin/add-carga',
+                data: params,
+                dataType: 'json',
+                success: function(resp) {
+                    if(resp.retorno == 'sucesso') {                        
+                        alert(resp.msg);
+                        window.location.reload();
+                    }else {
+                        alert(resp.msg);
+                        return false;
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            })
+            
+            return false;
+        })
+        
+        
+        $("#carga").keyup(function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code==13) {
+                
+                $('#btnAddCarga').trigger('click');
+                
+            }
+        })
+
+    });
+
+
+    function inicializar() {
+        //Limpar os campos
+        $('#carga').val('');
+    }
+
+    function removerCarga(carga_id) {
+        openAguarde();
+        
+        var ficha_id = $('#P_ficha_id').val();
+        var aluno_id  = $('#P_aluno_id').val();
+            
+        $.ajax({
+            type:'post',
+            url: BASE_URL+'admin/excluir-carga',
+            data: {carga_id: carga_id},
+            dataType:'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); return false;
+                }else {
+                    alert(resp.msg);
+                    window.location.reload();
+                }
+            }
+        })
+        
+        return false;
+    }
+</script>
+<?php 
+    $results = $this->aDadosCarga[0];
+    #Utils_Print::printvardie($results); 
+?>
+
+<div data-role="header">
+    <h1>Adicionar Carga</h1>
+    <a href="javascript:changePage('edit-treino-aluno/matricula/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-theme="b">
+        <
+    </a>
+</div>
+
+<div class="main-content" data-role="content">
+    <form id="frmAumentarCarga">
+        <input type="hidden" name="P_aluno_id" id="P_aluno_id" value="<?php echo $this->aluno_id ?>" />
+        <input type="hidden" name="P_ficha_id" id="P_ficha_id" value="<?php echo $this->ficha_id ?>" />
+        <input type="hidden" name="P_treino_id" id="P_treino_id" value="<?php echo $this->treino_id ?>" />
+        <input type="hidden" name="treino" id="treino" value="<?php echo $results['treino'] ?>" />
+        <input type="hidden" name="exercicio_id" id="exercicio_id" value="<?php echo $results['exercicio_id'] ?>" />
+
+        <div style="text-align: center; font-weight: bold;">Treino: <?= $results['treino'] ?></div>
+        <div style="text-align: center; font-weight: bold;">Exerc&iacute;cio: <?= $results['exercicio'] ?></div>    
+
+        <table width="100%" border="0" style="margin: 6px auto;">
+                <tr>
+                    <td align="left" width="30%">Nova carga:</td>
+                    <td width="40%"><input type="text" id="carga" name="carga" style="margin: 0 0 0 3px;" /></td>    
+                    <td width="20%" align="center">
+                            <a href="#" id="btnAddCarga" style="border-radius: 5px; padding: 2px 15px 2px 15px; background: blue; border: 1px solid blue;font-weight: bold;color:#FFF;text-decoration:none;font-size: 28px;"> + </a>
+                    </td>
+                </tr>
+        </table>
+	<br>
+
+        <div id="listarCargas">
+            <?php $results = ($this->aDadosGridCarga['cargas'])? $this->aDadosGridCarga: null; ?>
+
+            <?php if($results != null ): ?>
+                <table width="100%" border="1">
+                    <tr>
+                        <th style="text-align: center; background: #ccc;">Carga</th>
+                        <th style="text-align: center; background: #ccc;">Data</th>
+                        <th style="text-align: center; background: #ccc;">A&ccedil;&atilde;o</th>
+                    </tr>
+
+
+                        <?php foreach($results['cargas'] as $carga): ?>
+                            <tr>
+                                <td align="center" width="35%"><?php echo $carga['carga'] ?> kg</td>
+                                <td align="center"><?php echo date('d/m/Y', strtotime($carga['data'])) ?></td>
+                                <td align="center" width="20%" height="35px">
+                                                                           
+                                        <a href="#" onclick="removerCarga(<?= $carga['id']; ?>)" 
+                                        style="padding: 4px 7px 4px 7px; background: #ac2925; border: 1px solid #ac2925;font-weight: bold;color:#FFF;text-decoration:none;"> X </a>
+                                        
+                                        <!--<a href="#" onclick="removerCarga(<?= $carga['id']; ?>)" class="icoButtom" data-role="button" data-icon="delete">Delete</a>-->
+                                   
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                </table>
+            <?php else: ?>
+                <div class="alert alert-block alert-warning" style="background: #FFC; color: #000; padding: 10px; border-radius: 5px 5px 5px 5px;">
+                    <b><?= utf8_encode($this->sessao->nome) ?></b>, nenhuma carga foi adicionada.
+                </div>
+            <?php endif; ?>
+        </div>
+    </form>
+</div>    

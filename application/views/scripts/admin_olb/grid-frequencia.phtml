@@ -1,0 +1,9 @@
+
+<?php if( count($this->aFrequencia) > 0 ): ?>
+<h3>Frequencia</h3>
+<div style="border-bottom: 1px solid #ccc; width:100%; margin: -10px 0 15px;"></div>
+<?php foreach($this->aFrequencia as $mes => $aDias): ?>
+     <?php echo Utils_FrequenciaCalendario::MostreCalendario($mes, $aDias); ?>
+<?php endforeach; ?>
+
+<?php endif; ?>	

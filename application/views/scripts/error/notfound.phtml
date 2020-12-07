@@ -1,0 +1,36 @@
+
+<div id="header-login">
+        <a href="<?= $this->baseUrl() ?>/"></a>
+    </div>
+    
+    <div class="bg-azul-hotsite"></div>
+    <div id="content-login" style="margin-top: -40px;">
+        <div class="sobre-sistema" style="width: 960px; margin: 0 auto; text-align: center;">
+            <img src="<?= $this->baseUrl() ?>/images/404.png" />
+        </div>        
+    </div>
+    <br><br><br>
+    
+<footer id="mini-rodape" class="">
+    <ul class="links">
+        <li><a href="<?= $this->baseUrl() ?>/">Início</a></li>
+        <li><a href="<?= $this->baseUrl() ?>#como-funciona">Como funciona</a></li>
+        <li><a href="<?= $this->baseUrl() ?>#sobre-nos">Planos e preços</a></li>
+        <li><a href="<?= $this->baseUrl() ?>#ver-planos">Sobre o GTrainer</a></li>
+    </ul>
+    <p class="observacao"><span class="destaque">Copyright &copy; 2014</span> - Todos os direitos reservados - www.gtrainer.com.br</p>
+</footer>
+    
+
+
+<script type="text/javascript">
+    ajustarRodape(); 
+    $(window).resize(function () {
+        ajustarRodape(); 
+    });
+
+    function ajustarRodape() {
+        $("#mini-rodape ul.links li").width($("#mini-rodape ul.links").innerWidth() / $("#mini-rodape ul.links li").length);
+    }
+</script>
+

@@ -1,0 +1,67 @@
+<style>
+  /*.table tr th { font-size: 20px; }
+  .table tr td { font-size: 20px; }*/
+</style>
+
+<?php
+    $dadosAluno = $this->dadoAluno;
+    #Utils_Print::printvardie($this->ficha_id);
+
+    #list($nome, $sobrenome) = explode(" ", $dadosAluno['nome']);
+    #$nomeAluno = utf8_encode($nome)." ".($sobrenome);
+    $nomeAluno = $dadosAluno['nome'];
+    $totalDeFichas = count($this->dadosFicha);
+?>
+
+<div data-role="header">
+    <h1>Listar Treinos</h1>
+    <a href="javascript:changePage('montar-treino')" data-theme="b">
+        <
+    </a>
+    <a href="javascript:changePage('modal-treino-add/aluno_id/<?= $this->aluno_id ?>')" data-theme="b">
+        Novo
+    </a>
+</div>
+
+<div>
+
+<div id="contentGeral">
+    <div style="text-align: center; font-size: 18px; font-weight: bold; background: #FFC; color: #000; padding: 10px; border-radius: 5px 5px 5px 5px;">Treinos de <?= $nomeAluno ?></div>
+    	
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                
+                <input type="hidden" name="aluno_id" id="aluno_id" value="<?php echo $dadosAluno['matricula']; ?>" />
+
+                <?php if($totalDeFichas == 0): ?>
+                    <div id="textAlerta" style="background: #f4dae5; color: #000; padding: 10px; border-radius: 5px 5px 5px 5px;">
+                        <b><?= ($this->sessao->nome) ?></b>, nenhuma treino foi criada para este aluno.
+                    </div>
+                <?php else: ?>
+                    
+                    <table class="table table-striped" width="100%">
+                        <?php foreach ($this->dadosFicha as $i => $ficha): ?>
+                            <tr bgColor="<?= ($i%2==0)? '#ddd' : '' ?>">                                
+                                <td><?= ($ficha['ds_ficha']) ?></td>
+                                <td align="center">
+                                   <a href="javascript:changePage('edit-treino-aluno/matricula/<?= $ficha['aluno_id']; ?>/ficha_id/<?= $ficha['id']; ?>')" data-theme="b" data-role="button"  data-icon="search" data-mini="true">Editar
+				  </a>
+					
+                                                    
+                                        <!--<a data-role="button" data-mini="true" href="<?= $this->baseUrl() ?>/admin/edit-treino-aluno/matricula/<?= $ficha['aluno_id']; ?>/ficha_id/<?= $ficha['id']; ?>"><img src="<?= $this->baseUrl() ?>/images/acao/ico_pesquisar.png" /></a>-->
+                                    
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>

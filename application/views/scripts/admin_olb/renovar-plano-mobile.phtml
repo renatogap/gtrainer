@@ -1,0 +1,85 @@
+<?php 
+    $authSession = new Zend_Auth_Storage_Session();
+    $read = $authSession->read();
+    
+    #Utils_Print::printvardie($this->aPlanos); 
+?>
+<script type="text/javascript">
+jQuery(function(){
+
+})
+
+function renovarPlanoAcademia() {    
+    openAguarde();
+    
+    var tipo_plano = $('input[name="rdTipoPlano"]:checked').val();
+    
+    $.ajax({
+        type: 'post',
+        url: "<?= $this->baseUrl() ?>/admin/salvar-solicitacao-plano",
+        data: {
+            academia_id: <?= $read->academia_id ?>,
+            perfil_id: <?= $read->perfil_id ?>,
+            tipo_plano: tipo_plano
+        },
+        dataType: 'json',
+        success: function(resp) {
+            if(resp.retorno == 'sucesso') {
+                $('#textAlerta').html(resp.msg).fadeIn('fast').delay(5000).fadeOut('fast');
+                
+                if(resp.url){
+                    window.location = resp.url;
+                }
+            }else {
+                $('#textAlerta').html(resp.msg).fadeIn('fast').delay(5000).fadeOut('fast');
+                return false;
+            }
+        }
+    })
+}
+</script>
+
+
+<div data-role="header">
+    <h1>Renovar Plano</h1>
+    <a href="javascript:changePage('logout')" data-theme="b">Sair</a>
+</div>
+
+
+<div class="main-content" data-role="content">
+<div id="textAlerta" style="background: #FFC; color: #000; padding: 10px; border-radius: 5px 5px 5px 5px; display: none;"></div>
+        <form class="form-login-cad">
+        
+           <div style="color: green; text-align:center; margin: 0 0 15px; font-weight:bold;">Selecione o Plano que deseja adquirir e clique em Pagar com PagSeguro.</div>
+        
+           <table width="100%" style="text-align:center;">
+              <tr>
+                 <td align="center" style="border: 1px solid #333; padding: 5px;">
+                   <b>Plano <?= $this->aPlanos[0]['ds_plano'] ?>
+                   <label class="btn btn-yellow">
+                    <input type="radio" name="rdTipoPlano" id="rdTipoSemestral" checked="checked" value="6" />
+                   </label> 
+                     R$ <?= $this->aPlanos[0]['valor'] ?></b><br>
+                    <span style="color: green;">Acesso total por <?= $this->aPlanos[0]['id'] ?> meses</span>
+                 </td>
+                 <td align="center" style="border: 1px solid #333; padding: 5px;">
+                   <b>Plano <?= $this->aPlanos[1]['ds_plano'] ?>
+                   <label class="btn btn-yellow">
+                    <input type="radio" name="rdTipoPlano" id="rdTipoAnual" checked="checked" value="12" />
+                   </label> 
+                     R$ <?= $this->aPlanos[1]['valor'] ?></b><br>
+                    <span style="color: green;">Acesso total por <?= $this->aPlanos[1]['id'] ?> meses</span>
+                 </td>
+              </tr>
+           </table>
+        
+
+
+                <br>
+                <div style="text-align: center; margin-top: 8px; width: 100%;">
+                    <a href="#" onclick="renovarPlanoAcademia()">
+                        <img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/184x42-pagar-assina.gif"></img>
+                    </a>
+                </div>
+        </form>
+</div>

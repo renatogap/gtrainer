@@ -1,0 +1,50 @@
+<?php if($this->results['total'] == 0): ?>
+    <div class="alert alert-block alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <b><?= utf8_encode($this->sessao->nome) ?></b>, cadastre primeiro o aluno para depois montar seu treino.
+    </div>
+<?php else: ?>
+
+    <!--<div style="font-size: 15px; text-align: right; margin-bottom: 15px;">
+        Matr&iacute;cula: <input type="text" id="P_matricula" type="text" onblur="listarTreinosAluno()" style="font-size: 16px; width: 100px;" />
+        <button class="icoButtom" onclick="listarTreinosAluno()" style="padding: 8px 12px 8px 12px;"><i class="ace-icon fa fa-search"> </i></button>
+    </div>-->
+    
+    <div style="text-align: right; font-weight: bold; font-size: 15px;"><?= $this->results['total'] ?> alunos cadastrados</div>
+    
+    <table class="table table-striped">
+        <tr>
+            <th width="5%">Matr&iacute;cula</th>
+            <th>Aluno</th>
+            <!--<th>Visualiza&ccedil;&atilde;o do Aluno</th>-->
+            <th style="text-align: center;">Treinos</th>
+        </tr>
+
+        <?php foreach ($this->results['results'] as $dado): ?>
+            <tr>
+                <td><?= $dado['matricula'] ?></td>
+                <td>
+                    <?php if($dado['thumbnail']): ?>
+                    <img src="<?= $this->baseUrl().$dado['thumbnail'] ?>" width="50" height="50" style="float: left; padding-right: 5px;" />
+                     <?php else : ?>
+                        <img src="<?= $this->baseUrl().'/images/fotos/default.jpg' ?>" width="50" height="50" style="float: left; padding-right: 5px;" />
+                     <?php endif; ?>   
+                    <?= ($dado['nome']) ?><br>
+                    <span style="font-size: 12px;"><?= ($dado['email']) ?>
+                </td>
+                <!--<td>
+                    <a target="_blank" style="color: #fff; font-size: 13px; background: green; padding: 5px; border-radius: 4px 4px 4px 4px;" href="http://gtrainer.com.br/treinos/<?= $dado['matricula'] ?>">gtrainer.com.br/treinos/<?= $dado['matricula'] ?></a>
+                </td>-->
+                <td style="text-align: center;">
+                    <button class="btn btn-primary" onclick="listarTreinosAluno(<?= $dado['matricula']; ?>)">
+                        <i class="ace-icon fa fa-edit"></i>
+                    </button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </table>
+
+<?php endif; ?>    

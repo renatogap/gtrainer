@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>ADMIN</title>
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/js/jquery/ui/css/black-tie/jquery-ui.css' ?>'> 
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>'>
+        <!--<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl() . '/bootstrap/css/smartadmin-production.css' ?>'>-->
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/bootstrap-timepicker.css' ?>'> 
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/ace-skins.min.css' ?>'> 
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/fonts/css/font-awesome.min.css' ?>'> 
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/ace.min.css' ?>'> 
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/ace-rtl.min.css' ?>'> 
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.js' ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/ui/js/jquery-ui.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/bootstrap.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/bootstrap-timepicker.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/ace-extra.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/ace-elements.min.js' ?>"></script>
+        <script>BASE_URL = '<?php echo $this->baseUrl().'/'; ?>'; </script>
+        
+        <style>
+            * { font-family: sans-serif; }
+            .navbar { background: #222; }
+        </style>
+        
+        <script type="text/javascript">
+			jQuery(function(){
+				$( "#aguarde" ).dialog({
+					autoOpen: false,
+					modal: true,
+					width: 220,
+					height: 85
+				});
+				
+				$('.ui-dialog-titlebar').hide();
+				
+				$(document).ajaxStart(function() {
+					$( "#aguarde" ).dialog('open');
+				})
+				$(document).ajaxComplete(function() {
+					$( "#aguarde" ).dialog('close');
+				})
+                                
+                                $(document).ajaxComplete(function() {
+                                        $( "#carregando" ).html('Carregando...').show();
+                                })
+                                $(document).ajaxStop(function() {
+                                        $( "#carregando" ).hide();
+                                })
+			})
+			
+            function changePage(page) {
+                $('.main-content').load(BASE_URL+'admin/'+page);
+            }
+        </script>
+    </head>
+    <body style="background: #ccc;">
+        
+		<div id="aguarde" style="display: none; background: #fff;"><img src="<?php echo $this->baseUrl() ?>/images/aguarde.gif" /></div>		
+		
+        <!-- #Topo -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <?php echo $this->render('topo-admin.phtml') ?>
+        </div><!-- #Topo -->
+        
+        
+        <div id="main-container" class="main-container">
+            <?php echo $this->render('menu-vertical-admin.phtml') ?>
+        </div>
+
+        <div class="main-content" style="border-left: 1px solid #ccc;">
+            <?php echo $this->layout()->content; ?>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,124 @@
+<script type="text/javascript">
+
+    jQuery(function() {
+
+        inicializar();
+
+        carregarCargas();
+
+        $('#btnAddCarga').click(function() {
+            var ficha_id = $('#P_ficha_id').val();
+            var aluno_id  = $('#P_aluno_id').val();
+            
+            var params = $('#frmAumentarCarga').serialize();
+
+            $.ajax({
+                type:'post',
+                url: BASE_URL+'admin/add-carga',
+                data: params,
+                dataType: 'json',
+                success: function(resp) {
+                    if(resp.retorno == 'sucesso') {
+                        carregarCargas();
+                        pesquisarFichaAluno(aluno_id, ficha_id);
+                        $("#carga").val('');
+                        alert(resp.msg);
+                    }else {
+                        alert(resp.msg);
+                        return false;
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            })
+            
+            return false;
+        })
+        
+        
+        $("#carga").keyup(function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code==13) {
+                
+                $('#btnAddCarga').trigger('click');
+                
+            }
+        })
+
+    });
+
+    function carregarCargas() {
+            $( "#listarCargas" ).load( BASE_URL+"admin/grid-cargas", {treino_id: $('#P_treino_id').val()} );
+    }
+
+    function inicializar() {
+        //Limpar os campos
+        $('#carga').val('');
+    }
+
+    function removerCarga(carga_id) {
+        var ficha_id = $('#P_ficha_id').val();
+        var aluno_id  = $('#P_aluno_id').val();
+            
+        $.ajax({
+            type:'post',
+            url: BASE_URL+'admin/excluir-carga',
+            data: {carga_id: carga_id},
+            dataType:'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); return false;
+                }else {
+                    carregarCargas();
+                    pesquisarFichaAluno(aluno_id, ficha_id);
+                    alert(resp.msg);
+                }
+            }
+        })
+        
+        return false;
+    }
+</script>
+<?php 
+    $results = $this->aDadosCarga[0];
+    #Utils_Print::printvardie($results); 
+?>
+
+<form id="frmAumentarCarga">
+
+    <input type="hidden" name="P_aluno_id" id="P_aluno_id" value="<?php echo $this->aluno_id ?>" />
+    <input type="hidden" name="P_ficha_id" id="P_ficha_id" value="<?php echo $this->ficha_id ?>" />
+    <input type="hidden" name="P_treino_id" id="P_treino_id" value="<?php echo $this->treino_id ?>" />
+    <input type="hidden" name="treino" id="treino" value="<?php echo $results['treino'] ?>" />
+    <input type="hidden" name="exercicio_id" id="exercicio_id" value="<?php echo $results['exercicio_id'] ?>" />
+
+    <fieldset>
+            <legend>Adicionar Carga</legend>
+            <table width="100%" border="0" style="margin: 0 auto;">
+                    <tr>
+                        <td align="left" width="28%">Nova carga:</td>
+                        <td>
+                            <input type="text" id="carga" name="carga" size="1" style="width: 30%; border-radius: 3px 3px 3px 3px;" /> 
+                            
+                            <button id="btnAddCarga" style="padding: 6px; color: #fff; background: #87B87F; border: 1px solid #87B87F;">
+                                <i class="ace-icon fa fa-plus"></i> Adicionar
+                            </button>
+                            
+                            <!--<input type="button" class="btnBotao" value="Adicionar" id="btnAddCarga" style="width: 25%;">-->
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td align="left">
+                            
+                        </td>
+                    </tr>
+            </table>
+    </fieldset>
+
+
+    <div id="listarCargas"></div>
+</form>

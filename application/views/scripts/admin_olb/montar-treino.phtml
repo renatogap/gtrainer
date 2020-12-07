@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="<?php echo $this->baseUrl().'/css/montar-treino.css' ?>">
+<script src="<?php echo $this->baseUrl().'/js/admin/jsFichaAluno.js' ?>"></script>
+
+<script>
+jQuery(function(){
+    loadTreino()
+})
+
+function loadTreino() {
+    $( "#gridTreino" ).load(BASE_URL+'admin/grid-treinos');
+}
+
+//function visualizarTreinoAluno(id) {
+//    $('#contentGeral').load(BASE_URL+'admin/montar-treino-view', {id: id});
+//}
+
+
+</script>
+
+<div id="contentGeral">
+
+    <div id="breadcrumbs" class="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><a href="#" onclick="changePage('home')">Home</a></li>
+            <li class="active">Pesquisar Aluno</li>
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <h3 class="page-header">
+            <i class="ace-icon fa fa-search-plus"></i> Pesquisar Aluno
+        </h3>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+
+                <div id="gridTreino"></div>
+                <div id="carregando"></div>
+
+                <div id="modal"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

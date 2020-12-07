@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GTrainer- Gerenciador de Treinos</title>
+	<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta http-equiv="cache-control" content="public" /> <!-- reconhecida pelo HTTP 1.1 -->
+	<meta charset="utf-8">
+	<link rel='shortcut icon' type='image/png' href="<?php echo $this->baseUrl() ?>/images/icon-gtrainer.png" />
+	<meta name="description" content="Gtrainer - Gerenciamento de Treinos Web">
+  	<meta name="keywords" content="Controle, Treino, Personal, Musculação, Crossfit, Malhação">
+  	<meta name="author" content="Renato Pereira">
+	<link rel='stylesheet' type='text/css' href="<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>">
+	<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.js' ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/bootstrap.min.js' ?>"></script>
+	<script>BASE_URL = '<?php echo $this->baseUrl().'/'; ?>'; </script>	
+	<style>
+		body {background: #eee}
+		.container form, .container-fluid form {background: #fff}
+		.btn-circle {width: 30px;height: 30px;text-align: center;padding: 6px 0;font-size: 12px;line-height: 1.428571429;border-radius: 15px;}
+		.btn-circle.btn-lg {width: 40px;height: 40px;padding: 9px 11px;font-size: 18px;line-height: 1.33;border-radius: 25px; margin: 0 3px 0 3px;}
+		.btn-circle.btn-xl {width: 70px;height: 70px;padding: 10px 16px;font-size: 24px;line-height: 1.33;border-radius: 35px;}
+		.page-header {margin: 0 0 10px 0;}
+		h1 {margin: 0;}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+        <?php echo $this->render('topo-aluno.phtml') ?>
+    </nav>
+
+    <div class="container-fluid">
+
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+

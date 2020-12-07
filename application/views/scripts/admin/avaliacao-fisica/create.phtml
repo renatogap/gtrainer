@@ -1,0 +1,496 @@
+<div class="panel panel-default">
+	<form id="form" action="<?= $this->baseUrl().'/admin/salvar-avaliacao-fisica' ?>"  method="POST"  onsubmit="oController.salvar(event)">
+	  	<div class="panel-body">
+		  	<h3 style="margin: 0 0 30px 0">
+		  		Avaliação Física
+		  	</h3>
+
+			<input type="hidden" name="id" id="id" value="<?= isset($this->avaliacao['id'])? $this->avaliacao['id'] : '' ?>">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="nome">Aluno</label>
+					    <select name="aluno" id="aluno" class="form-control" required data-toggle="modal" data-target="#modal-alunos">
+							<option value="<?= $this->avaliacao['fk_aluno'] ?>"><?= utf8_encode($this->avaliacao['aluno']) ?></option>
+					    	<option value="">Selecione um aluno...</option>
+					    </select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label for="objetivo">Peso</label>
+					    <input type="numeric" name="peso" id="peso" class="form-control" required value="<?= isset($this->avaliacao['peso'])? $this->avaliacao['peso'] : '' ?>" placeholder="Kg">
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label for="objetivo">Altura</label>
+					    <input type="numeric" name="altura" id="altura" class="form-control numeric" value="<?= isset($this->avaliacao['altura'])? $this->avaliacao['altura'] : '' ?>" required placeholder="em centímetros">
+				  	</div>
+			  	</div>
+			</div>
+			<div class="row">
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label>Data da Avaliação</label>
+					    <input type="date" name="data" id="data" class="form-control" required value="<?= isset($this->avaliacao['data'])? $this->avaliacao['data'] : date('Y-m-d') ?>">
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-6">
+			  		<div class="form-group">
+					    <label>Data da Reavaliação</label>
+					    <input type="date" name="dt_reavalicacao" id="dt_reavalicacao" class="form-control numeric" value="<?= isset($this->avaliacao['dt_reavaliacao'])? $this->avaliacao['dt_reavaliacao'] : '' ?>" required>
+				  	</div>
+			  	</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="telefone">Observações</label>
+					    <textarea name="observacao" id="observacao" cols="30" rows="4" class="form-control"><?= isset($this->avaliacao['observacao'])? utf8_encode($this->avaliacao['observacao']) : '' ?></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+					    <label for="telefone">Protocolo</label>
+					    <select id="protocolo" name="protocolo" class="form-control">
+					    	<option value>SELECIONE...</option>
+                            <option value="pollock3dobras" <?= ($this->avaliacao['protocolo'] == 'pollock3dobras'? 'selected' : '' ) ?>>Pollock 3 dobras</option>
+                            <option value="pollock7dobras" <?= ($this->avaliacao['protocolo'] == 'pollock7dobras'? 'selected' : '' ) ?>>Pollock 7 dobras</option>
+                            <option value="guedes" <?= ($this->avaliacao['protocolo'] == 'guedes'? 'selected' : '' ) ?>>Guedes</option>
+                            <option value="petroski" <?= ($this->avaliacao['protocolo'] == 'petroski'? 'selected' : '' ) ?>>Petroski</option>
+                            <option value="durnin" <?= ($this->avaliacao['protocolo'] == 'durnin'? 'selected' : '' ) ?>>Durnin</option>
+                            <option value="mcardle" <?= ($this->avaliacao['protocolo'] == 'mcardle'? 'selected' : '' ) ?>>Mcardle</option> 
+                        </select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body <?= !isset($this->editar)? 'hidden' : '' ?>" id="div-dobras-cutaneas">
+		  	<h3 style="margin: 0 0 30px 0">
+		  		Dobras Cutâneas
+		  	</h3>
+
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Peitoral</label>
+			            <input type="numeric" class="form-control numeric" name="PE" id="PE" size="5" value="<?= isset($this->avaliacao['PE'])? $this->avaliacao['PE'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Axilar Média</label>
+			            <input type="numeric" class="form-control numeric" id="AX" name="AX" size="5" value="<?= isset($this->avaliacao['AX'])? $this->avaliacao['AX'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Bíceps</label>
+			            <input type="numeric" class="form-control numeric" name="BI" id="BI" size="5" value="<?= isset($this->avaliacao['BI'])? $this->avaliacao['BI'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Tríceps</label>
+			            <input type="numeric" class="form-control numeric" name="TR" id="TR" size="5" value="<?= isset($this->avaliacao['TR'])? $this->avaliacao['TR'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Subescapular</label>
+			            <input type="numeric" class="form-control numeric" id="SB" name="SB" size="5"  value="<?= isset($this->avaliacao['SB'])? $this->avaliacao['SB'] : '' ?>"  placeholder="mm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Abdome</label>
+			            <input type="numeric" class="form-control numeric" name="AB" id="AB" size="5"  value="<?= isset($this->avaliacao['AB'])? $this->avaliacao['AB'] : '' ?>"  placeholder="mm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Supra Ilíaca</label>
+			            <input type="numeric" class="form-control numeric" name="SI" id="SI" size="5" value="<?= isset($this->avaliacao['SI'])? $this->avaliacao['SI'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Coxa</label>
+			            <input type="numeric" class="form-control numeric" name="CX" id="CX" size="5" value="<?= isset($this->avaliacao['CX'])? $this->avaliacao['CX'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Panturrilha</label>
+			            <input type="numeric" class="form-control numeric" name="PA" id="PA" size="5" value="<?= isset($this->avaliacao['PA'])? $this->avaliacao['PA'] : '' ?>" placeholder="mm" />
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+		<div class="panel-body <?= !isset($this->editar)? 'hidden' : '' ?>" id="div-medidas-lineares">
+		  	<h3 style="margin: 0 0 30px 0">
+		  		Medidas Lineares
+		  	</h3>
+
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Tórax</label>
+			            <input type="numeric" name="torax" id="torax" size="5" value="<?= isset($this->avaliacao['torax'])? $this->avaliacao['torax'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Abdome</label>
+			            <input type="numeric" name="abdomen" id="abdomen" size="5" value="<?= isset($this->avaliacao['abdomen'])? $this->avaliacao['abdomen'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Cintura</label>
+			            <input type="numeric" name="cintura" id="cintura" size="5" value="<?= isset($this->avaliacao['cintura'])? $this->avaliacao['cintura'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Quadril</label>
+			            <input type="numeric" id="quadril" name="quadril" size="5" value="<?= isset($this->avaliacao['quadril'])? $this->avaliacao['quadril'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Braço direito contraído</label>
+			            <input type="numeric" id="braco_direito_contraido" name="braco_direito_contraido" size="5"  value="<?= isset($this->avaliacao['braco_direito_contraido'])? $this->avaliacao['braco_direito_contraido'] : '' ?>"" placeholder="cm" class="form-control numeric" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Braço esquerdo contraído</label>
+			            <input type="numeric" name="braco_esquerdo_contraido" id="braco_esquerdo_contraido" size="5"  value="<?= isset($this->avaliacao['braco_esquerdo_contraido'])? $this->avaliacao['braco_esquerdo_contraido'] : '' ?>"  class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Braço direito relaxado</label>
+			            <input type="numeric" id="braco_direito_relaxado" name="braco_direito_relaxado" size="5"  value="<?= isset($this->avaliacao['braco_direito_relaxado'])? $this->avaliacao['braco_direito_relaxado'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Braço esquerdo relaxado</label>
+			            <input type="numeric" name="braco_esquerdo_relaxado" id="braco_esquerdo_relaxado" size="5"  value="<?= isset($this->avaliacao['braco_esquerdo_relaxado'])? $this->avaliacao['braco_esquerdo_relaxado placeholder="cm"'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Antebraço direito</label>
+			            <input type="numeric" id="antebraco_direito" name="antebraco_direito" size="5"  value="<?= isset($this->avaliacao['antebraco_direito'])? $this->avaliacao['antebraco_direito'] : '' ?>" clas placeholder="cm" class="form-control numeric" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Antebraço esquerdo</label>
+			            <input type="numeric" name="antebraco_esquerdo" id="antebraco_esquerdo" size="5"  value="<?= isset($this->avaliacao['antebraco_esquerdo'])? $this->avaliacao['antebraco_esquerdo'] : '' ?>" clas placeholder="cm" class="form-control numeric" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Coxa direta</label>
+			            <input type="numeric" name="coxa_direita" id="coxa_direita" size="5" value="<?= isset($this->avaliacao['coxa_direita'])? $this->avaliacao['coxa_direita'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Coxa esquerda</label>
+			            <input type="numeric" name="coxa_esquerda" id="coxa_esquerda" size="5" value="<?= isset($this->avaliacao['coxa_esquerda'])? $this->avaliacao['coxa_esquerda'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Panturrilha direita</label>
+			            <input type="numeric" name="panturrilha_direita" id="panturrilha_direita" size="5" value="<?= isset($this->avaliacao['panturrilha_direita'])? $this->avaliacao['panturrilha_direita'] : '' ?>" clas placeholder="cm" class="form-control numeric" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Panturrilha esquerda</label>
+			            <input type="numeric" name="panturrilha_esquerda" id="panturrilha_esquerda" size="5" value="<?= isset($this->avaliacao['panturrilha_esquerda'])? $this->avaliacao['panturrilha_esquerda'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Ombro</label>
+			            <input type="numeric" name="ombro" id="ombro" size="5" value="<?= isset($this->avaliacao['ombro'])? $this->avaliacao['ombro'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Pescoço</label>
+			            <input type="numeric" name="pescoco" id="pescoco" size="5" value="<?= isset($this->avaliacao['pescoco'])? $this->avaliacao['pescoco'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Punho</label>
+			            <input type="numeric" name="punho" id="punho" size="5" value="<?= isset($this->avaliacao['punho'])? $this->avaliacao['punho'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Joelho</label>
+			            <input type="numeric" name="joelho" id="joelho" size="5" value="<?= isset($this->avaliacao['joelho'])? $this->avaliacao['joelho'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Tornozelo</label>
+			            <input type="numeric" name="tornozelo" id="tornozelo" size="5" value="<?= isset($this->avaliacao['tornozelo'])? $this->avaliacao['tornozelo'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Escapular</label>
+			            <input type="numeric" name="escapular" id="escapular" size="5" value="<?= isset($this->avaliacao['escapular'])? $this->avaliacao['escapular'] : '' ?>" class="form-control numeric" placeholder="cm" />
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<div class="panel-body <?= !isset($this->editar)? 'hidden' : '' ?>" id="div-diametros-osseos">
+		  	<h3 style="margin: 0 0 30px 0">
+		  		Diâmetros Osseos
+		  	</h3>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Biestiloide</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" name="biestiloide" id="biestiloide" size="5" value="<?= isset($this->avaliacao['biestiloide'])? $this->avaliacao['biestiloide'] : '' ?>" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Biepicondiliano Fêmur</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" name="biepicondiliano_femur" id="biepicondiliano_femur" size="5" value="<?= isset($this->avaliacao['biepicondiliano_femur'])? $this->avaliacao['biepicondiliano_femur'] : '' ?>" />
+			        </div>
+			    </div>
+			</div>
+
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Biacromial</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" name="biacromial" id="biacromial" size="5" value="<?= isset($this->avaliacao['biacromial'])? $this->avaliacao['biacromial'] : '' ?>" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Biileocristal</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" id="biileocristal" name="biileocristal" size="5" value="<?= isset($this->avaliacao['biileocristal'])? $this->avaliacao['biileocristal'] : '' ?>" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Bitrocanteriano</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" id="bitrocanteriano" name="bitrocanteriano" size="5"  value="<?= isset($this->avaliacao['bitrocanteriano'])? $this->avaliacao['bitrocanteriano'] : '' ?>" />
+			        </div>
+			    </div>
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Biepicondiliano Umero</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" id="biepicondiliano_umero" name="biepicondiliano_umero" size="5"  value="<?= isset($this->avaliacao['biepicondiliano_umero'])? $this->avaliacao['biepicondiliano_umero'] : '' ?>" />
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-xs-6">
+			        <div class="form-group">
+			            <label>Bimaleolar</label>
+			            <input placeholder="cm" class="form-control numeric" type="numeric" name="bimaleolar" id="bimaleolar" size="5"  value="<?= isset($this->avaliacao['bimaleolar'])? $this->avaliacao['bimaleolar'] : '' ?>" />
+			        </div>
+			    </div>
+			</div>
+	  	</div>
+	  	<div class="panel-footer">
+	  		<div id="msg-load" class="hidden alert alert-warning">
+			  	Aguarde...
+		  	</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					<!--
+						<button type="button" id="bt-deletar" onclick="exercicioTreino.deletar(this)" data-url="<?= $this->baseUrl().'/admin/deletar-treino/id/'.$this->treino['id'] ?>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i></button>
+					-->
+				  		<a href="<?= $this->baseUrl() ?>/admin/avaliacao-fisica" class="btn btn-default">Voltar</a>
+					</div>
+				</div>
+			</div>
+	  	</div>
+	</form>
+</div>
+
+<div id="modal-alunos" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Alunos</h4>
+      	</div>
+      	<div class="modal-body">
+      		<div class="form-group has-default has-feedback" style="margin: 10px 0 0 0">
+			  <input type="text" class="form-control" onkeyup="lista.search(this.value)" placeholder="Pesquisar aluno...">
+			  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+			  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+			</div>
+      		<div class="list-group">
+      		<?php if(count($this->alunos)): ?>
+				<?php foreach($this->alunos as $key => $value): ?>
+				  <a href="#!" onclick="oController.selecionaAluno(<?= $value['id'] ?>, '<?= $value['nome'] ?>')" class="list-group-item">
+				    <img src="<?= $this->baseUrl().'/admin/ver-foto-usuario/id/'.$value['fk_usuario'] ?>" data-error="<?= $this->baseUrl().'/images/foto_default.png' ?>" onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="45" width="40" style="margin-right: 10px" data-toggle="modal" data-target=".fade_<?= $key ?>">
+				    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+				    <p class="list-group-item-text">
+				    	<?= $value['email'] ?>
+				    </p>
+				  </a>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<div class="alert alert-warning">Nenhum aluno cadastrado!</div>
+			<?php endif; ?>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/app/controllers/AvaliacaoController.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+	var oController = new AvaliacaoController();
+
+	var divDobras    = document.getElementById('div-dobras-cutaneas');
+	var divMedidas   = document.getElementById('div-medidas-lineares');
+	var divDiametros = document.getElementById('div-diametros-osseos');
+
+	var AB = document.getElementById('AB');
+	var AX = document.getElementById('AX');
+	var PE = document.getElementById('PE');
+	var CX = document.getElementById('CX');
+	var TR = document.getElementById('TR');
+	var BI = document.getElementById('BI');
+	var SI = document.getElementById('SI');
+	var PA = document.getElementById('PA');
+
+	document.getElementById('protocolo').addEventListener('change', function(e){
+		if(e.target.value == 'pollock3dobras'){
+			divDobras.classList.remove('hidden');
+			PE.readOnly = false;
+			AB.readOnly = false;
+			CX.readOnly = false;
+			TR.readOnly = false;
+			SI.readOnly = false;
+
+			AX.readOnly = true;
+			SB.readOnly = true;
+			PA.readOnly = true;
+			BI.readOnly = true;
+		}
+		else if(e.target.value == 'guedes'){
+			divDobras.classList.remove('hidden');
+			AB.readOnly = false;
+			TR.readOnly = false;
+			CX.readOnly = false;
+			SI.readOnly = false;
+			SB.readOnly = false;
+
+			BI.readOnly = true;
+			AX.readOnly = true;
+			PE.readOnly = true;
+			PA.readOnly = true;
+		}
+		else if(e.target.value == 'mcardle'){
+			divDobras.classList.remove('hidden');
+			CX.readOnly = false;
+			BI.readOnly = false;
+			TR.readOnly = false;
+			SI.readOnly = false;
+			SB.readOnly = false;
+
+			AB.readOnly = true;
+			AX.readOnly = true;
+			PE.readOnly = true;
+			PA.readOnly = true;
+		}
+		else if(e.target.value == 'petroski') {
+			divDobras.classList.remove('hidden');
+			SB.readOnly = false;
+			TR.readOnly = false;
+			SI.readOnly = false;
+			CX.readOnly = false;
+			AX.readOnly = false;
+			PA.readOnly = false;
+
+			BI.readOnly = true;
+			AB.readOnly = true;
+			PE.readOnly = true;
+		}
+		
+
+	});
+
+	document.querySelectorAll('.numeric').forEach((e) => {
+		e.addEventListener('keyup', (input) => {
+			input.target.value = input.target.value.replace(/[A-Za-z]/, '');
+			input.target.value = input.target.value.replace(/[,]/, '.');
+		});
+
+		e.addEventListener('keypress', (input) => {
+			input.target.value = input.target.value.replace(/[A-Za-z]/, '');
+			input.target.value = input.target.value.replace(/[,]/, '.');
+		});
+	});
+
+	/*
+	Peso Gordo ou Gordura Absoluta= (gordura/100) x Peso do corpo (kg)
+	Massa Magra= Peso do corpo (kg) - Peso gordo (kg)
+	%Massa Magra= 100 - gordura
+	Peso Ideal=massa magra / 0,85 (homens) e massa magra / 0,75 (mulheres)
+	Peso em Excesso=peso corporal - peso Ideal
+	Perda Desejável = Peso do corpo atual - Peso desejável
+	*/
+</script>

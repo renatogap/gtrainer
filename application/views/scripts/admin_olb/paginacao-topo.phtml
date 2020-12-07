@@ -1,0 +1,7 @@
+<div style="font-size: 15px; font-weight: bold; text-align: right; margin-bottom: 3px;">
+  <?php if (!isset($this->next)): ?>
+  	<?= $this->totalItemCount ?> de <?= $this->totalItemCount ?> registros(s)
+  <?php else: ?>
+  	<?= ($this->currentItemCount * $this->current) ?> de <?= $this->totalItemCount ?> registro(s)
+  <?php endif; ?>
+</div>

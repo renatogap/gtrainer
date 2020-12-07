@@ -1,0 +1,472 @@
+﻿/* ------------------------------------------------------------
+   Informações
+   ------------------------------------------------------------ */
+   
+#informacoes 
+{
+    margin: 0px 0;
+}
+
+#informacoes .titulo .azul-1 
+{ 
+    padding: 5px; 
+    background-color: rgb(105, 163, 191); 
+}
+
+#informacoes .titulo .azul-2 
+{ 
+    padding: 5px; 
+    background-color: #70ADCC; 
+}
+
+#informacoes .titulo .azul-3
+{
+    background-color: #77B8D9; 
+}
+
+#informacoes .titulo .azul-3 h2
+{    
+    color: white;
+
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    
+    line-height: 150px; 
+    font-size: 50px;
+    font-family: "Segoe UI Light";
+    font-weight: normal;
+}
+
+#informacoes .titulo .azul-3 h2 span.destaque
+{
+    font-family: "Segoe UI Semibold";
+}
+
+#informacoes ul.step-by-step
+{
+    width: 1000px;
+    margin: 75px auto;
+    overflow: hidden;
+}
+
+#informacoes ul.step-by-step li
+{
+    list-style: none;
+    float: left;
+}
+
+#informacoes ul.step-by-step li.item
+{
+    width: 280px;
+    text-align: center;
+    font-family: "Lucida Grande", "Lucida Sans";
+}
+
+#informacoes ul.step-by-step li.item h3
+{
+    margin: 15px 0;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    
+    color: #666666;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: "Lucida Grande", "Lucida Sans";
+}
+
+#informacoes ul.step-by-step li.item span.icon-100
+{
+    width: 280px;
+}
+
+#informacoes ul.step-by-step li.item p.descricao
+{
+    color: #999999;
+    font-size: 16px;
+    width: 220px;
+    margin: 20px auto;
+}
+
+#informacoes ul.step-by-step li.seta-direita
+{
+    width: 40px;
+    height: 288px;
+    min-height: 86px;
+    margin: 0 15px;
+    
+    background: url("../../images/site/seta-direita.png") no-repeat center center;
+}
+
+/* ------------------------------------------------------------
+   Porque escolher
+   ------------------------------------------------------------ */
+
+#porque-escolher h2
+{
+    margin: 65px 0 50px;
+    
+    color: #69A3BF;
+    font-size: 50px;
+    font-family: "Segoe UI Light";
+    font-weight: normal;
+    text-align: center;
+}
+
+#porque-escolher h2 img
+{
+    display: inline;
+    
+    position: relative;
+    top: 2px;
+}
+
+#porque-escolher .texto-porque-escolher
+{
+    width: 950px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#porque-escolher .texto-porque-escolher .box
+{
+    margin: 25px 0;
+    overflow: hidden;
+    
+    min-height: 200px;
+    
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+#porque-escolher .texto-porque-escolher .box h3
+{
+    margin: 0;
+    color: #69A3BF;
+    
+    line-height: 40px;
+    font-size: 25px;
+    font-family: "Segoe UI Regular";
+    font-weight: normal;
+}
+
+#porque-escolher .texto-porque-escolher .box .texto
+{
+    margin: 0;
+    margin-top: 10px;
+    
+    color: #808080;
+    line-height: 32px;
+    font-size: 20px;
+    font-family: "Segoe UI Light";
+}
+
+#porque-escolher .texto-porque-escolher .box .texto b
+{
+    font-family: "Segoe UI Semibold";
+}
+
+#porque-escolher .texto-porque-escolher .box.boleto-sem-banco,
+#porque-escolher .texto-porque-escolher .box.seguranca
+{
+    padding-left: 230px;
+    background-position: left center;
+}
+
+#porque-escolher .texto-porque-escolher .box.boleto-sem-banco h3
+{
+    text-align: left;
+    margin-top: 10px;
+}
+
+#porque-escolher .texto-porque-escolher .box.seguranca h3
+{
+    text-align: left;
+    margin-top: 25px;
+}
+
+#porque-escolher .texto-porque-escolher .box.tudo-online,
+#porque-escolher .texto-porque-escolher .box.relatorios
+{
+    text-align: right;
+    padding-right: 230px;
+    background-position: right center;
+}
+
+#porque-escolher .texto-porque-escolher .box.tudo-online h3
+{
+    text-align: right;
+    margin-top: 15px;
+}
+
+#porque-escolher .texto-porque-escolher .box.relatorios h3
+{
+    text-align: right;
+    margin-top: 35px;
+}
+
+#porque-escolher .texto-porque-escolher .box.boleto-sem-banco
+{
+    background-image: url("../../images/site/porque-escolher/01.png");
+}
+
+#porque-escolher .texto-porque-escolher .box.tudo-online
+{
+    background-image: url("../../images/site/porque-escolher/02.png");
+}
+
+#porque-escolher .texto-porque-escolher .box.seguranca
+{
+    background-image: url("../../images/site/porque-escolher/03.png");
+}
+
+#porque-escolher .texto-porque-escolher .box.relatorios
+{
+    background-image: url("../../images/site/porque-escolher/04.png");
+}
+
+/* ------------------------------------------------------------
+   Interface
+   ------------------------------------------------------------ */
+
+#interface h2
+{
+    margin: 60px;
+    
+    color: #69A3BF;
+    font-size: 40px;
+    font-family: "Segoe UI Light";
+    font-weight: normal;
+    text-align: center;
+}
+
+#interface h2 .destaque
+{
+    font-family: "Segoe UI Regular";
+}
+
+#interface .navegador
+{
+    height: 416px;
+    background: url("../../images/site/navegador.jpg") no-repeat center center;
+}
+
+#interface .btn-base
+{
+    margin: 0;
+}
+
+#interface .btn-base span
+{
+    margin-right: 50px;
+    color: #666666;
+    line-height: 100px;
+
+    font-size: 19px;
+    font-family: "Segoe UI Light";
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .75);
+}
+
+/* ------------------------------------------------------------
+   Opiniões
+   ------------------------------------------------------------ */
+
+#opiniao-midia
+{
+    width: 1000px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+#opiniao-midia .opiniao-usuario
+{
+    width: 520px;
+    float: left;
+}
+
+#opiniao-midia .opiniao-usuario h2
+{
+    margin: 0 0 15px;
+    
+    color: #0F648F;
+    font-size: 30px;
+    font-family: "Segoe UI Light";
+    font-weight: normal;
+}
+
+#opiniao-midia .opiniao-usuario h2 .destaque
+{
+    font-family: "Segoe UI Regular";
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul
+{
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li
+{
+    float: left;
+    width: 21px;
+    height: 21px;
+
+    list-style: none;
+    position: relative;
+
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li span
+{
+    display: inline-block;
+    position: absolute;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li span.externo
+{
+    top: 4px;
+    left: 4px;
+    width: 11px;
+    height: 11px;
+    border-radius: 100%;
+    border: 1px solid #B3B3B3;
+    background-color: transparent;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li span.interno
+{
+    top: 8px;
+    left: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background-color: #B3B3B3;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li.ativo span.externo
+{
+    top: 0;
+    left: 0;
+    width: 19px;
+    height: 19px;
+    border: 1px solid #0F648F;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor ul li.ativo span.interno
+{
+    top: 6px;
+    left: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    background-color: #0F648F;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes div.seletor .bg-seletor
+{
+    position: relative;
+    top: -11px;
+    z-index: 0;
+       
+    width: 75%;
+    height: 1px;
+    
+    background-color: #D0D0D0;
+    background: rgba(208,208,208,1);
+    background: -moz-linear-gradient(left, rgba(208,208,208,1) 0%, rgba(208,208,208,1) 75%, rgba(208,208,208,0) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(208,208,208,1)), color-stop(75%, rgba(208,208,208,1)), color-stop(100%, rgba(208,208,208,0)));
+    background: -webkit-linear-gradient(left, rgba(208,208,208,1) 0%, rgba(208,208,208,1) 75%, rgba(208,208,208,0) 100%);
+    background: -o-linear-gradient(left, rgba(208,208,208,1) 0%, rgba(208,208,208,1) 75%, rgba(208,208,208,0) 100%);
+    background: -ms-linear-gradient(left, rgba(208,208,208,1) 0%, rgba(208,208,208,1) 75%, rgba(208,208,208,0) 100%);
+    background: linear-gradient(to right, rgba(208,208,208,1) 0%, rgba(208,208,208,1) 75%, rgba(208,208,208,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0d0d0', endColorstr='#d0d0d0', GradientType=1 );
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao
+{
+    margin: 25px 0;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul
+{
+    overflow: hidden;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li
+{
+    display: none;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li.ativo
+{
+    display: block;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li p
+{
+    margin: 0;
+    color: #999999;
+
+    font-size: 14px;
+    font-family: "Segoe UI Light";
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li p.texto
+{
+    font-size: 20px;
+    padding: 8px 0 0 25px;
+    background: url("../../images/site/aspas-esquerda.png") no-repeat top left;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li p.assinatura
+{
+    margin-top: 5px;
+    padding: 10px 30px 0 0;
+
+    text-align: right;
+    font-family: "Segoe UI Semibold";
+    background: url("../../images/site/aspas-direita.png") no-repeat top right;
+}
+
+#opiniao-midia .opiniao-usuario .opinioes .lista-opiniao ul li p.cargo
+{
+    padding: 0 30px 0 0;
+    text-align: right;
+}
+
+/* ------------------------------------------------------------
+   Destaque na mídia
+   ------------------------------------------------------------ */
+
+#opiniao-midia .destaque-midia
+{
+    margin-top: 10px;
+    width: 450px;
+    float: right;
+}
+
+#opiniao-midia .destaque-midia h2
+{
+    margin: 0px;
+    color: #B3B3B3;
+    text-align: center;
+    
+    font-size: 25px;
+    font-family: "Segoe UI Regular";
+    font-weight: normal;
+}
+
+#opiniao-midia .destaque-midia .midias
+{
+    margin-top: 50px;
+    overflow: hidden;
+
+    text-align: center;
+}
+
+#opiniao-midia .destaque-midia .midias img
+{
+    margin: 20px;
+}

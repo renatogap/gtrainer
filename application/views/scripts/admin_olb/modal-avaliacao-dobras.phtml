@@ -1,0 +1,117 @@
+<style>
+    .ui-dialog{background: #fff;}
+    #formAvaliacao tr th {background: #ccc; padding: 3px 3px 3px 3px;}
+    #formAvaliacao tr td { padding: 4px; }
+    #formAvaliacao table,th,td { border-collapse:collapse;}
+    #formAvaliacao img {cursor: pointer;}
+    
+    .medidas {font-size: 12px; color: green;}
+</style>
+<script src="<?= $this->baseUrl() ?>/js/jquery/meiomask.js"></script>
+<script>
+jQuery(function(){
+    $('#peso').setMask('decimal-us');
+    $('#altura').setMask('decimal-us');
+    $('#dt_reavaliacao').setMask('date');
+    
+    $('#dt_reavaliacao').datepicker({
+        dateFormat: 'dd/mm/yy',
+        //minDate: 1,
+        //showOtherMonths: true,
+        //selectOtherMonths: true,
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 3,
+        showButtonPanel: true
+    });
+    
+    $('#PE').setMask('decimal-us');
+    $('#BI').setMask('decimal-us');
+    $('#TR').setMask('decimal-us');
+    $('#AX').setMask('decimal-us');
+    $('#AB').setMask('decimal-us');
+    $('#SB').setMask('decimal-us');
+    $('#SI').setMask('decimal-us');
+    $('#CX').setMask('decimal-us');
+    $('#PA').setMask('decimal-us');
+});
+</script>
+
+<?php 
+    
+    $data = list($ano, $mes, $dia) = explode('-', $this->dadosAluno['dt_nascimento']);
+    $dtAtual = date('Y');    
+    $idade = ( $dtAtual - $ano );
+    
+    $sexo = ($this->dadosAluno['sexo']=='M')? 'MASCULINO' : 'FEMININO';
+?>
+
+<form name="formAvaliacao" id="formAvaliacao">
+    
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    
+    <fieldset>
+        <legend>Avalia&ccedil;&atilde;o F&iacute;sica - <span style="color: #0088CC;">Dobras Cut&acirc;neas</span> <span style="float: right;">Passo 1 de 3</span></legend>
+
+            <table width="90%" style="margin: 0 auto;">
+                <tbody>
+                    <tr>
+                        <td>Idade:</td><td><input type="text" name="idade" id="idade" size="5" readonly="true" value="<?= $idade ?>" style="background: #eee; color: #444; cursor: no-drop;" /> </td>
+                        <td align="right">Sexo:</td><td><input type="text" name="sexo" id="sexo" size="8" readonly="true" value="<?= $sexo; ?>" style="background: #eee; color: #444; cursor: no-drop;" /></td>
+                    </tr>
+                    <tr>
+                        <td>Peso:</td><td><input type="text" name="peso" id="peso" size="5" value="<?= isset($_GET['peso'])? $_GET['peso'] : '' ?>" /> <span class="medidas">Kg</span></td>
+                        <td align="right">Data Avalia&ccedil;&atilde;o:</td><td><input type="text" name="data" id="data" size="8" readonly="true" value="<?= date('d/m/Y') ?>" style="background: #eee; color: #444; cursor: no-drop;" /> <span class="medidas">dd/mm/YYYY</span></td>
+                    </tr>
+                    <tr>
+                        <td>Altura:</td><td><input type="text" name="altura" id="altura" size="5" value="<?= isset($_GET['altura'])? $_GET['altura'] : '' ?>" /> <span class="medidas">m</span></td>
+                        <td align="right">Data Reavalia&ccedil;&atilde;o:</td><td><input type="text" name="dt_reavaliacao" id="dt_reavaliacao" size="8" value="<?= isset($_GET['dt_reavaliacao'])? $_GET['dt_reavaliacao'] : '' ?>" placeholder="dd/mm/YYYY" /> <span class="medidas">dd/mm/YYYY</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        <hr>
+            
+            <table width="500" border="0" style="margin: 0 auto;">
+                <thead>
+                    <tr>
+                        <td width="110" colspan="4" align="center" style="padding: 0 0 15px;">
+                            Protocolo:
+                            <select id="protocolo" name="protocolo">
+                                <option value="pollock3dobras">Pollock 3 dobras</option>
+                                <option value="pollock7dobras">Pollock 7 dobras</option>
+                                <option value="guedes">Guedes</option>
+                                <option value="petroski">Petroski</option>
+                                <option value="durnin">Durnin</option>
+                                <option value="durnin">Mcardle</option> 
+                            </select>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    <tr>
+                        <td width="110">Tórax:</td><td  width="150"><input type="text" name="PE" id="PE" size="5" value="<?= isset($_GET['PE'])? $_GET['PE'] : '' ?>" /> <span class="medidas">mm</span></td>
+                        <td>Bíceps:</td><td><input type="text" name="BI" id="BI" size="5" value="<?= isset($_GET['BI'])? $_GET['BI'] : '' ?>" /> <span class="medidas">mm</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tríceps:</td><td><input type="text" name="TR" id="TR" size="5" value="<?= isset($_GET['TR'])? $_GET['TR'] : '' ?>" /> <span class="medidas">mm</span></td>
+                        <td>Axilar Média:</td><td><input type="text" id="AX" name="AX" size="5" value="<?= isset($_GET['AX'])? $_GET['AX'] : '' ?>" /> <span class="medidas">mm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Subescapular:</td><td><input type="text" id="SB" name="SB" size="5"  value="<?= isset($_GET['SB'])? $_GET['SB'] : '' ?>" /> <span class="medidas">mm</span></td>
+                        <td>Abdome:</td><td><input type="text" name="AB" id="AB" size="5"  value="<?= isset($_GET['AB'])? $_GET['AB'] : '' ?>" /> <span class="medidas">mm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Supra Ilíaca:</td><td><input type="text" name="SI" id="SI" size="5" value="<?= isset($_GET['SI'])? $_GET['SI'] : '' ?>" /> <span class="medidas">mm</span></td>
+                        <td>Coxa:</td><td><input type="text" name="CX" id="CX" size="5" value="<?= isset($_GET['CX'])? $_GET['CX'] : '' ?>" /> <span class="medidas">mm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Panturrilha:</td><td colspan="3"><input type="text" name="PA" id="PA" size="5" value="<?= isset($_GET['PA'])? $_GET['PA'] : '' ?>" /> <span class="medidas">mm</span></td>
+                    </tr>
+                </tbody>
+            </table>
+    </fieldset>
+
+</form>
+		
+		

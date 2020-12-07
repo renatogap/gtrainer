@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Gtrainer</title>
+	<link rel="shortcut icon" type="image/png" href="images/icon-gtrainer.png"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta http-equiv="cache-control" content="public" /> <!-- reconhecida pelo HTTP 1.1 -->
+	
+	<link rel='shortcut icon' type='image/png' href="<?php echo $this->baseUrl() ?>/images/icon-gtrainer.png" />
+	<meta name="description" content="Gtrainer - Gerenciamento de Treinos Web">
+  	<meta name="keywords" content="Controle, Treino, Personal, Musculação, Crossfit, Malhação">
+  	<meta name="author" content="Renato Pereira">
+	<link rel='stylesheet' type='text/css' href="<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>">
+	<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.js' ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/bootstrap.min.js' ?>"></script>
+	<script>BASE_URL = '<?php echo $this->baseUrl().'/'; ?>'; </script>	
+	<style>
+		body {background: #eee}
+		.container form, .container-fluid form {background: #fff}
+		.btn-circle {width: 30px;height: 30px;text-align: center;padding: 6px 0;font-size: 12px;line-height: 1.428571429;border-radius: 15px;}
+		.btn-circle.btn-lg {width: 40px;height: 40px;padding: 9px 11px;font-size: 18px;line-height: 1.33;border-radius: 25px; margin: 0 3px 0 3px;}
+		.btn-circle.btn-xl {width: 70px;height: 70px;padding: 10px 16px;font-size: 24px;line-height: 1.33;border-radius: 35px;}
+		.page-header {margin: 0 0 10px 0;}
+		h1 {margin: 0;}
+		
+		.btn-flutuante {
+            /*background: #8B705A;*/
+            position: fixed;
+            float: bottom;
+            bottom: 15px;
+            right: 15px;
+            z-index: 100;
+            font-size: 30px;
+            padding: 15px 20px 15px 22px;
+        }
+        
+        .btn-circulo {
+            border-radius: 50px;
+            -webkit-box-shadow: 9px 7px 5px rgba(50, 50, 50, 0.77);
+                -moz-box-shadow:    9px 7px 5px rgba(50, 50, 50, 0.77);
+                box-shadow:         9px 7px 5px rgba(50, 50, 50, 0.77);
+        }
+	</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+        <?php echo $this->render('topo-admin.phtml') ?>
+    </nav>
+
+	<div class="row text-center">
+		<?php if(isset($_SESSION['GroupTreino'])):
+			foreach ($_SESSION['GroupTreino'] as $value): ?>
+			<div class="col-xs-2 text-center">
+				<a href="<?=  $this->baseUrl().'/admin/treino-aluno/id/'.$value['id_treino'] ?>">
+				<img src="<?= $this->baseUrl().'/admin/ver-foto-usuario/id/'.$value['id_usuario'] ?>" data-error="<?= $this->baseUrl().'/images/foto_default.png' ?>" 
+				     onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="40" width="35" 
+				     style="margin: -1.3em 0 0.2em 0.5em; cursor: pointer; border: 2px solid #888;" onclick="<?=  $this->baseUrl().'/admin/treino-aluno/id/'.$value['id_treino'] ?>">
+				</a>
+				<div id="btnRemove_<?= $value['id_treino'] ?>" class="hidden" style="position: absolute;">
+					<i class="glyphicon glyphicon-remove" style="color: darkred; cursor: pointer;"></i>
+				</div>
+				<!--<div style="position: absolute; margin: 2.3em;"><?= $value['nome_aluno'] ?></div>-->
+			</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+
+    <div class="container-fluid">
+
+        <?php echo $this->layout()->content; ?>
+    </div>
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+<style>  
+  table tr td, table tr td select option{ font-size: 18px; }
+  #descricao, #objetivo { font-size: 18px; }
+  #tbCriarTreino tr td b {font-size: 18px;}
+</style>
+<script>
+function salvarNovoTreino(aluno_id) {
+	openAguarde();
+
+	var params = $('#frmTreino').serialize();
+	$.ajax({	
+	    type: "post",
+	    url: BASE_URL+'admin/salvar-novo-treino',
+	    data: params,
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    alert(resp.msg);
+                    window.location = BASE_URL+'admin/edit-treino-aluno/matricula/'+aluno_id+'/ficha_id/'+resp.ficha_id;
+                }
+            }
+    })
+}
+
+function alterarFichaTreino(aluno_id, ficha_id) {
+	openAguarde();
+
+	var params = $('#frmTreino').serialize();
+	$.ajax({
+            type: 'post',
+            url: BASE_URL+'admin/alterar-ficha-treino',
+            data: params,
+            dataType: 'json',
+            success: function(resp){
+                if(resp.retorno != 'sucesso'){
+                    alert(resp.msg); 
+                    return false;
+                }else {
+                    alert(resp.msg);
+                    window.location = BASE_URL+'admin/edit-treino-aluno/matricula/'+aluno_id+'/ficha_id/'+ficha_id;
+                }
+            }
+    })
+}
+</script>
+
+<!-- $this->dadosFicha -->
+
+<div data-role="header">
+	<?php if(!$this->dadosFicha): ?>	
+		<h1>Criar Ficha</h1>
+	<?php else: ?>
+		<h1>Alterar Ficha</h1>
+	<?php endif; ?>	
+	
+	<a href="javascript:changePage('edit-treino-aluno/matricula/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-theme="b">
+		<
+	</a>
+    
+	
+	<?php if(!$this->dadosFicha): ?>	
+		<a href="#" onclick="salvarNovoTreino(<?= $this->aluno_id ?>)" data-theme="b">
+			Salvar
+		</a>
+	<?php else: ?>
+		<a href="#" onclick="alterarFichaTreino(<?= $this->aluno_id ?>, <?= $this->ficha_id ?>)" data-theme="b">
+			Alterar
+		</a>
+	<?php endif; ?>	
+	
+	
+</div>
+
+<div>
+	
+<form id="frmTreino">
+
+    
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    <input type="hidden" name="ficha_id" id="ficha_id" value="<?= ($this->dadosFicha['id'])? $this->dadosFicha['id'] : ''; ?>" />
+
+	<table id="tbCriarTreino" width="100%">
+		<tr>
+			<td width="14%"><b>Aluno: </b></td>
+		</tr>
+		<tr>	                
+			<td colspan="3">	
+			<input type="text" value="<?php echo ($this->dadosAluno['nome']) ?>" disabled="disabled" style="font-size: 18px;" />
+			</td>
+		</tr>
+		<tr>
+			<td><b>Professor: </b></td>    
+		</tr>
+		<tr>	                
+			<td colspan="3">
+			<?php if($this->sessao->perfil_id != 2 && $this->sessao->perfil_id != 4): ?>    
+				<select name="cbProfessor" id="cbProfessor">                                                        
+					<option value="">Selecione um professor...</option>                            
+						
+					<?php foreach ($this->aProfessores['results'] as $professor): ?>
+						<option value="<?php echo $professor['id'] ?>"><?php echo ($professor['nm_professor']) ?></option>
+					<?php endforeach; ?>
+				</select>
+			<?php elseif($this->sessao->perfil_id == 4): ?>
+				<select name="cbProfessor" id="cbProfessor">
+					<?php foreach ($this->aProfessores['results'] as $professor): ?>
+						<?php if( $professor['email'] == $this->sessao->email ): ?>
+							<option selected="selected" value="<?php echo $professor['id'] ?>"><?php echo ($professor['nm_professor']) ?></option>
+						<?php endif; ?>                            
+					<?php endforeach; ?>                        
+				</select>
+			<?php else: ?>
+				<select name="cbProfessor" id="cbProfessor">
+					<option value="" selected="selected"><?php echo $this->sessao->nome; ?></option>
+				</select>
+			<?php endif; ?>    
+			</td>
+		</tr>
+		<tr>
+			<td><b>Descri&ccedil;&atilde;o: </b></td> 
+		</tr>
+		<tr>	                
+		
+			<td colspan="3">
+				<input type="text" name="descricao" class="form-control" id="descricao" value="<?php echo ($this->dadosFicha['ds_ficha']) ?>" placeholder="Ex: Treino m&ecirc;s de Maio de 2014" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><b>Objetivo:</b></td>
+		</tr>
+		<tr>	                
+			<td colspan="3">	
+				<textarea name="objetivo" id="objetivo" cols="70" rows="15"><?php echo ($this->dadosFicha['objetivo'])? utf8_encode($this->dadosFicha['objetivo']) : '' ?></textarea>
+			</td>
+		</tr>
+	</table>
+
+</form>
+		
+		

@@ -1,0 +1,24 @@
+<?php //Utils_Print::printvardie($this->aEndereco); ?>
+
+
+<h3 class="page-header">
+    <?php if( !isset($this->aAula) ): ?>
+        <i class="ace-icon"></i> Adicionar M&uacute;sculo
+    <?php else: ?>
+        <i class="ace-icon fa fa-edit"></i> Alterar M&uacute;sculo
+    <?php endif; ?>
+</h3>
+
+<div>
+    
+    <form id="frmMusculo" method="post">
+        
+        <input type="hidden" name="id" id="id" value="<?= (isset($this->aMusculo))? $this->aMusculo['id'] : '' ?>" />
+        
+        <p>
+            <label>M&uacute;sculo: </label>
+            <input type="text" name="ds_musculo" id="ds_musculo" placeholder="Informe um m&uacute;sculo" value="<?= (isset($this->aMusculo))? utf8_encode($this->aMusculo['musculo']) : '' ?>" style="width: 100%" />
+        </p>
+    </form>
+</div>
+<!-- End Modal Confirm -->

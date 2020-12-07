@@ -1,0 +1,60 @@
+<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>'>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/js/jquery/jquery.js' ?>"></script>
+
+<?php
+    $dadosAluno = $this->dadoAluno;    
+    list($nome, $sobrenome) = explode(" ", $dadosAluno['nome']);    
+    $totalDeFichas = count($this->dadosFicha);
+    
+   #Utils_Print::printvardie($this->dadoAluno);
+?>
+
+
+<div style="text-align: center; margin-top: 3px;">
+    <img class="" src="<?php echo $this->baseUrl() ?><?php echo $dadosAluno['thumbnail']; ?>" width="20%" />
+ </div>
+
+<div style="margin-top: 5px; font-size: x-large; text-align: center; font-weight: bold;">
+    <span style="color: green"><?= ($dadosAluno['nome']); ?></span>
+</div>
+
+<br>
+
+
+<?php if($totalDeFichas == 0): ?>
+    <div style="text-align: center; background: #fff3a5; font-weight: bold; border-radius: 4px 4px 4px 4px; width: 98%; margin: 0 auto; padding: 15px 0 15px 0;">Nenhuma Ficha de treino foi criada para voc&ecirc;.</div>
+<?php else: ?>
+
+    <div style="font-size: 18px; font-weight: bold; text-align: center; background: #F9F9F9; border-top: 1px solid #ddd; padding: 5px;">
+        Fichas de treinamento
+    </div>
+
+    <table width="100%" class="table table-striped">
+        <tr>
+            <th>Treinos</th>
+            <th>Professor</th>
+            <th style="text-align: center;">Data</th>
+            <th width="10%" style="text-align: center;">Visualizar</th>
+        </tr>
+        <?php foreach ($this->dadosFicha as $ficha): ?>
+            
+            <tr>
+                <td><?= utf8_encode($ficha['ds_ficha']) ?></td>
+                <td><?= utf8_encode($ficha['nm_professor']) ?></td>
+                <td align="center"><?= Utils_Date::formataDataSemHoraToShow($ficha['dt_ini_ficha']) ?></td>
+                <td align="center">
+                    <button class="btn-primary img-rounded" onclick="visualizarTreino(<?= $ficha['aluno_id']; ?>, <?= $ficha['id'] ?>)">
+                        <i class="ace-icon fa fa-edit"> </i> ver
+                    </button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+<?php endif; ?>
+
+<script type="text/javascript">
+    function visualizarTreino(aluno_id, ficha_id) {
+        window.location = '<?= $this->baseUrl() ?>/index/visualizar-treino/matricula/'+aluno_id+'/ficha_id/'+ficha_id,"Impressao","location=no,directories=no,scrollbars=yes,menubar=no,statusbar=no,resize=yes,width=600,height=700";
+    }
+</script>

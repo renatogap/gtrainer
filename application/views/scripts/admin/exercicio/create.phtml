@@ -1,0 +1,85 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h3 style="margin: 0 0 30px 0">
+  	<?= $this->titulo ?>
+
+  	<?php if(isset($this->exercicio['foto']) && !empty($this->exercicio['foto'])): ?>
+	  	<a href="#" data-toggle="modal" data-target=".fade" class="pull-right">
+	  	<img src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$this->exercicio['id'] ?>/<?= date('YmdHis') ?>"  class="img img-circle" height="70" width="65" >
+	  	</a>
+	<?php endif; ?>
+  </h3>
+
+	<form id="form" action="<?= $this->baseUrl().'/admin/salvar-exercicio' ?>" method="POST"  onsubmit="exercicio.salvar(event)" enctype="multipart/form-data">
+
+	  <input type="hidden" name="id" id="id" value="<?= isset($this->exercicio['id'])? $this->exercicio['id'] : '' ?>">
+
+	  <div class="form-group">
+	    <label for="nome">Nome</label>
+	    <input type="text" class="form-control" id="nome" name="nome" value="<?= isset($this->exercicio['nome'])? utf8_encode($this->exercicio['nome']) : '' ?>" required>
+	  </div>
+
+	  <div class="form-group">
+	  	<label for="grupo">Grupo</label>
+	    <!--<select class="form-control" name="grupo" id="grupo" onchange="exercicio.showGrupoMuscular(this.value)" required>-->
+	    <select class="form-control" name="grupo" id="grupo" required>
+			<option value="">SELECIONE...</option>
+			<?php foreach($this->grupo as $value): ?>
+				<option <?= (!empty($this->exercicio['fk_grupo']) && $this->exercicio['fk_grupo'] == $value['id_grupo'])? 'selected' : '' ?> value="<?= $value['id_grupo'] ?>"><?= utf8_encode($value['nome']) ?></option>
+			<?php endforeach; ?>
+		</select>
+	  </div>
+
+	  <div class="form-group" id="div_grupo_muscular">
+	  	<label for="grupoMuscular">Grupo Muscular</label>
+	    <select class="form-control" name="grupo_muscular" id="grupo_muscular">
+			<option value="">SELECIONE...</option>
+			<?php foreach($this->grupos_musculares as $value): ?>
+				<option <?= (!empty($this->exercicio['fk_grupo_muscular']) && $this->exercicio['fk_grupo_muscular'] == $value['id_grupo_muscular'])? 'selected' : '' ?> value="<?= $value['id_grupo_muscular'] ?>"><?= utf8_encode($value['nome']) ?></option>
+			<?php endforeach; ?>
+		</select>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="foto">Foto do exercicio</label>
+	    <input type="file" id="foto" name="foto" class="form-control">
+	  </div>
+
+	  <div id="msg-load" class="hidden alert alert-warning">
+	  	Aguarde...
+	  </div>
+
+	  <div class="form-group">
+	  	<button type="submit" class="btn btn-primary">Salvar</button>
+	  	<a type="button" href="<?= $this->baseUrl().'/admin/exercicio' ?>" class="btn btn-default">Voltar</a>
+	  	<?php if(isset($this->exercicio)): ?>
+		<button type="button" id="bt-deletar" onclick="exercicio.deletar(this)" data-url="<?= $this->baseUrl().'/admin/exercicio-delete/id/'.$this->exercicio['id'] ?>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-trash"></i></button>
+	  	<?php endif; ?>
+	  </div>
+	</form>
+
+  </div>
+</div>
+
+<?php if(isset($this->exercicio['foto']) && !empty($this->exercicio['foto'])): ?>
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title"><?= isset($this->exercicio['nome'])? utf8_encode($this->exercicio['nome']) : '' ?></h4>
+      	</div>
+      	<div class="modal-body">
+        	<img src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$this->exercicio['id'] ?>/<?= date('YmdHis') ?>" width="100%" class="img img-response">
+      	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<?php endif; ?>
+
+
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/controllers/ExerciciosController.js' ?>"></script>
+<script type="text/javascript">
+	var exercicio = new ExerciciosController();
+</script>
+

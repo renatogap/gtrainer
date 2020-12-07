@@ -1,0 +1,87 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<h3 style="margin: 0 0 30px 0">Lista de Exercícios
+		<a href="<?= $this->baseUrl().'/admin/exercicio-create' ?>" class="btn btn-primary btn-lg btn-circulo pull-right btn-flutuante" title="Cadastrar novo aluno"><i class="glyphicon glyphicon-plus"></i></a>
+  	</h3>
+  	<br>
+  	
+  	<div class="btn-group btn-group-justified" role="group" aria-label="..." style="margin-top: -1.5em;">
+  	    <?php foreach($this->grupo as $g): ?>
+  	    <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" onclick="filtrarPorGrupo(this)"><?= utf8_encode($g['nome']) ?></button>
+        </div>       
+            
+        <!--<button type="button" class="btn btn-primary btn-group-xs" onclick="filtrarPorGrupo(this)"><?= utf8_encode($g['nome']) ?></button>-->
+        <?php endforeach ?>
+  	</div>
+  	
+  	<!--
+  	<div style="position: absolute; margin-top: -1.5em;">
+  		<?php foreach($this->grupo as $g): ?>
+		<label style="cursor: pointer; padding: 5px;" class="label label-primary" onclick="filtrarPorGrupo(this)"><?= utf8_encode($g['nome']) ?></label>
+  		<?php endforeach ?>
+  	</div>
+    -->
+
+	<div class="form-group has-default has-feedback" style="margin: 10px 0 5px 0">
+	  <input type="text" class="form-control" id="busca" onkeyup="lista.search(this.value)" placeholder="Pesquisar exercício..." style="border-radius: 50px;">
+	  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="margin-top: -1.8em;"></span>
+	  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+	</div>
+
+	<?php if(count($this->results) > 0): ?>
+		<div class="list-group">
+		<?php foreach($this->results as $key => $value): ?>
+			  <a href="<?= $this->baseUrl().'/admin/exercicio-create/id/'.$value['id'] ?>" class="list-group-item">
+			    <img onclick="return false;" src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$value['id'].'/image_'.$value['filename'] ?>" data-error="<?= $this->baseUrl().'/images/foto_default.png' ?>" onerror="this.src=this.dataset.error" class="img img-circle pull-left" height="50" width="45" style="margin-right: 10px" data-toggle="modal" data-target=".exercicio_<?= $key ?>">
+
+			    <strong><?= utf8_encode($value['nome']) ?></strong><br>
+
+			    <p class="list-group-item-text" style="padding-bottom: 12px;">
+
+			    	<?= utf8_encode($value['grupo']) ?> <?= !empty($value['grupo_muscular'])? ' - '. utf8_encode($value['grupo_muscular']) : '' ?>
+                    
+					
+			    	<div class="btn-group pull-right" role="group" style="margin-top: -2em;">
+					  <button data-url="<?= $this->baseUrl().'/admin/exercicio-create/id/'.$value['id'] ?>" onclick="window.location=this.dataset.url" type="button" class="btn btn-default btn-sm btn-circle" style="border: none;"><i class="glyphicon glyphicon-chevron-right" title="Editar exercício"></i></button>
+					</div>
+					
+			    </p>
+			  </a>
+
+                <!--
+				<div class="modal exercicio_<?= $key ?>" tabindex="-1" role="dialog">
+				  <div class="modal-dialog modal-sm" role="document">
+				    <div class="modal-content">
+				    	<div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title"><?= isset($value['nome'])? utf8_encode($value['nome']) : '' ?></h4>
+				      	</div>
+				      	<div class="modal-body">
+				        	<img src="<?= $this->baseUrl().'/admin/ver-foto-exercicio/id/'.$value['id'].'/image_'.$value['filename'] ?>" width="100%" class="img img-response">
+				      	</div>
+				    </div>
+				  </div>
+				</div>
+                -->
+		<?php endforeach ?>
+		</div>
+	<?php else: ?>
+		<div class="alert alert-warning">Nenhum exercício cadastrado!</div>
+	<?php endif ?>
+  </div>
+</div>
+<script type="text/javascript" src="<?= $this->baseUrl().'/js/app/helpers/ListGroup.js' ?>"></script>
+<script type="text/javascript">
+	var lista = new ListGroup();
+
+	let busca = document.getElementById('busca');
+	busca.focus();
+	
+	//lista.search('Funcional');
+
+	function filtrarPorGrupo(e) {
+		busca.value = e.textContent;
+		lista.search(busca.value);
+	}
+</script>

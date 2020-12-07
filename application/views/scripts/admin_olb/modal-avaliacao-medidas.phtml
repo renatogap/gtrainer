@@ -1,0 +1,99 @@
+<style>
+    .ui-dialog{background: #fff;}
+    #formAvaliacaoMedidas tr th {background: #ccc; padding: 3px 0 3px 0;}
+    #formAvaliacaoMedidas tr td { padding: 4px 0; }
+    #formAvaliacaoMedidas table,th,td { border-collapse:collapse;}
+    #formAvaliacaoMedidas img {cursor: pointer;}
+    
+    .medidas {font-size: 12px; color: green;}
+</style>
+<script src="<?= $this->baseUrl() ?>/js/jquery/meiomask.js"></script>
+<script>
+jQuery(function(){
+    $('#torax').setMask('decimal-us');
+    $('#abdomen').setMask('decimal-us');
+    $('#cintura').setMask('decimal-us');
+    $('#quadril').setMask('decimal-us');
+    $('#braco_direito_contraido').setMask('decimal-us');
+    $('#braco_esquerdo_contraido').setMask('decimal-us');
+    $('#braco_direito_relaxado').setMask('decimal-us');
+    $('#braco_esquerdo_relaxado').setMask('decimal-us');
+    $('#antebraco_direito').setMask('decimal-us');
+    $('#antebraco_esquerdo').setMask('decimal-us');
+    $('#coxa_direita').setMask('decimal-us');
+    $('#coxa_esquerda').setMask('decimal-us');
+    $('#panturrilha_direita').setMask('decimal-us');
+    $('#panturrilha_esquerda').setMask('decimal-us');
+    $('#ombro').setMask('decimal-us');
+    $('#pescoco').setMask('decimal-us');
+    $('#punho').setMask('decimal-us');
+    $('#joelho').setMask('decimal-us');
+    $('#tornozelo').setMask('decimal-us');
+});
+</script>
+
+<?php 
+    
+    $data = list($ano, $mes, $dia) = explode('-', $this->dadosAluno['dt_nascimento']);
+    $dtAtual = date('Y');    
+    $idade = ( $dtAtual - $ano );    
+    $sexo = ($this->dadosAluno['sexo']=='M')? 'MASCULINO' : 'FEMININO';
+?>
+
+<form name="formAvaliacaoMedidas" id="formAvaliacaoMedidas">
+    
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    <input type="hidden" name="avaliacao_id" id="avaliacao_id" value="<?= $this->avaliacao_id; ?>" />
+    
+    <fieldset>
+        <legend>Avalia&ccedil;&atilde;o F&iacute;sica - <span style="color: #0088CC;">Medidas Lineareas</span> <span style="float: right;">Passo 2 de 3</span></legend>
+
+            <table width="600" border="0" style="margin: 0 auto;">
+                <tbody>                    
+                    <tr>
+                        <td width="170">T&oacutee;rax:</td><td  width="150"><input type="text" name="torax" id="torax" size="5" value="<?= isset($_GET['torax'])? $_GET['torax'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Abd&ocirc;me:</td><td><input type="text" name="abdomen" id="abdomen" size="5" value="<?= isset($_GET['abdomen'])? $_GET['abdomen'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cintura:</td><td><input type="text" name="cintura" id="cintura" size="5" value="<?= isset($_GET['cintura'])? $_GET['cintura'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Quadril:</td><td><input type="text" id="quadril" name="quadril" size="5" value="<?= isset($_GET['quadril'])? $_GET['quadril'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Bra&ccedil;o direito contra&iacute;do:</td><td><input type="text" id="braco_direito_contraido" name="braco_direito_contraido" size="5"  value="<?= isset($_GET['braco_direito_contraido'])? $_GET['braco_direito_contraido'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Bra&ccedil;o esquerdo contra&iacute;do:</td><td><input type="text" name="braco_esquerdo_contraido" id="braco_esquerdo_contraido" size="5"  value="<?= isset($_GET['braco_esquerdo_contraido'])? $_GET['braco_esquerdo_contraido'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Bra&ccedil;o direito relaxado:</td><td><input type="text" id="braco_direito_relaxado" name="braco_direito_relaxado" size="5"  value="<?= isset($_GET['braco_direito_relaxado'])? $_GET['braco_direito_relaxado'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Bra&ccedil;o esquerdo relaxado:</td><td><input type="text" name="braco_esquerdo_relaxado" id="braco_esquerdo_relaxado" size="5"  value="<?= isset($_GET['braco_esquerdo_relaxado'])? $_GET['braco_esquerdo_relaxado'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Antebra&ccedil;o direito:</td><td><input type="text" id="antebraco_direito" name="antebraco_direito" size="5"  value="<?= isset($_GET['antebraco_direito'])? $_GET['antebraco_direito'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Antebra&ccedil;o esquerdo:</td><td><input type="text" name="antebraco_esquerdo" id="antebraco_esquerdo" size="5"  value="<?= isset($_GET['antebraco_esquerdo'])? $_GET['antebraco_esquerdo'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Coxa medial direita:</td><td><input type="text" name="coxa_direita" id="coxa_direita" size="5" value="<?= isset($_GET['coxa_direita'])? $_GET['coxa_direita'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Coxa medial esquerda:</td><td><input type="text" name="coxa_esquerda" id="coxa_esquerda" size="5" value="<?= isset($_GET['coxa_esquerda'])? $_GET['coxa_esquerda'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Panturrilha direita:</td><td><input type="text" name="panturrilha_direita" id="panturrilha_direita" size="5" value="<?= isset($_GET['panturrilha_direita'])? $_GET['panturrilha_direita'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Panturrilha esquerda:</td><td><input type="text" name="panturrilha_esquerda" id="panturrilha_esquerda" size="5" value="<?= isset($_GET['panturrilha_esquerda'])? $_GET['panturrilha_esquerda'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Ombros:</td><td><input type="text" name="ombro" id="ombro" size="5" value="<?= isset($_GET['ombro'])? $_GET['ombro'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Pesco&ccedil;o:</td><td><input type="text" name="pescoco" id="pescoco" size="5" value="<?= isset($_GET['pescoco'])? $_GET['pescoco'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Punho:</td><td><input type="text" name="punho" id="punho" size="5" value="<?= isset($_GET['punho'])? $_GET['punho'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Joelho:</td><td><input type="text" name="joelho" id="joelho" size="5" value="<?= isset($_GET['joelho'])? $_GET['joelho'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                    <tr>    
+                        <td>Tornozelo:</td><td><input type="text" name="tornozelo" id="tornozelo" size="5" value="<?= isset($_GET['tornozelo'])? $_GET['tornozelo'] : '' ?>" /> <span class="medidas">cm</span></td>
+                        <td>Escapular:</td><td><input type="text" name="escapular" id="escapular" size="5" value="<?= isset($_GET['escapular'])? $_GET['escapular'] : '' ?>" /> <span class="medidas">cm</span></td>
+                    </tr>
+                </tbody>
+            </table>
+    </fieldset>
+
+</form>
+		
+		

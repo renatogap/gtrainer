@@ -1,0 +1,22 @@
+<?php if($this->aPeriodizacao['total'] > 0): ?>
+	<table class="table table-bordered" width="100%">
+		<tr bgColor="#eee">
+			<th class="col-xs-1">Treino</th>
+			<th class="col-xs-7">Descrição</th>
+			<th class="col-xs-3">Dias</th>
+			<th class="col-xs-1 edit">&nbsp;</th>
+		</tr>
+	<?php foreach ($this->aPeriodizacao['results'] as $key => $value): ?>
+		<tr>
+			<td align="center"><b><?= $value['secao'] ?></b></td>
+			<td><?= $value['descricao'] ?></td>
+			<td align="center"><?= $value['count'] ?> de <?= $value['dias'] ?></td>
+			<td align="center" class="edit">
+				<a href="#" data-url="<?= $this->baseUrl() ?>/admin/edita-periodizacao/id/<?= $value['id'] ?>" onclick="exercicioTreino.editaPeriodizacao(this)"><i class="glyphicon glyphicon-pencil"></i></a>
+				<!--&nbsp;
+				<a href="#" data-url="<?= $this->baseUrl() ?>/admin/excluir-periodizacao/id/<?= $value['id'] ?>" onclick="exercicioTreino.removePeriodizacao(this)" ><i class="glyphicon glyphicon-remove"></i></a>-->
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>

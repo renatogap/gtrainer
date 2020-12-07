@@ -1,0 +1,101 @@
+<?php 
+    $authSession = new Zend_Auth_Storage_Session();
+    $read = $authSession->read();
+    
+    #Utils_Print::printvardie($this->aPlanos);
+?>
+<script type="text/javascript">
+jQuery(function(){
+    
+    $('#rdTipoSemestral').attr('checked', true);
+    
+    //Seta a descrição do Plano já marcado ao carregar a página	
+    $('#showPlano').html( $('#divPlano_'+<?= $this->aPlanos[0]['id'] ?>).html() );
+     
+	//Ajax para carregar a descrição do plano semestral 
+//    $('#rdTipoSemestral').click(function(){
+//        var tipo_plano = $('input[name="rdTipoPlano"]:checked').val();
+//        $('#labelValor').load("<?= $this->baseUrl() ?>/admin/change-plano", {tipo: tipo_plano});
+//    });
+//    
+//	//Ajax para carregar a descrição do plano anual
+//    $('#rdTipoAnual').click(function(){
+//        var tipo_plano = $('input[name="rdTipoPlano"]:checked').val();
+//        $('#labelValor').load("<?= $this->baseUrl() ?>/admin/change-plano", {tipo: tipo_plano});
+//    });
+})
+
+
+
+function renovarPlanoAcademia() {
+    var tipo_plano = $('input[name="rdTipoPlano"]:checked').val();
+    
+    $.ajax({
+        type: 'post',
+        url: "<?= $this->baseUrl() ?>/admin/salvar-solicitacao-plano",
+        data: {
+            academia_id: <?= $read->academia_id ?>,
+            perfil_id: <?= $read->perfil_id ?>,
+            tipo_plano: tipo_plano
+        },
+        dataType: 'json',
+        success: function(resp) {
+            if(resp.retorno == 'sucesso') {
+                //alert(resp.msg);
+                
+                if(resp.url){
+                    window.location = resp.url;
+                }
+            }else {
+                alert(resp.msg);
+                return false;
+            }
+        }
+    })
+}
+</script>
+
+
+<div style="width: 750px; margin: 0 auto;">
+    
+    <div class="page-content" style="width: 350px; margin: 10% auto 0; border-radius: 8px 8px 8px 8px;">
+        <form class="form-login-cad">
+            <fieldset>
+                <legend><i class="ace-icon fa fa-retweet"></i> Renovar meu plano</legend>
+                
+                <div class="control-group">
+                    <label class="control-label" for="inputTipo">Tipo de Plano:</label>
+                     <div class="controls">
+                        <div class="input-group">
+                            <?php foreach($this->aPlanos as $dado): ?>
+                                <label class="btn btn-yellow">
+                                    <input type="radio" name="rdTipoPlano" onclick="javascript:$('#showPlano').html($('#divPlano_<?= $dado['id'] ?>').html())" id="rdTipo<?= $dado['ds_plano'] ?>" value="<?= $dado['id'] ?>" /> 
+                                    <?= $dado['ds_plano'] ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            <?php endforeach; ?>                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="showPlano" style="color: #00a300; text-align: center; margin-top: 8px; width: 90%;"></div>
+                
+                <?php foreach($this->aPlanos as $dado): ?>
+                    <div style="color: #00a300; text-align: center; margin-top: 8px; width: 90%; display: none;" id="divPlano_<?= $dado['id'] ?>">
+                        <b>Plano <?= $dado['ds_plano'] ?> R$ <?= $dado['valor'] ?></b><br>
+                        Acesso total ao aplicativo por <?= $dado['dias'] ?> dias
+                    </div>
+                <?php endforeach; ?>
+                
+                
+
+                <br>
+                <div style="text-align: center; margin-top: 8px; width: 90%;">
+                    <a href="#" onclick="renovarPlanoAcademia()">
+                        <img src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/184x42-pagar-assina.gif"></img>
+                    </a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>

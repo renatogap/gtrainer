@@ -1,0 +1,174 @@
+<link rel='stylesheet' type='text/css' href="<?php echo $this->baseUrl().'/bootstrap/css/jasny-bootstrap.css' ?>"> 
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/jasny-bootstrap.js' ?>"></script>
+<style>
+    .form-group table tr td{ padding: 0 0 5px; }
+</style>
+<script>
+function verificaUsuarioExistente() {
+    var email = $('#email').val();
+    
+    if(email) {
+	
+	    $.ajax({
+	        type:'post',
+	        url: BASE_URL+'admin/verifica-usuario-existente',
+	        data: {email: email},
+	        dataType: 'json',
+	        success: function(resp) {
+	            if(resp.retorno === 'sucesso'){
+	                alert(resp.msg);
+	                $('#nm_aluno').val(resp.dados.nome);
+                        $('#email').attr('readOnly','true').css('background','#ccc');
+                        $('#showSenha').hide();
+                    
+                        $('.ace-file-container').attr('data-title', '');
+                       $('.ace-file-container').html("<img src='<?= $this->baseUrl() ?>"+resp.dados.foto+"' height='180' />");
+	                return false;
+	            }else if(resp.retorno === 'cancelar'){
+	                    alert(resp.msg);
+	                    $('#nm_aluno').val('');
+	                    $('#email').val('').focus();
+	                    $('#valor').val('');
+	            }else {
+		            $('#showSenha').show();
+		    }
+	        }
+	    })
+	    
+    }
+}
+</script>
+
+<?php #Utils_Print::printvardie($this->aAluno); ?>
+
+
+<h3 class="page-header">
+    <?php if( !isset($this->aAluno) ): ?>
+    <i class="ace-icon fa fa-users"></i> Cadastrar Aluno
+    <?php else: ?>
+        <i class="ace-icon fa fa-edit"></i> Editar Aluno
+    <?php endif; ?>
+        
+</h3>
+
+<div>
+    
+    <?php if( !isset($this->aAluno) ): ?>
+        <form id="frmAluno" method="post" enctype="multipart/form-data" action="<?php echo $this->baseUrl() ?>/admin/salvar-aluno">
+     <?php else: ?>
+        <form id="frmAluno" method="post" enctype="multipart/form-data" action="<?php echo $this->baseUrl() ?>/admin/alterar-aluno">
+    <?php endif; ?>
+            
+        <input type="hidden" name="id" id="id" value="<?= (isset($this->aAluno))? $this->aAluno['matricula'] : '' ?>" />
+        <input type="hidden" name="url" id="url" value="<?= (isset($this->aAluno))? $this->aAluno['foto'] : '' ?>" />
+        <input type="hidden" name="thumbnail" id="thumbnail" value="<?= (isset($this->aAluno))? $this->aAluno['thumbnail'] : '' ?>" />
+        
+    
+        <div class="form-group">
+            <table width="100%">
+                
+                <tr>
+                    <td width="35%">Nome do aluno:</td>
+                    <td><input id="nm_aluno" name="nm_aluno" style="width: 100%" value="<?php echo ($this->aAluno['nome']) ?>" placeholder="Informe o nome do aluno" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Email do aluno:</td>
+                    <td>
+                        <?php if( !isset($this->aAluno) ): ?>
+                           <input type="text" name="email" id="email" onblur="verificaUsuarioExistente()" class="form-control" placeholder="E-mail do aluno" value="<?php echo $this->aAluno['email'] ?>"> 
+                        <?php else: ?>
+                           <input type="text" name="email" id="email" readonly="true" class="form-control" placeholder="E-mail do aluno" value="<?php echo $this->aAluno['email'] ?>" style="background: #ccc;"> 
+                        <?php endif; ?>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td width="35%">Sexo:</td>
+                    <td>
+                      <select name="sexo" id="sexo">
+	                <?php if(isset($this->aAluno)): ?>
+	                    <option selected="selected" value="<?= isset($this->aAluno['sexo'])? $this->aAluno['sexo'] : '' ?>"><?= ($this->aAluno['sexo']=='M')? 'Masculino' : ($this->aAluno['sexo']=='F')? 'Feminino' : 'Selecione...' ?></option>
+	                <?php endif; ?>
+	                <option value="M">Masculino</option>
+	                <option value="F">Feminino</option>
+	        </select>  
+                    </td>
+                </tr>
+                <tr>
+                    <td width="35%">Data Nascimento:</td>
+                    <td><input id="dt_nascimento" name="dt_nascimento" style="width: 100%" value="<?= isset($this->aAluno['dt_nascimento'])? Utils_Date::formataDataToShow($this->aAluno['dt_nascimento']) : '' ?>" placeholder="" type="text"></td>
+                </tr>
+                <?php if($this->sessao->perfil_id != 3 && $this->sessao->perfil_id != 4): ?>  
+                    <tr>
+                        <td>Valor hora/aula:</td>
+                        <td><input id="valor" name="valor" style="width: 50%" value="<?php echo ($this->aAluno['valor'])? Utils_Date::formataMoeda($this->aAluno['valor']) : '' ?>" type="text"> </td>
+                    </tr>
+                    <tr>
+                        <td>Aulas/semana:</td>
+                        <td>
+                            <select name="qtd_aulas" id="qtd_aulas">
+                                <?php if(isset($this->aAluno)): ?>
+                                    <option selected="selected" value="<?= $this->aAluno['qtd_aulas'] ?>"><?= $this->aAluno['qtd_aulas'] ?></option>
+                                <?php endif; ?>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" <?= (isset($this->aAluno))? '' : 'selected="selected"' ?>>3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                
+                <?php if( !isset($this->aAluno) ): ?>
+                <tr id="showSenha">
+                    <td>Senha provis&oacute;ria:</td>
+                    <td>                        
+                        <input name="senhaCad" id="senhaCad" style="width: 50%" class="form-control" type="password" value="<?php echo ($this->aAluno['senha']) ?>">     
+                    </td>
+                </tr>
+                <?php endif; ?> 
+                
+            </table>             
+        </div>
+        
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+
+
+                    <div style="display: inline-block; width: 340px;">
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">
+                                <i class="ace-icon fa fa-camera"> </i> Adicionar Imagem
+                            </span>
+                            <span class="fileinput-exists">Modificar</span>
+                            <input type="file" name="fileImage" id="fileImage" />
+                        </span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+
+                        <br>
+                        <span style="font-size: 12px; color: #333;">
+                            Arquivo de imagem nos formatos: jpg, png, gif  <br>
+                            Tamanho m&aacute;ximo: 5M
+                        </span>
+                    </div>
+                    <div  style="width: 100%; height: 180px;" class="ace-file-input ace-file-multiple fileinput-preview thumbnail" data-trigger="fileinput">
+                        <?php if($this->aAluno['thumbnail']): ?>
+                            <img src="<?php echo $this->baseUrl().$this->aAluno['thumbnail'] ?>" />
+                        <?php else: ?>
+                            <span data-title="Clique aqui para adicionar uma imagem" class="ace-file-container">
+                                <span data-title="Sem arquivo ..." class="ace-file-name">
+                                    <i class=" ace-icon ace-icon fa fa-cloud-upload"></i>
+                                </span>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+</div>
+<!-- End Modal Confirm -->

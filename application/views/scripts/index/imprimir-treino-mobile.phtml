@@ -1,0 +1,153 @@
+<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/bootstrap.min.css' ?>'>
+<link rel="stylesheet" href="<?php echo $this->baseUrl().'/css/montar-treino.css' ?>">
+<style>
+    * {font-family: Arial;}
+    table tr {background: #ccc; font-size: 35px;}
+    table tr td {background: #fff; font-size: 35px; padding: 3px;}
+    table,th,td { border-collapse:collapse; }
+    
+    table#tableTitle tr td{ font-size: 35px; padding: 0; }
+</style>
+
+
+<?php #Utils_Print::printvardie($this->dadosFicha); ?>
+
+
+<div class="page-content">
+            
+            <table id="tableTitle" width="100%" style="margin-bottom: 5px;">
+                
+                
+                <tr>
+                 <td valign="top" rowspan="6" width="20%">   
+                    <img src="<?php echo $this->baseUrl() ?><?php echo $this->dadosFicha['foto']; ?>" width="100%" style="padding-right: 5px;" />  
+                 </td>
+                </tr>                         
+                  
+                <tr>
+                    <td valign="top" width="9%"><b>Aluno: </b></td>
+                    <td valign="top" style="padding-left: 5px;"><?php echo ($this->dadosAluno['nome']) ?> - <b>Mat.: </b><?php echo $this->dadosAluno['matricula'] ?></td>
+                </tr>
+                <tr>
+                    <td valign="top" width="9%"><b>Professor: </b></td>
+                    <td valign="top" style="padding-left: 5px;"><?= ($this->dadosFicha['nm_professor']); ?></td>
+                </tr>
+                <tr>
+                    <td valign="top" width="9%"><b>Objetivo:</b></td>
+                    <td valign="top" style="padding-left: 5px;">
+                        <?php if( $this->dadosFicha ): ?>
+                            <?= ($this->dadosFicha['objetivo']); ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </table>
+            
+            
+            <div id="gridTreinos">
+                <?php if(count($this->aTreinoFicha) > 0 ): ?>                
+                
+                    <?php if($this->aTreinoFicha){ ?>
+
+                            <?php foreach($this->aTreinoFicha as $treino => $aLista){ ?>
+                            <table class="table table-striped" width="100%" border="1" style="margin: 0 auto;">
+                                    <tr>
+                                        <th colspan="<?= (isset($this->cond[$treino]))? (6+$this->cond[$treino]) : 6; ?>" style="text-align: center; background: #ccc;">TREINO "<?= $treino; ?>"</th>
+                                    </tr>
+                                    <tr>
+                                            <th width="<?= (isset($this->cond[$treino]))? '56%' : '64%'; ?>">Exerc&iacute;cio</th>
+                                            <th width="8%" style="text-align: center;">S&eacute;rie</th>
+                                            <th width="10%" style="text-align: center;">Rep.</th>
+                                            <th width="8%" style="text-align: center;">Kg</th>
+
+                                            <?php if( isset($this->cond[$treino]) ): ?>
+                                                    <?php for($i=1; $i<=$this->cond[$treino]; $i++){ ?>
+                                                            <th width="8%" style="text-align: center;">Kg</th>
+                                                    <?php } ?>
+                                            <?php endif; ?>
+
+                                            <th width="10%" colspan="<?= (isset($this->cond[$treino]))? $this->cond[$treino] : 0; ?>" style="text-align: center;">Inter.</th>
+                                    </tr>
+                                    <?php $j=0; ?>
+                                    <?php foreach($aLista as $key => $lista){ ?>
+
+                                            <tr bgColor="<?php echo ($j%2==1)? '#eee' : ''; ?>">
+                                                    <td width="<?= (isset($this->cond[$treino]))? '56%' : '64%'; ?>"><?= ($lista['exercicio']) ?></td>
+                                                    <td width="8%" align="center"><?= $lista['series'] ?></td>
+                                                    <td width="10%" align="center"><?= $lista['repeticoes'] ?></td>
+                                                    <td width="8%" align="center"><?= $lista['carga1'] ?></td>
+
+                                                    <?php
+                                                        if(isset($lista['carga2'])):
+                                                                foreach($lista['carga2'] as $lisCarga): ?>
+                                                                        <td width="8%" align="center"><?= $lisCarga['carga']; ?></td><?php
+                                                                endforeach;
+
+                                                                $totCargaTreinoAtual = count($lista['carga2']);
+                                                                $preenche = ($this->cond[$treino] - $totCargaTreinoAtual);
+
+
+                                                                for($x=1; $x<=$preenche; $x++){ ?>
+                                                                        <td width="10%" align="center">-</td>
+                                                                <?php }
+
+                                                        else: ?>
+                                                                <?php if( isset($this->cond[$treino]) ): ?>
+                                                                        <?php for($i=1; $i<=$this->cond[$treino]; $i++){ ?>
+                                                                                <td width="10%" align="center">-</td>
+                                                                        <?php } 
+                                                                endif;
+                                                        endif;
+                                                    ?>
+
+                                                    <td width="10%" align="center"><?= $lista['intervalo'] ?></td>
+                                            </tr>
+                                    <?php $j++; ?>    
+                                    <?php } ?>    
+                            </table>
+                            <br>
+                            <?php } ?>
+                    <?php } ?>    
+                    
+                    <div style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px;"></div>
+                    
+                    <table width="100%" border="1" class="table table-striped" id="tableDados">
+			    <tr>
+			        <th style="text-align: center; background: #ccc;" colspan="5">Periodiza&ccedil;&atilde;o</th>
+			    </tr>
+			    <tr>
+			        <th style="background: #ccc;">Sess&atilde;o</th>
+			        <th style="background: #ccc;">Descri&ccedil;&atilde;o</th>
+			        <th style="background: #ccc; text-align: center;">Dias</th>
+			        <th style="background: #ccc; text-align: center;">Data Fim</th>
+			    </tr>
+			
+			    <?php if($this->aPeriodizacao['total'] > 0): ?>
+			        <?php $aPeriodizacao = $this->aPeriodizacao['results']; ?>
+			
+			
+			
+			            <?php foreach ($aPeriodizacao as $item): ?>
+			                <tr>
+			                    <td><?= $item['treino'] ?>a Sess&atilde;o</td>
+			                    <td><?= $item['descricao'] ?></td>
+			                    <td align="center"><?= $item['count'] ?>/<?= $item['dias'] ?></td>
+			                    <td align="center"><?= Utils_Date::formataDataSemHoraToShow($item['dt_fim']) ?></td>
+			                </tr>
+			            <?php endforeach; ?>
+			
+			    <?php else: ?>
+			            <tr>
+			                <td align='center' colspan="5">Adicione a periodiza&ccedil;&atilde;o do aluno.</td>
+			            </tr>
+			    <?php endif; ?>
+			
+		     </table>  
+                            
+                <?php else: ?>                        
+		        <b><?= ($this->sessao->nome) ?></b>, nenhum exerc&iacute;cio foi adicionado ao treino.			
+                <?php endif; ?>            
+
+            </div>
+
+</div>
+<br><br>

@@ -1,0 +1,93 @@
+<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl().'/bootstrap/css/jasny-bootstrap.css' ?>'> 
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/bootstrap/js/jasny-bootstrap.js' ?>"></script>
+
+<h3 class="page-header">
+    <i class="ace-icon fa fa-cogs"> </i> Configura&ccedil;&otilde;es
+</h3>
+
+<form id="form-configs" method="post" action="<?php echo $this->baseUrl() ?>/admin/alterar-dados-usuario">
+
+    <input type="hidden" name="rdTipo" id="rdTipo" value="<?php echo $this->sessao->perfil_id ?>" />
+    
+    <div class="control-group">
+        <label class="control-label" for="inputNome" id="labelNome">Nome:</label>
+        <div class="controls">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="ace-icon fa fa-user"></i>
+                </span>
+                <?php if($this->sessao->perfil_id == 3 || $this->sessao->perfil_id == 1): ?>
+                    <input name="nome" id="nome" class="form-control" type="text" value="<?= utf8_encode($this->sessao->academia_nome); ?>" placeholder="Selecione o tipo de usu&aacute;rio acima...">                     
+                <?php else: ?>
+                    <input name="nome" id="nome" class="form-control" type="text" value="<?= utf8_encode($this->sessao->nome); ?>" placeholder="Selecione o tipo de usu&aacute;rio acima...">                     
+                <?php endif; ?>
+                
+            </div>
+        </div>
+    </div>
+
+<!--    <br>
+
+    <div class="control-group">
+        <label class="control-label" for="inputPlano">Plano:</label>
+        <div class="controls">
+            <div class="input-group">
+                <select name="cbTipoPlano" id="cbTipoPlano" class="form-control">
+                    <option value="">Selecione um plano... </option>
+                    <option value="1" selected="selected">Experimental</option>
+                    <option value="3">Trimestral - R$ </option>
+                    <option value="6">Semestral - R$ </option>
+                    <option value="12">Anual - R$ </option>
+                </select>
+                <b style="color: green;">30 dias - GRATUITO</b>
+            </div>
+        </div>
+    </div>-->
+
+    <br>
+
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Email:</label>
+        <div class="controls">
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" name="email" id="email" value="<?= $this->sessao->email; ?>" class="form-control" placeholder="Informe seu e-mail">
+                <input type="hidden" name="emailCompara" id="emailCompara" value="<?= $this->sessao->email; ?>" class="form-control" placeholder="Informe seu e-mail">
+            </div>
+        </div>
+    </div>
+    
+    <div class="widget-body">
+        <div class="widget-main" style="padding: 0; margin: 15px 0;">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div style="display: inline-block;">
+                    <span class="btn btn-default btn-file">
+                        <span class="fileinput-new">
+                            <i class="ace-icon fa fa-camera"> </i> Adicionar Imagem
+                        </span>
+                        <span class="fileinput-exists">Modificar</span>
+                        <input type="file" name="fileImage" id="fileImage" />
+                    </span>
+                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+
+                    <br>
+                    <span style="font-size: 12px; color: #333;">
+                        Arquivo de imagem nos formatos: jpg, png, gif  <br>
+                        Tamanho m&aacute;ximo: 5M
+                    </span>
+                </div>
+                <div  style="width: 100%; height: 160px;" class="ace-file-input ace-file-multiple fileinput-preview thumbnail" data-trigger="fileinput">
+                    <?php if($this->sessao->foto != ''): ?>
+                        <img src="<?php echo $this->baseUrl().$this->sessao->foto ?>" />
+                    <?php else: ?>
+                        <span data-title="Clique aqui para adicionar uma imagem" class="ace-file-container">
+                            <span data-title="Sem arquivo ..." class="ace-file-name">
+                                <i class=" ace-icon ace-icon fa fa-cloud-upload"></i>
+                            </span>
+                        </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

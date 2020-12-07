@@ -1,0 +1,225 @@
+<div id="content">
+
+<style>
+    table th {background: #ccc; font-size: 13px;}
+    table tr td {background: #fff; font-size: 13px; padding: 3px;}
+    table,th,td { border-collapse:collapse; }
+</style>
+
+<?php
+    list($ano) = explode('-', $this->dadosAluno['dt_nascimento']);
+    $idade = ( date('Y') - $ano );
+?>
+
+
+
+<div id="contentAvaliacao">
+    
+    <div style="border: 1px solid #ccc; padding: 8px;">
+        <table width="100%" border="0">
+            <tr>
+                <td width="5%"><b>Nome:</b></td>
+                <td><?= strtoupper($this->dadosAluno['nome']) ?></td>
+                <td><b>Data:</b> <?= Utils_Date::formataDataSemHoraToShow($this->aAvaliacao['data']) ?></td>
+                <td>&nbsp;</td>
+                <td><b>Reavalia&ccedil;&atilde;o:</b> <?= Utils_Date::formataDataSemHoraToShow($this->aAvaliacao['dt_reavaliacao']) ?></td>
+            </tr>
+            <tr>
+                <td><b>Idade:</b></td>
+                <td>
+                    <?= $idade ?> anos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <b>Peso:</b> <?= $this->aAvaliacao['peso'] ?> Kg &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    <b>Altura:</b> <?= $this->aAvaliacao['altura'] ?> m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    <b>Sexo:</b> <?= $this->dadosAluno['sexo'] ?>                                
+                </td>
+                <td><b>Protocolo:</b> <?= $this->aAvaliacao['protocolo'] ?></td>
+            </tr>
+        </table>                    
+    </div>
+
+    <div style="margin: 15px auto; width: 350px; padding: 10px; text-align: center; border: 1px solid #ccc;">
+        <div><b>IMC - &Iacute;ndice de Massa Corporal</b></div>
+        <div><?= $this->aAvaliacao['imc'] ?> - <?= $this->aAvaliacao['situacao'] ?></div>
+    </div>
+
+    <div>
+        <table width="100%" border="0">
+            <tr>
+                <td width="10%"><b>% de Gordura:</b> </td>
+                <td width="10%"><?= number_format($this->aAvaliacao['percentual_gordura'], 2) ?> %</td>
+                <td with="70%" height="150" align="center" rowspan="8"></td>
+                <td><b>Massa Magra:</b> </td>
+                <td><?= $this->aAvaliacao['massa_magra'] ?> Kg</td>
+            </tr>
+            <tr>             
+                <td><b>Peso Ideal:</b> </td>
+                <td><?= $this->aAvaliacao['peso_ideal'] ?> Kg</td>
+                <td width="10%"><b>Massa Gorda:</b> </td>
+                <td><?= $this->aAvaliacao['massa_gorda'] ?> Kg</td>
+            </tr>
+            <tr>
+                <td><b>Peso em Excesso:</b> </td>
+                <td><?= $this->aAvaliacao['peso_excesso'] ?> Kg</td>                            
+                <td><b>Massa &Oacute;ssea:</b> </td>
+                <td><?= $this->aAvaliacao['massa_ossea'] ?> Kg</td>
+            </tr>
+            <tr>
+                <td><b>Massa Muscular:</b> </td>
+                <td><?= $this->aAvaliacao['massa_muscular'] ?> Kg</td>
+                <td><b>Massa Residual:</b> </td>
+                <td><?= $this->aAvaliacao['massa_residual'] ?> Kg</td>
+            </tr>
+        </table>
+
+
+        <br>
+        <table width="25%" border="1" style="float: left; margin-right: 25px;">
+            <thead>
+                <tr>
+                    <td style="background: yellow;" colspan="2"><b>Dobras Cut&acirc;neas</b> </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="10%"><b>Triceps:</b> </td>
+                    <td width="35%" colspan="2"><?= $this->aAvaliacao['TR'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Subescapular:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['SB'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Axilar Media:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['AX'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Abdomen:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['AB'] ?> cm</td>
+                </tr>                        
+                <tr>
+                    <td><b>Coxa:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['CX'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Panturrilha:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['PA'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Biceps:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['BI'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Torax:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['PE'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Supra Iliaca:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['SI'] ?> cm</td>
+                </tr>
+            </tbody>    
+        </table>
+
+        <table width="30%" border="1" style="float: left; margin-right: 25px;">
+            <thead>
+                <tr>
+                    <td style="background: green; color: #fff;" colspan="3"><b>Per&iacute;metros</b> </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="13%"><b>T&oacute;rax:</b> </td>
+                    <td width="35%" colspan="2"><?= $this->aAvaliacao['torax'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Pesco&ccedil;o:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['pescoco'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Ombro:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['ombro'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Cintura:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['cintura'] ?> cm</td>
+                </tr>                        
+                <tr>
+                    <td><b>Abd&ocirc;men:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['abdomen'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Quadril:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['quadril'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><b>Direita</b></td>
+                    <td><b>Esquerda</b></td>
+                </tr>
+                <tr>
+                    <td><b>Bra&ccedil;o contra&iacute;do:</b></td>
+                    <td><?= $this->aAvaliacao['braco_direito_contraido'] ?> cm</td>
+                    <td><?= $this->aAvaliacao['braco_esquerdo_contraido'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Bra&ccedil;o relaxado:</b></td>
+                    <td><?= $this->aAvaliacao['braco_direito_relaxado'] ?> cm</td>
+                    <td><?= $this->aAvaliacao['braco_esquerdo_relaxado'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Antebra&ccedil;o:</b></td>
+                    <td><?= $this->aAvaliacao['antebraco_direito'] ?> cm</td>
+                    <td><?= $this->aAvaliacao['antebraco_esquerdo'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Coxa:</b></td>
+                    <td><?= $this->aAvaliacao['coxa_direita'] ?> cm</td>
+                    <td><?= $this->aAvaliacao['coxa_esquerda'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Panturrilha:</b></td>
+                    <td><?= $this->aAvaliacao['panturrilha_direita'] ?> cm</td>
+                    <td><?= $this->aAvaliacao['panturrilha_esquerda'] ?> cm</td>
+                </tr>
+            </tbody>    
+        </table>
+
+        <table  width="30%" border="1">
+            <thead>
+                <tr>
+                    <td style="background: #0091d9; color: #fff;" colspan="3"><b>Medidas &Oacute;sseas</b> </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="20%"><b>Biestilóide (punho):</b> </td>
+                    <td width="10%" colspan="2"><?= $this->aAvaliacao['biestiloide'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Biepicondiliano do f&ecirc;mur:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['biepicondiliano_femur'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Biacromial:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['biacromial'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Biileocristal:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['biileocristal'] ?> cm</td>
+                </tr>                        
+                <tr>
+                    <td><b>Bitrocanteriano:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['bitrocanteriano'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Biepicondiliano do úmero:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['biepicondiliano_umero'] ?> cm</td>
+                </tr>
+                <tr>
+                    <td><b>Bimaleolar:</b> </td>
+                    <td colspan="2"><?= $this->aAvaliacao['bimaleolar'] ?> cm</td>
+                </tr>
+            </tbody>    
+        </table>
+    </div>
+
+</div> 

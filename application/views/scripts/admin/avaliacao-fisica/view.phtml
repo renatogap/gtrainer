@@ -1,0 +1,368 @@
+<style type="text/css">
+    .underline { width: 100%; border-bottom: 1px solid #eee; margin: 8px 0 8px 0; }
+</style>
+<ul id="menu-ficha" class="list-group hidden">
+    <li class="list-group-item">
+        <a href='<?= $this->baseUrl() ?>/admin/avaliacao-fisica-edit/id/<?= $this->avaliacao['id'] ?>' style='font-size: 14px' title='Editar avaliação física'>
+            <i class='glyphicon glyphicon-edit'></i> Editar avaliacao</a>
+    </li>
+    <!--<li class="list-group-item">
+        <a href='#' style='font-size: 14px' title='Remover avaliação física'>
+            <i class='glyphicon glyphicon-trash'></i> Remover avaliacao</a>
+    </li>-->
+    <li class="list-group-item">
+        <a href='#' onclick="window.location = BASE_URL+'admin/avaliacao-fisica'" style='font-size: 14px' title='Voltar'>
+            <i class='glyphicon glyphicon-chevron-left'></i> Voltar
+        </a>
+    </li>
+</ul>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3 style="margin: 0">Avaliação física
+
+            <a href="#!" class="btn btn-primary btn-lg btn-circle pull-right" data-toggle="popover" data-trigger="focus" data-placement="left"><i class="glyphicon glyphicon-align-justify"></i></a>
+        </h3>
+        <div style="color: #bbb; font-size: 14px; margin-bottom: 1em;">
+            <?= $this->avaliacao['nome'] ?>
+        </div>
+
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Dados do aluno</a>
+                      </h4>
+                </div>
+
+                <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+                    <div class="list-group" style="padding: 5px">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Idade</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['idade'] ?> anos</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Peso</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['peso'] ?> kg</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Altura</label>
+                                <span class="col-xs-12"><?= number_format($this->avaliacao['altura'],0) ?> cm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Resultado</a>
+                      </h4>
+                </div>
+
+                <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+                    <div class="list-group" style="padding: 5px">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Protocolo</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['protocolo'] ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">IMC</label>
+                                <span class="col-xs-12"><?= number_format($this->avaliacao['imc'], 2) ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Situação</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['situacao'] ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Gordura(%)</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['percentual_gordura'] ?>%</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Densidade</label>
+                                <span class="col-xs-12"><?= number_format($this->avaliacao['densidade'], 2) ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Peso em excesso</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['peso_excesso'] ?> kg</span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Peso gordo</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['massa_gorda'] ?> kg</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Massa magra</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['massa_magra'] ?> kg</span>
+                            </div>
+                            <!--<div class="col-xs-4">
+                                <label class="col-xs-12">Residual</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['massa_residual'] ?> kg</span>
+                            </div>
+                            -->
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Massa óssea</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['massa_ossea']? $this->avaliacao['massa_ossea'].' Kg' : 'NI' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Massa muscular</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['massa_muscular'] ?> kg</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Peso ideal</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['peso_ideal'] ?> kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Dobras Cutâneas (cm)</a>
+                      </h4>
+                </div>
+
+                <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+                    <div class="list-group" style="padding: 5px">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Peitora</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['PE']? $this->avaliacao['PE'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Axiliar Média</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['AX']? $this->avaliacao['AX'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Bíceps</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['BI']?  $this->avaliacao['BI'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Tríceps</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['TR']? $this->avaliacao['TR'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Subescapular</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['SB']? $this->avaliacao['SB'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Abdome</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['AB']? $this->avaliacao['AB'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Supra ilíaca</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['SI']? $this->avaliacao['SI'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Coxa</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['CX']? $this->avaliacao['CX'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Panturrilha</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['PA']? $this->avaliacao['PA'] : '-' ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Medidas lineares (cm)</a>
+                      </h4>
+                </div>
+
+                <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+                    <div class="list-group" style="padding: 5px">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Tórax</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['torax']? $this->avaliacao['torax'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Abdome</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['abdomen']? $this->avaliacao['abdomen'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Cintura</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['cintura']?  $this->avaliacao['cintura'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Quadril</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['quadril']? $this->avaliacao['quadril'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Braço direito contraído</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['braco_direito_contraido']? $this->avaliacao['braco_direito_contraido'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Braço esquerdo contraído</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['braco_esquerdo_contraido']? $this->avaliacao['braco_esquerdo_contraido'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Braço direito relaxado</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['braco_direito_relaxado']? $this->avaliacao['braco_direito_relaxado'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Braço esquerdo relaxado</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['braco_esquerdo_relaxado']? $this->avaliacao['braco_esquerdo_relaxado'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Antebraço direito</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['antebraco_direito']? $this->avaliacao['antebraco_direito'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Antebraço esquerdo</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['antebraco_esquerdo']? $this->avaliacao['antebraco_esquerdo'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Coxa direita</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['coxa_direita']? $this->avaliacao['coxa_direita'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Coxa esquerda</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['coxa_esquerda']? $this->avaliacao['coxa_esquerda'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Panturrilha direita</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['panturrilha_direita']? $this->avaliacao['panturrilha_direita'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Panturrilha esquerda</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['panturrilha_esquerda']? $this->avaliacao['panturrilha_esquerda'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Ombro</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['ombro']? $this->avaliacao['ombro'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Pescoço</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['pescoco']? $this->avaliacao['pescoco'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Punho</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['punho']? $this->avaliacao['punho'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Joelho</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['joelho']? $this->avaliacao['joelho'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">tornozelo</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['tornozelo']? $this->avaliacao['tornozelo'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Escapular</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['escapular']? $this->avaliacao['escapular'] : '-' ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" data-target="#<?= $treino ?>" style="cursor: pointer;">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#<?= $treino ?>">Diâmetros Osseos</a>
+                      </h4>
+                </div>
+
+                <div id="<?= $treino ?>" class="panel-collapse collapse <?= $treino=='A'? 'in' : 'in' ?>">
+                    <div class="list-group" style="padding: 5px">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Biestiloide</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['biestiloide']? $this->avaliacao['biestiloide'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Biepicondiliano Fêmur</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['biepicondiliano_femur']? $this->avaliacao['biepicondiliano_femur'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Biacromial</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['biacromial']? $this->avaliacao['biacromial'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Bitrocanteriano</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['bitrocanteriano']? $this->avaliacao['bitrocanteriano'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Biepicondiliano Umero</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['biepicondiliano_umero']? $this->avaliacao['biepicondiliano_umero'] : '-' ?></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">Biileocristal</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['biileocristal']? $this->avaliacao['biileocristal'] : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="underline"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label class="col-xs-12">bimaleolar</label>
+                                <span class="col-xs-12"><?= $this->avaliacao['bimaleolar']? $this->avaliacao['bimaleolar'] : '-' ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var menuFicha = document.getElementById('menu-ficha');
+
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: () => {
+            return menuFicha.innerHTML;
+        }
+    });
+</script>

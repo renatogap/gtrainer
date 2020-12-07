@@ -1,0 +1,306 @@
+<link rel="stylesheet" href="<?php echo $this->baseUrl().'/css/montar-treino.css' ?>">
+<style>
+    table th {background: #ccc;}
+    table tr td {background: #fff; padding: 3px; font-size: 13px;}
+    table,th,td { border-collapse:collapse; font-size: 13px; }
+</style>
+<script src="<?= $this->baseUrl() ?>/js/jquery/jquery.meio.mask.js"></script>
+<script>
+$(function(){
+    
+    $( "#dt_ini_treino" ).datepicker({ dateFormat: 'dd-mm-yy' }).val();
+    $( '#dt_ini_treino' ).setMask('date');
+    
+})
+
+
+function imprimirTreino(ficha_id, aluno_id) {    
+    window.open(BASE_URL+"admin/imprimir-treino?ficha_id="+ficha_id+"&matricula="+aluno_id,"Impressao","location=no,directories=no,scrollbars=yes,menubar=no,statusbar=no,resize=yes,width=600,height=700");
+}
+
+function iniciarTreino(){
+    var ficha_id = $('#ficha_id').val();
+    var dt_ini_treino = $("#dt_ini_treino").val();
+    if(!dt_ini_treino) {
+       alert("Informe a data do treino."); return false;
+    }else {
+        openAguarde();
+        
+    	$.ajax({
+	        type:'post',
+	        url: BASE_URL+'admin/iniciar-treino',
+	        data: {ficha_id: ficha_id, dt_ini_treino: dt_ini_treino},
+	        dataType:'json',
+	        success: function(resp){
+	            if(resp.retorno != 'sucesso'){
+	                closeAguarde();
+	                alert(resp.msg); 
+	                $("#dt_ini_treino").val("");
+	                $("#dt_ini_treino").focus();
+	                return false;
+	            }else {
+	                alert(resp.msg);
+	                window.location.reload();
+	            }
+	        }
+	 })
+    }
+}
+
+function removerTreino(treino_id) {
+    openAguarde();
+    
+    $.ajax({
+        type:'post',
+        url: BASE_URL+'admin/remover-treino',
+        data: {treino_id: treino_id},
+        dataType:'json',
+        success: function(resp){
+            if(resp.retorno != 'sucesso'){
+                alert(resp.msg); return false;
+            }else {
+                alert(resp.msg);
+                window.location.reload();
+            }
+        }
+    })
+}
+
+</script>
+
+<?php
+    list($nome, $sobrenome) = explode(" ", $this->dadosAluno['nome']);
+    $nomeAluno = ($nome)." ".($sobrenome);
+    
+    #Utils_Print::printvardie($this->ficha_id);
+            
+?>
+
+<div data-role="header">
+    <h1><?= ($this->dadosFicha['ds_ficha']); ?></h1>
+    <a href="javascript:changePage('listar-treinos-aluno/matricula/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-theme="b">
+        <
+    </a>
+    <a href="javascript:changePage('modal-treino-edit/aluno_id/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-theme="b">
+        Editar
+    </a>
+</div>
+
+
+<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+	<div data-role="header" data-theme="a" class="ui-corner-top">
+	   <h1>Iniciar Treino</h1>
+	   
+	</div>
+	<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+		<h3 class="ui-title">Inicie e contabilize os treinos aqui.</h3>
+		<p>Data do Treino:</p>		
+ 		<input data-role="date" type="date" name="dt_ini_treino" id="dt_ini_treino" maxlength="10" />
+		<a href="javascript:iniciarTreino()" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Salvar</a> 
+		<a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancelar</a>    		 
+	</div>
+</div>
+
+<div id="aviso" style="padding: 10px 5px 10px; background: red; color: #fff; <?= (!isset($this->msgExpirou))? 'display:none' : '' ?>; font-size: 12px;">
+   <?= $this->msgExpirou; ?>
+   <span style="float: right; font-size: 20px; margin-top: -5px;" onclick="javascript:$('#aviso').fadeOut('fast')">X</span>
+</div>
+
+
+<div>
+
+<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="text-align: center;">
+			
+	<a href="javascript:changePage('modal-montar-treino-aluno/aluno_id/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-role="button" data-icon="add" style="background: blue; color: #fff;">Exerc&iacute;cio</a> 
+	<!--<a href="javascript:changePage('modal-treino-edit/aluno_id/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-role="button" data-icon="refresh">Ficha</a>-->
+        <a href="javascript:changePage('modal-periodizacao/aluno_id/<?= $this->aluno_id ?>/ficha_id/<?= $this->ficha_id ?>')" data-role="button" data-icon="add" style="background: orange; color: #fff;">Periodiza&ccedil;&atilde;o</a>
+        
+        <a href="#popupDialog" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop" data-role="button" data-icon="check" style="background: green; color: #fff;">Iniciar Treino</a>
+        
+	<!--<button onclick="imprimirTreino(<?= $this->ficha_id ?>, <?= $this->aluno_id ?>)" data-icon="grid">
+		Imprimir
+	</button>-->
+	
+</div>
+
+<div class="page-content">
+
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <input type="hidden" name="P_matricula" id="P_matricula" value="<?= $this->aluno_id ?>" />
+            <input type="hidden" name="ficha_id" id="ficha_id" value="<?= $this->ficha_id ?>" />
+			
+            <table width="100%" id="tableDados">
+            	    <tr>
+                            <td width="14%" valign="top"><b>Matr&iacute;cula: </b></td>
+                            <td valign="top"><?php echo $this->dadosAluno['matricula'] ?></td>
+                    </tr>
+                    <tr>
+                            <td width="14%" valign="top"><b>Aluno(a): </b></td>
+                            <td valign="top"><?php echo ($this->dadosAluno['nome']) ?></td>
+                    </tr>
+                    <tr>
+                            <td valign="top"><b>Professor: </b></td>
+                            <td valign="top">
+                                    <?php if($this->sessao->perfil_id == 2): ?>
+                                            Prof. <?= ($this->sessao->nome); ?>
+                                    <?php else: ?>
+                                            <?php foreach ($this->aProfessores['results'] as $professor): ?>
+                                                    <?php if(trim($professor['id']) == trim($this->dadosFicha['professor_id'])): ?>
+                                                            Prof. <?= ($professor['nm_professor']); ?>
+                                                    <?php endif; ?>
+                                            <?php endforeach; ?>
+                                    <?php endif; ?>
+
+                            </td>
+                    </tr>
+                    <tr>
+                            <td width="14%" valign="top"><b>Data: </b></td>
+                            <td valign="top"><?php echo Utils_Date::formataDataSemHoraToShow($this->dadosFicha['dt_ini_ficha']) ?></td>
+                    </tr>
+                    <tr>
+                            <td valign="top"><b>Objetivo:</b></td>
+                            <td>
+                                    <?php if( $this->dadosFicha ): ?>
+                                            <?= ($this->dadosFicha['objetivo']); ?>
+                                    <?php endif; ?>
+                            </td>
+                    </tr>
+            </table>
+            
+            
+            
+            <div id="gridTreinos">
+                <?php if(count($this->aTreinoFicha) > 0 ): ?>
+                
+                
+                    <?php if($this->aTreinoFicha){ ?>
+
+                            <?php foreach($this->aTreinoFicha as $treino => $aLista){ ?>
+                            <table class="table table-striped" width="100%" border="1" style="margin: 0 auto;">
+                                    <tr>
+                                        <th colspan="<?= (isset($this->cond[$treino]))? (6+$this->cond[$treino]) : 6; ?>" style="text-align: center; background: #ccc;">TREINO "<?= $treino; ?>"</th>
+                                    </tr>
+                                    <tr>
+                                            <th width="39%">Exerc&iacute;cios</th>
+                                            <th width="6%" style="text-align: center;">S&eacute;rie</th>
+                                            <th width="10%" style="text-align: center;">Rep.</th>
+                                            <th width="6%" style="text-align: center;">Kg</th>
+
+                                            <?php if( isset($this->cond[$treino]) ): ?>
+                                                    <?php for($i=1; $i<=$this->cond[$treino]; $i++){ ?>
+                                                            <th width="6%" style="text-align: center;">Kg</th>
+                                                    <?php } ?>
+                                            <?php endif; ?>
+
+                                            <th width="6%" style="text-align: center;">Int.</th>
+                                            <th width="<?= (isset($this->cond[$treino]))? ($this->cond[$treino] >= 2)? '21%' : '15%' : '10%'; ?>" style="text-align: center;" colspan="<?= (isset($this->cond[$treino]))? $this->cond[$treino] : 0; ?>">A&ccedil;&atilde;o</th>
+                                    </tr>
+                                    <?php $j=0; ?>
+                                    <?php foreach($aLista as $key => $lista){ ?>
+
+                                            <tr bgColor="<?php echo ($j%2==1)? '#eee' : ''; ?>">
+                                                    <td width="39%" height="35" onclick="changePage('modal-adiciona-carga-treino/ficha_id/<?= $this->ficha_id ?>/treino_id/<?= $lista['id']; ?>/aluno_id/<?= $this->aluno_id ?>')"><?= utf8_encode($lista['exercicio']) ?></td>
+                                                    <td width="6%" align="center"><?= $lista['series'] ?></td>
+                                                    <td width="10%" align="center"><?= $lista['repeticoes'] ?></td>
+                                                    <td width="6%" align="center"><?= $lista['carga1'] ?></td>
+
+                                                    <?php
+                                                        if(isset($lista['carga2'])):
+                                                                foreach($lista['carga2'] as $lisCarga): ?>
+                                                                        <td width="6%" align="center"><?= $lisCarga['carga']; ?></td><?php
+                                                                endforeach;
+
+                                                                $totCargaTreinoAtual = count($lista['carga2']);
+                                                                $preenche = ($this->cond[$treino] - $totCargaTreinoAtual);
+
+
+                                                                for($x=1; $x<=$preenche; $x++){ ?>
+                                                                        <td width="6%" align="center">-</td>
+                                                                <?php }
+
+                                                        else: ?>
+                                                                <?php if( isset($this->cond[$treino]) ): ?>
+                                                                        <?php for($i=1; $i<=$this->cond[$treino]; $i++){ ?>
+                                                                                <td width="6%" align="center">-</td>
+                                                                        <?php } 
+                                                                endif;
+                                                        endif;
+                                                    ?>
+
+                                                    <td width="6%" align="center"><?= $lista['intervalo'] ?></td>
+                                                    <td width="<?= (isset($this->cond[$treino]))? ($this->cond[$treino] >= 2)? '21%' : '15%' : '10%'; ?>" align="center">
+                                                       
+                                                        
+                                                    <a href="#" onclick="removerTreino(<?= $lista['id']; ?>)" style="padding: 5px 7px 5px 7px; background: #ac2925; border: 1px solid #ac2925;font-weight: bold;color:#FFF;text-decoration:none;"> X </a>
+                                                        
+                                                        
+                                                    </td>
+                                            </tr>
+                                    <?php $j++; ?>    
+                                    <?php } ?>    
+                            </table>
+                            <br>
+                            <?php } ?>
+                    <?php } ?>      
+                    
+                    <div id="showPeriodizacaoPreview" style="text-align: center; font-size: 16px; font-weight: bold;">
+                    <table width="100%" class="table table-striped" border="1" id="tableDados">
+			    <tr>
+			        <th style="text-align: center; background: #ccc;" colspan="5">Periodiza&ccedil;&atilde;o</th>
+			    </tr>
+			    <tr>
+			        <th style="background: #ccc;">Sess&atilde;o</th>
+			        <th style="background: #ccc;">Descri&ccedil;&atilde;o</th>
+			        <th style="background: #ccc;">Dias</th>
+			        <th style="background: #ccc;">Data Fim</th>
+			    </tr>
+			
+			    <?php if($this->aPeriodizacao['total'] > 0): ?>
+			        <?php $aPeriodizacao = $this->aPeriodizacao['results']; ?>
+			
+			            <?php foreach ($aPeriodizacao as $item): ?>
+			                <tr>
+			                    <td height="30"><?= $item['treino'] ?>a Sess&atilde;o</td>
+			                    <td><?= $item['descricao'] ?></td>
+			                    <td><?= $item['count'] ?>/<?= $item['dias'] ?></td> 
+			                    
+			                    <td align="center"><?= Utils_Date::formataDataSemHoraToShow($item['dt_fim']) ?></td>
+			                </tr>
+			            <?php endforeach; ?>
+			
+			    <?php else: ?>
+			            <tr>
+			                <td align='center' colspan="5">Adicione a periodiza&ccedil;&atilde;o do treino.</td>
+			            </tr>
+			    <?php endif; ?>
+			
+			</table> 
+                    </div>
+                    
+                    <?php if( count($this->aFrequencia) > 0 ): ?>
+			<h3>Frequencia</h3>
+			<div style="border-bottom: 1px solid #ccc; width:100%; margin: -10px 0 15px; text-align: center;"></div>
+			<?php foreach($this->aFrequencia as $mes => $aDias): ?>
+			     <div style='width: 100%; text-align:center;'><?php echo Utils_FrequenciaCalendario::MostreCalendario($mes, $aDias); ?></div>
+			     <br>
+			<?php endforeach; ?>		
+		   <?php endif; ?>	
+                            
+                <?php else: ?>
+						<br>
+                        <div class="alert alert-block alert-warning" style="background: #FFC; color: #000; padding: 10px; border-radius: 5px 5px 5px 5px;">
+                            <b>Prof. <?= $this->sessao->nome ?></b>, nenhum exerc&iacute;cio foi adicionado &agrave; ficha do aluno.
+                        </div>
+                <?php endif; ?>            
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+<br><br>

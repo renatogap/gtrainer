@@ -1,0 +1,784 @@
+/*
+ * Clear - Limpa os estilos originais
+ */
+
+p.observacao
+{
+    color: #999999;
+    font-size: 12px;
+    font-family: "Segoe UI Regular";
+    margin: 0;
+}
+
+.centro
+{
+    text-align: center;
+}
+
+div.clear
+{
+    overflow: hidden;
+}
+
+ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI Regular";
+}
+
+h1.titulo
+{
+    margin-top: 20px;
+    color: #005E8B;
+    font-size: 55px;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .5);
+}
+
+h2.subtitulo
+{
+    margin-bottom: 40px;
+    color: #005E8B;
+    font-size: 40px;
+    font-family: "Segoe UI Light";
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .5);
+}
+
+a { color: #69A3BF; }
+
+/* 
+ * Template - Estilo geral do site
+ */
+
+html,
+body
+{
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: url("../../images/site/bg-content.jpg");
+}
+
+#header-inicio,
+#header-alternativo,
+#header-login,
+#header-hotsite,
+#header-step-by-step,
+#header-app
+{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#header-inicio
+{
+    height: 640px;
+    background: url("../../images/site/bg-header.png") repeat-x center top;
+}
+
+#header-hotsite, 
+#header-alternativo
+{
+    margin-bottom: 20px;
+}
+
+#header-login
+{
+    position: relative;
+    height: 8em;
+    background: url("../../images/site/logo-sistema-01.png") no-repeat center center;
+}
+
+#header-login a
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -155px;
+    margin-top: -80px;
+    width: 310px;
+    height: 160px;
+}
+
+#header 
+{
+    width: 1024px;
+    margin: 0 auto;
+    position: relative;
+    padding: 20px 0;
+}
+
+#header-inicio #header
+{
+    height: 560px;
+}
+
+#header .logo-sistema
+{
+    float: left;
+    width: 253px;
+    height: 87px;
+    background: url("../../images/site/logo-sistema-01.png") no-repeat center center;
+}
+
+#header div.nav-hotsite
+{
+    margin-top: 20px;
+    float: right;
+    color: #333333;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: "Lucida Grande", "Lucida Sans", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+}
+
+#header div.nav-hotsite ul
+{
+    overflow: hidden;
+    padding: 5px;
+}
+
+#header div.nav-hotsite li
+{
+    float: left;
+    list-style: none;
+    
+    border-radius: 15px;
+    margin: 0 20px;
+}
+
+#header div.nav-hotsite ul.logado li a
+{
+    margin: 0;
+    padding: 6px 10px;
+}
+
+#header div.nav-hotsite li a
+{
+    display: block;
+    text-decoration: none;
+    padding: 6px 15px;
+    color: #333333;
+    font-size: 13px;
+}
+
+#header div.nav-hotsite li:first-child, #header nav li:last-child
+{
+    margin: 0;
+}
+
+#header div.nav-hotsite li.ativo
+{
+    color: white;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5),
+                1px 1px 1px rgba(255, 255, 255, 0.5);
+    background-color: #005e8b;
+}
+
+#header div.nav-hotsite li.ativo:hover
+{
+    background: darkorange;
+}
+
+#header div.nav-hotsite li.ativo-cad {
+    color: white;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5),
+                1px 1px 1px rgba(255, 255, 255, 0.5);
+    background-color: #344d09;
+}
+
+#header div.nav-hotsite li.ativo-cad a {
+    color: white;
+}
+
+#header div.nav-hotsite li.ativo-cad:hover
+{
+    background: #356e35;    
+}
+
+#header div.nav-hotsite li.ativo-cad a:hover{
+    color: white;
+}
+
+#header div.nav-hotsite li.ativo a
+{
+    color: white;
+}
+
+#header div.nav-hotsite li.acesse-sua-conta
+{
+    margin: 0 0 0 10px;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+    box-shadow: inset 1px 3px 1px rgba(255, 255, 255, 0.5),
+                1px 1px 1px rgba(0, 0, 0, .25);
+    
+    background: rgba(240,240,240,1);
+    background: -moz-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(204,204,204,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(240,240,240,1)), color-stop(100%, rgba(204,204,204,1)));
+    background: -webkit-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(204,204,204,1) 100%);
+    background: -o-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(204,204,204,1) 100%);
+    background: -ms-linear-gradient(top, rgba(240,240,240,1) 0%, rgba(204,204,204,1) 100%);
+    background: linear-gradient(to bottom, rgba(240,240,240,1) 0%, rgba(204,204,204,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#cccccc', GradientType=0 );
+}
+
+#header div.nav-hotsite ul.logado li.acesse-sua-conta span.nome-usuario
+{
+    cursor: pointer;
+    color: #005e8b;  
+    text-shadow: none;
+    font-size: 11px;
+    font-weight: lighter;
+    font-family: "Lucida Sans";
+    
+    margin-right: 5px;
+    padding-right: 7px;
+    border-right: 1px solid #AAAAAA;
+}
+
+#header h1
+{
+    margin: 30px 0;
+    color: #005e8b;
+    font-size: 52px;
+
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.75);
+}
+
+#header #cadastrar 
+{
+    width: 300px;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    background: transparent url("../../images/site/bg-content.jpg");
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#header #cadastrar:hover 
+{
+    opacity: 100;
+}
+
+#header #cadastrar form
+{
+    padding: 20px 0 0;
+    width: 253px;
+    margin: 0 auto;
+}
+
+#header #cadastrar form p
+{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: "Segoe UI Regular";
+}
+
+#header #cadastrar form p.titulo
+{
+    font-size: 17px;
+    line-height: 20px;
+    color: black;
+}
+
+#header #cadastrar form p.subtitulo
+{
+    font-size: 12px;
+    line-height: 20px;
+    color: #666666;
+}
+
+#header #cadastrar form p.observacao
+{
+    color: #999999;
+    font-size: 12px;
+}
+
+#header #cadastrar form p.observacao a
+{
+    font-size: 12px;
+}
+
+#header #banner
+{
+    width: 768px;
+    height: 416px;
+    background: url("../../images/site/pc-tablet-01.png") no-repeat center center;
+    
+    position: absolute;
+    bottom: -50px;
+    right: -150px;
+}
+
+#header .contato
+{
+    float: right;
+    width: 250px;
+}
+
+#header .contato i
+{
+    float: left;
+    margin-right: 10px;
+}
+
+#header .contato .telefone
+{
+    float: left;
+    margin: 0;
+    color: White;
+    font-size: 27px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+    font-family: "Segoe UI Semibold";
+}
+
+#header .contato .telefone span
+{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#header .contato .observacao
+{
+    float: left;
+    margin: 0;
+    color: White;
+    font-size: 9.5px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+    font-family: "Segoe UI Semibold";
+}
+
+/* In�cio das outras p�ginas */
+.bg-azul-hotsite
+{
+    width: 100%;
+    height: 352px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
+    background: rgba(178,213,230,1);
+    background: -moz-linear-gradient(top, rgba(178,213,230,1) 0%, rgba(178,213,230,0) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(178,213,230,1)), color-stop(100%, rgba(178,213,230,0)));
+    background: -webkit-linear-gradient(top, rgba(178,213,230,1) 0%, rgba(178,213,230,0) 100%);
+    background: -o-linear-gradient(top, rgba(178,213,230,1) 0%, rgba(178,213,230,0) 100%);
+    background: -ms-linear-gradient(top, rgba(178,213,230,1) 0%, rgba(178,213,230,0) 100%);
+    background: linear-gradient(to bottom, rgba(178,213,230,1) 0%, rgba(178,213,230,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2d5e6', endColorstr='#b2d5e6', GradientType=0 );
+}
+
+#content
+{
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+#content.wrapper
+{
+    padding: 20px 0;
+    background: white;
+    border-radius: 5px;
+    border:1px solid #CCCCCC;
+}
+
+#content.wrapper.espacamento
+{
+    padding: 20px;   
+    width: 960px;
+}
+
+/* Rodap� */
+footer
+{
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+    
+    margin-top: 25px;
+    background-color: #416073;
+    box-shadow: inset 0 5px 5px rgba(0, 0, 0, .25);
+}
+
+footer .conteudo
+{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+footer .conteudo div.sobre-sistema,
+footer .conteudo div.info-blog,
+footer .conteudo div.mapa-site
+{
+    padding: 25px 0;
+}
+
+footer .conteudo div.sobre-sistema
+{
+    border-bottom: 1px dashed white;
+}
+
+footer .conteudo div.sobre-sistema p.titulo,
+footer .conteudo div.sobre-sistema p.texto
+{
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+footer .conteudo div.sobre-sistema p.titulo
+{
+    font-size: 18px;
+    font-family: "Segoe UI Semibold";
+}
+
+footer .conteudo div.sobre-sistema p.texto
+{
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+}
+
+footer .conteudo div.sobre-sistema p.texto
+{
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+}
+
+footer .conteudo div.mapa-site
+{
+    color: #70A2BB;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px dashed white;
+}
+
+footer .conteudo div.mapa-site ul
+{
+    overflow: hidden;
+    float: left;
+}
+
+footer .conteudo div.mapa-site ul li
+{
+    width: 300px;
+    float: left;
+    list-style: none;
+    font-size: 20px;
+    font-family: "Segoe UI Semibold";
+}
+
+footer .conteudo div.mapa-site ul li p
+{
+    margin: 0 0 10px;
+}
+
+footer .conteudo div.mapa-site ul li a
+{
+    margin: 2px;
+    display: block;
+    color: #B1D2E2;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+}
+
+footer .conteudo div.mapa-site ul li a:hover
+{
+    text-decoration: underline;
+}
+
+footer .conteudo div.mapa-site div.ssl
+{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    
+    width: 125px;
+    height: 85px;
+    padding: 40px 20px;
+    border-radius: 100%;
+    background: url("../../images/site/bg-content.jpg");
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3), 
+        inset 2px 2px 2px rgba(255, 255, 255, .5);
+}
+
+footer .conteudo div.info-blog
+{
+    width: 630px;
+    float: left;
+    overflow: hidden;
+    border-bottom: 1px dashed white;
+}
+
+footer .conteudo div.info-blog div.informacoes
+{
+    float: left;
+    width: 260px;
+    margin-right: 20px;
+    border-right: 1px dashed rgba(255, 255, 255, .2);
+}
+
+footer .conteudo div.info-blog div.informacoes div 
+{
+    overflow: hidden;
+    position: relative;
+}
+
+footer .conteudo div.info-blog div.informacoes div > a
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+footer .conteudo div.info-blog div.informacoes div p
+{
+    margin: 0;
+    font-size: 14px;
+    color: white;
+    font-family: "Segoe UI Regular";
+}
+
+footer .conteudo div.info-blog div.informacoes div.email
+{
+    margin: 13px 0;
+}
+
+footer .conteudo div.info-blog div.informacoes div.telefone p
+{
+    font-size: 17px;
+    margin-top: 2px;
+}
+
+footer .conteudo div.info-blog div.informacoes div.telefone p span
+{
+    font-size: 12px;
+}
+
+footer .conteudo div.info-blog div.informacoes div.telefone p span.horario-atendimento
+{
+    display: block;   
+}
+
+footer .conteudo div.info-blog div.informacoes div.email p,
+footer .conteudo div.info-blog div.informacoes div.localizacao p
+{
+    margin-top: 15px;
+}
+
+footer .conteudo div.info-blog div.informacoes div i
+{
+    float: left;
+    margin-right: 15px;
+}
+
+footer .conteudo div.info-blog div.blog
+{
+    float: left;
+    width: 330px;
+}
+
+footer .conteudo div.info-blog div.blog p.titulo
+{
+    margin: 0 0 12px;
+    color: white;
+    
+    font-size: 25px;
+    font-family: "Segoe UI Semibold";
+}
+
+footer .conteudo div.info-blog div.blog a
+{
+    cursor: pointer;
+    margin: 5px 0;
+    display: inline-block;
+    color: white;
+
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+}
+
+footer .conteudo div.info-blog div.blog a:hover
+{
+    text-decoration: underline;
+}
+
+footer .conteudo div.info-blog div.blog a:hover
+{
+    text-decoration: underline;
+}
+
+footer .conteudo div.redes-sociais
+{
+    margin-top: 25px;
+    width: 338px;
+    float: right;
+}
+
+footer .conteudo div.redes-sociais ul
+{
+    overflow: hidden;
+}
+
+footer .conteudo div.redes-sociais ul li
+{
+    width: 94px;
+    height: 80px;
+
+    float: left;
+    list-style: none;
+    position: relative;
+}
+
+footer .conteudo div.redes-sociais ul li a
+{
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+footer .conteudo div.redes-sociais ul li i
+{
+    width: 100%;
+    height: 100%;
+}
+
+footer .conteudo div.redes-sociais ul li.linkedin
+{
+    background-color: #007BB6;
+}
+
+footer .conteudo div.redes-sociais ul li.googleplus
+{
+    background-color: #D34836;
+    margin: 0 27px;
+}
+
+footer .conteudo div.redes-sociais ul li.twitter
+{
+    background-color: #4099FF;
+}
+
+footer .conteudo div.redes-sociais ul li.instagram
+{
+    background-color: #517FA4;
+}
+
+footer .conteudo div.redes-sociais .facebook
+{
+    overflow: hidden;
+    margin-top: 25px;
+    height: 160px;
+    background-color: white;
+}
+
+footer .conteudo div.redes-sociais .facebook iframe
+{
+    height: 150px !important;
+}
+
+footer .conteudo div.copyright
+{
+    float: left;
+    
+    color: #73A6BF;
+    font-size: 13px;
+    font-family: "Segoe UI Regular";
+    padding: 20px 0;
+}
+
+footer .conteudo div.copyright p
+{
+    margin: 0;
+}
+
+footer#mini-rodape 
+{
+    width: 1024px;
+    margin: 30px auto 0;
+    background: transparent;
+    border-top: 1px solid #D9D9D9;
+    box-shadow: none;
+}
+
+footer#mini-rodape ul
+{
+    overflow: hidden;
+    margin: 0;
+}
+
+footer#mini-rodape ul li
+{
+    float: left;
+    list-style: none;
+    
+    color: #999999;
+    font-size: 14px;
+    font-family: "Segoe UI Light";
+}
+
+footer#mini-rodape ul li a
+{
+    color: #999999;
+    line-height: 50px;
+    font-size: 14px;
+    font-family: "Segoe UI Light";
+    
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+footer#mini-rodape ul li a:hover
+{
+    text-decoration: underline;
+}
+
+footer#mini-rodape p.observacao
+{
+    color: #999999;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Segoe UI Light";
+}
+
+footer#mini-rodape p.observacao span.destaque
+{
+    font-family: "Segoe UI Semibold";
+}
+
+#conheca-uni4-sistemas p.text-grande
+{
+    font-size: 25px;
+}
+
+#conheca-uni4-sistemas p.destaque
+{
+    font-size: 15px;
+    font-weight: bold;
+}

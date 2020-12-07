@@ -1,0 +1,138 @@
+<style>
+    .ui-dialog{background: #fff;}
+    #frmExercicioFicha tr th {background: #ccc; padding: 3px 3px 3px 3px;}
+    #frmExercicioFicha tr td { padding: 4px; }
+    #frmExercicioFicha table,th,td { border-collapse:collapse;}
+    #frmExercicioFicha img {cursor: pointer;}
+</style>
+
+<script type="text/javascript">
+            
+    $(function() {
+
+        inicializar();
+        
+        $(".cmpTreino").keyup(function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code==13) {
+                
+                var ficha_id = $( '#ficha_id' ).val();
+                var aluno_id = $( '#P_matricula' ).val();
+                                
+                adicionaExercicioFicha(ficha_id, aluno_id);
+                
+            }
+        })
+
+    });
+
+	function adicionaExercicioFicha(ficha_id, aluno_id) {
+	    openAguarde();
+	    
+		var params = $('#frmExercicioFicha').serialize();
+		$.ajax({
+				type: 'post',
+				url: BASE_URL+'admin/salvar-exercicio-ficha',
+				data: params,
+				dataType: 'json',
+				success: function(resp){
+					if(resp.retorno != 'sucesso'){
+						alert(resp.msg); 
+						return false;
+					}else {
+						alert(resp.msg);
+						window.location = BASE_URL+'admin/edit-treino-aluno/matricula/'+aluno_id+'/ficha_id/'+ficha_id;
+					}
+				}
+		})
+	}
+	
+    function inicializar() {
+        //Limpar os campos
+        $('#treino, #exercicio_id, #carga, #detalhes').val('');
+
+        //Inicializar campo
+        $('#serie').val('3');
+        $('#repeticao').val('10');
+        $('#intervalo').val('30');
+        $('#detalhes').val('');
+    }
+
+
+
+</script>
+
+<div data-role="header">
+    <h1>Add Exerc&iacute;cios</h1>
+    <a href="javascript:changePage('edit-treino-aluno/matricula/<?= $this->aluno_id; ?>/ficha_id/<?= $this->ficha_id; ?>')" data-theme="b">
+        <
+    </a>
+	
+	
+    <a href="#" onclick="adicionaExercicioFicha(<?= $this->ficha_id ?>, <?= $this->aluno_id ?>)" data-theme="b">
+	Salvar
+    </a>
+</div>
+
+<div class="main-content" data-role="content">
+
+<form id="frmExercicioFicha">
+    
+    <input type="hidden" name="ficha_id" id="ficha_id" value="<?= $this->ficha_id; ?>" />
+    <input type="hidden" name="aluno_id" id="aluno_id" value="<?= $this->aluno_id; ?>" />
+    
+	
+	<table width="100%" border="0" style="margin: 0 auto;">
+			<tr>
+					<td>Treino:</td>
+					<td>
+					<select id="treino" name="treino" style="width: 96%;">
+							<option value="">...</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+							<option value="E">E</option>
+					</select>
+					<td>
+			</tr>
+			<tr>
+					<td>Exer&iacute;cio:</td>
+					<td>
+					<select id="exercicio_id" name="exercicio_id" style="width: 99%; ">
+							<option value="">Selecione o exerc&iacute;cio...</option>
+							<?php foreach($this->aGroupExercicios as $musculo => $aExercicios): ?>
+									<optgroup label="<?= utf8_encode($musculo); ?>">
+											<?php foreach($aExercicios as $i => $exercicio): ?>
+											<option value="<?= $exercicio['exercicio_id'] ?>"><?= utf8_encode($exercicio['exercicio']) ?></option>
+											<?php endforeach; ?>
+									</optgroup>
+							<?php endforeach; ?>
+					</select>
+					</td>
+			</tr>
+			<tr>	
+					<td>S&eacute;rie:</td>
+					<td><input class="cmpTreino" type="text" id="serie" name="serie" value="3" size="1"></td>
+			</tr>
+			<tr>	
+					<td>Repet.:</td>
+					<td><input class="cmpTreino" type="text" id="repeticao" name="repeticao" value="10" size="1"></td>
+			</tr>
+			<tr>	
+					<td>Carga:</td>
+					<td><input class="cmpTreino" type="text" id="carga" name="carga" size="1"/></td>
+			</tr>
+			<tr>
+					<td>Interv.:</td>
+					<td><input class="cmpTreino" type="text" id="intervalo" value="60" name="intervalo" size="1"></td>
+			</tr>
+			<tr>
+					<td>Detalhes:</td>
+					<td><input class="cmpTreino" type="text" id="detalhes" name="detalhes"></td>
+			</tr>
+	</table>
+
+</form>
+		
+</div>		

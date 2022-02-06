@@ -72,14 +72,14 @@
       },
       methods: {
         listarSeries() {
-          fetch('/series')
+          fetch("<?= url('series') ?>")
             .then((response) => response.json())
             .then((response) => {
               this.series = response;
             })
         },
         salvar() {
-          fetch('/serie', {
+          fetch("<?= url('serie') ?>", {
               method: 'POST',
               body: new FormData(form)
             })
@@ -94,7 +94,7 @@
             })
         },
         editar(id) {
-          fetch('/serie/edit/' + id)
+          fetch("<?= url('serie/edit/') ?>" + id)
             .then((response) => response.json())
             .then((response) => {
               this.id = response.id;

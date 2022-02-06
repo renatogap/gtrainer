@@ -14,7 +14,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ftp.gtrainer.com.br
-          username: renato@gtrainer.com.br
-          password: @re240987-github@
+          server: ${{secrets.ftp_host}}
+          username: ${{secrets.ftp_user}}
+          password: ${{secrets.ftp_password}}
           server-dir: public_html/homologacao

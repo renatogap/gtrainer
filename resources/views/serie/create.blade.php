@@ -94,7 +94,7 @@
             })
         },
         editar(id) {
-          fetch("<?= url('serie/edit/') ?>" + id)
+          fetch("<?= url('serie/edit') ?>/" + id)
             .then((response) => response.json())
             .then((response) => {
               this.id = response.id;
@@ -102,7 +102,7 @@
             })
         },
         acessar(id) {
-          window.location.href = "/serie/view/" + id;
+          window.location.href = "<?= url('serie/view') ?>/" + id;
         },
         deletar(id) {
           fetch('/serie/delete/' + id, {

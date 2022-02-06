@@ -1,0 +1,113 @@
+<?php
+
+
+# Criar projeto Laravel com composer
+
+composer create-project laravel/laravel laravel-test-unit
+
+
+
+# Criar o banco sqlite dentro do projeto
+
+touch ./database.sqlite
+
+
+# No arquivo .env configurar o banco sqlite
+
+DB_CONNECTION=sqlite
+//DB_HOST=127.0.0.1
+//DB_PORT=3306
+//DB_DATABASE=laravel
+//DB_USERNAME=root
+//DB_PASSWORD=
+
+
+# Criar um arquivo migration para cada tabela no banco de dados
+
+php artisan make:migration create_serie_table
+php artisan make:migration create_temporada_table
+php artisan make:migration create_episodio_table
+
+
+# Os comando acima criaram um arquivo para cada tabela no diretório database/migrations. Configure as colunas de cada arquivo criado.
+
+
+// series
+Schema::create('serie', function (Blueprint $table) {
+    $table->id();
+    $table->string('nome');
+    $table->timestamps();
+});
+
+//temporadas
+Schema::create('temporada', function (Blueprint $table) {
+    $table->id();
+    $table->string('nome');
+    $table->foreignId('fk_serie')->constrained('serie');
+    $table->timestamps();
+});
+
+//episódios
+Schema::create('episodio', function (Blueprint $table) {
+    $table->id();
+    $table->string('nome');
+    $table->foreignId('fk_temporada')->constrained('temporada');
+    $table->foreignId('fk_serie')->constrained('serie');
+    $table->timestamps();
+});
+
+
+	# Executando o migrate
+
+	php artisan migrate
+
+
+	# Revertendo a última migração
+
+	php artisan migrate:rollback
+
+
+	# Revertendo todas as migrações feitas
+
+	php artisan migrate:reset
+
+
+	# Reverte todas as migrações e recria todas as tabelas
+
+	php artisan migrate:refresh
+
+
+	# Remove todas as tabelas do banco e recria
+
+	php artisan migrate:fresh
+
+
+	# Remove todas as tabelas do banco e recria insindo os dados
+
+	php artisan migrate:fresh --seed
+
+
+# Ver todas as tabelas migradas no sqlite
+
+sqlite3 ./database/database.sqlite
+
+.tables	
+
+
+# Criar as classes no Models referenciando as tabelas no banco
+
+php artisan make:model DB/Serie
+php artisan make:model DB/Temporada
+php artisan make:model DB/Episodio
+
+
+# No model DB escrever os seguintes comandos
+
+protected $table = "serie";
+
+protected $guarded = false;
+
+public function temporadas()
+{
+    return $this->hasMany(Temporada::class);
+}
